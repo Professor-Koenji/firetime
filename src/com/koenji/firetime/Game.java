@@ -1,4 +1,4 @@
-package com.koenji.game;
+package com.koenji.firetime;
 
 import processing.core.PApplet;
 
