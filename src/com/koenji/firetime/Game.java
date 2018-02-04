@@ -1,27 +1,17 @@
 package com.koenji.firetime;
 
-import processing.core.PApplet;
+import com.koenji.ecs.Core;
+import com.koenji.firetime.scenes.Splash;
 
-public class App extends PApplet {
+public class Game extends Core {
 
-  @Override
-  public void settings() {
-    super.settings();
-
-    this.size(1024, 768);
+  public Game() {
+    // Set initial resolution, fps & title
+    super(1024, 768, 60, "Firetime");
   }
 
   @Override
-  public void setup() {
-    super.setup();
-
-    this.surface.setTitle("Firetime");
-
-    this.background(0);
-  }
-
-  @Override
-  public void draw() {
-    super.draw();
+  public void init() {
+    add(new Splash());
   }
 }

@@ -1,9 +1,11 @@
-package com.koenji.game;
+package com.koenji.firetime;
 
-import processing.core.PApplet;
+import com.koenji.ecs.Core;
 
 public class Main {
   public static void main(String[] args) {
-    PApplet.main(App.class);
+    // Give the engine core our Game class
+    // Sets up and runs the class via reflection
+    Core.main(Game.class);
   }
 }
