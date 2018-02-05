@@ -1,5 +1,7 @@
 package com.koenji.firetime.entities;
 
+import com.koenji.ecs.component.physics.Acceleration;
+import com.koenji.ecs.component.physics.Friction;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.events.IKeyPress;
@@ -29,7 +31,9 @@ public class DebugBox extends Entity implements IKeyPress, IKeyRelease, IMousePr
     super.added(scene);
     //
     addComponent(pos = new Position(sX, sY));
-    addComponent(new Velocity(0, 1));
+    addComponent(new Velocity(0, 20));
+    addComponent(new Acceleration(0, -0.01f));
+    addComponent(new Friction(0.9f));
     addComponent(new DebugDraw(20, 40, 0x508FFCFF));
 
     scene.gc().subscribe(IKeyPress.class, this);

@@ -38,8 +38,9 @@ public abstract class Entity implements IEntity {
     return this;
   }
 
-  public IComponent getComponent(Class<? extends IComponent> c) {
-    return components.get(c);
+  @SuppressWarnings("unchecked")
+  public <T extends IComponent> T getComponent(Class<T> c) {
+    return (T) components.get(c);
   }
 
   @SafeVarargs
