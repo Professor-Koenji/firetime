@@ -4,6 +4,7 @@ import com.koenji.ecs.ICore;
 import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.input.InputEventType;
 import com.koenji.ecs.scene.Scene;
+import com.koenji.ecs.system.physics.Moveable;
 import com.koenji.firetime.entities.DebugBox;
 import com.koenji.firetime.systems.Renderer;
 import processing.event.KeyEvent;
@@ -26,6 +27,7 @@ public class Splash extends Scene {
     }
 
     // Systems
+    add(new Moveable());
     Renderer r = new Renderer();
     add(r);
   }

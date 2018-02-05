@@ -1,15 +1,14 @@
 package com.koenji.firetime.entities;
 
+import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.events.IKeyRelease;
 import com.koenji.ecs.events.IMousePress;
 import com.koenji.ecs.events.IMouseRelease;
-import com.koenji.ecs.input.InputEventType;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.firetime.components.DebugDraw;
-import com.koenji.firetime.components.Position;
-import jdk.internal.util.xml.impl.Input;
+import com.koenji.ecs.component.physics.Position;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -30,6 +29,7 @@ public class DebugBox extends Entity implements IKeyPress, IKeyRelease, IMousePr
     super.added(scene);
     //
     addComponent(pos = new Position(sX, sY));
+    addComponent(new Velocity(0, 1));
     addComponent(new DebugDraw(20, 40, 0x508FFCFF));
 
     scene.gc().subscribe(IKeyPress.class, this);

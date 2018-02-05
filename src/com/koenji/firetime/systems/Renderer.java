@@ -4,7 +4,7 @@ import com.koenji.ecs.Core;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
 import com.koenji.firetime.components.DebugDraw;
-import com.koenji.firetime.components.Position;
+import com.koenji.ecs.component.physics.Position;
 
 public class Renderer extends System {
   public void update(Iterable<IEntity> entities, int dt) {
@@ -15,9 +15,6 @@ public class Renderer extends System {
       if (entity.hasComponents(Position.class, DebugDraw.class)) {
         Position p = (Position) entity.getComponent(Position.class);
         DebugDraw dd = (DebugDraw) entity.getComponent(DebugDraw.class);
-
-        p.x += scene.gc().random(-5f, 5f);
-        p.y += scene.gc().random(-5f, 5f);
 
         gc.noStroke();
         gc.fill(dd.rgba);

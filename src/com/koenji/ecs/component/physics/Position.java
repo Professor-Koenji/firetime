@@ -1,4 +1,4 @@
-package com.koenji.firetime.components;
+package com.koenji.ecs.component.physics;
 
 import com.koenji.ecs.component.IComponent;
 import processing.core.PVector;
