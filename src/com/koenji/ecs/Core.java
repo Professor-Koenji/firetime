@@ -1,9 +1,6 @@
 package com.koenji.ecs;
 
-import com.koenji.ecs.events.IKeyPress;
-import com.koenji.ecs.events.IKeyRelease;
-import com.koenji.ecs.events.IMousePress;
-import com.koenji.ecs.events.IMouseRelease;
+import com.koenji.ecs.events.*;
 import com.koenji.ecs.input.*;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
@@ -109,7 +106,7 @@ public abstract class Core extends PApplet implements ICore {
     int keyCode = event.getKeyCode();
     if (keyManager.isPressed(keyCode)) return;
     keyManager.pressed(keyCode);
-    inputManager.notify(InputEventType.KEY_PRESS, event);
+    inputManager.notify(IKeyPress.class, event);
   }
 
   @Override
@@ -118,7 +115,7 @@ public abstract class Core extends PApplet implements ICore {
     int keyCode = event.getKeyCode();
     if (!keyManager.isPressed(keyCode)) return;
     keyManager.released(keyCode);
-    inputManager.notify(InputEventType.KEY_RELEASE, event);
+    inputManager.notify(IKeyRelease.class, event);
   }
 
   @Override
@@ -130,14 +127,14 @@ public abstract class Core extends PApplet implements ICore {
   final public void mousePressed(MouseEvent event) {
     super.mousePressed();
 
-    inputManager.notify(InputEventType.MOUSE_PRESS, event);
+    inputManager.notify(IMousePress.class, event);
   }
 
   @Override
   final public void mouseReleased(MouseEvent event) {
     super.mouseReleased();
 
-    inputManager.notify(InputEventType.MOUSE_RELEASE, event);
+    inputManager.notify(IMouseRelease.class, event);
   }
 
   public void setClearColour(int rgba) {
@@ -175,20 +172,8 @@ public abstract class Core extends PApplet implements ICore {
     sceneManager.remove(scene);
   }
 
-  public void subscribe(InputEventType type, IKeyPress o) {
-    inputManager.subscribe(type, o);
-  }
-
-  public void subscribe(InputEventType type, IKeyRelease o) {
-    inputManager.subscribe(type, o);
-  }
-
-  public void subscribe(InputEventType type, IMousePress o) {
-    inputManager.subscribe(type, o);
-  }
-
-  public void subscribe(InputEventType type, IMouseRelease o) {
-    inputManager.subscribe(type, o);
+  public <T extends IObserver> void subscribe(Class<T> type, T instance) {
+    inputManager.subscribe(type, instance);
   }
 
   public void init() {}

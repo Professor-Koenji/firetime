@@ -32,10 +32,10 @@ public class DebugBox extends Entity implements IKeyPress, IKeyRelease, IMousePr
     addComponent(pos = new Position(sX, sY));
     addComponent(new DebugDraw(20, 40, 0x508FFCFF));
 
-    scene.gc().subscribe(InputEventType.KEY_PRESS, (IKeyPress) this);
-    scene.gc().subscribe(InputEventType.KEY_RELEASE, (IKeyRelease) this);
-    scene.gc().subscribe(InputEventType.MOUSE_PRESS, (IMousePress) this);
-    scene.gc().subscribe(InputEventType.MOUSE_RELEASE, (IMouseRelease) this);
+    scene.gc().subscribe(IKeyPress.class, this);
+    scene.gc().subscribe(IKeyRelease.class, this);
+    scene.gc().subscribe(IMousePress.class, this);
+    scene.gc().subscribe(IMouseRelease.class, this);
   }
 
   @Override

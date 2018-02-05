@@ -2,6 +2,6 @@ package com.koenji.ecs.events;
 
 import processing.event.MouseEvent;
 
-public interface IMousePress {
+public interface IMousePress extends IObserver {
   void mousePress(MouseEvent event);
 }

@@ -1,6 +1,7 @@
 package com.koenji.ecs.input;
 
 import com.koenji.ecs.events.*;
+import processing.event.Event;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -9,43 +10,25 @@ import java.util.Map;
 
 public class InputManager implements IInputManager {
 
-  private Map<InputEventType, IObservable> eventObservers;
+  private Map<Class<? extends IObserver>, IObservable> eventObservers;
 
   public InputManager() {
     eventObservers = new HashMap<>();
 
-    eventObservers.put(InputEventType.KEY_PRESS, new KeyPressObservable());
-    eventObservers.put(InputEventType.KEY_RELEASE, new KeyReleaseObservable());
+    eventObservers.put(IKeyPress.class, new KeyPressObservable());
+    eventObservers.put(IKeyRelease.class, new KeyReleaseObservable());
 
-    eventObservers.put(InputEventType.MOUSE_PRESS, new MousePressObservable());
-    eventObservers.put(InputEventType.MOUSE_RELEASE, new MouseReleaseObservable());
+    eventObservers.put(IMousePress.class, new MousePressObservable());
+    eventObservers.put(IMouseRelease.class, new MouseReleaseObservable());
   }
 
-  public void notify(InputEventType type, KeyEvent keyEvent) {
-    eventObservers.get(type).notify(keyEvent);
+  @SuppressWarnings("unchecked")
+  public <T extends IObserver> void notify(Class <T> type, Event event) {
+    eventObservers.get(type).notify(event);
   }
 
-  public void notify(InputEventType type, MouseEvent mouseEvent) {
-    eventObservers.get(type).notify(mouseEvent);
-  }
-
-  @Override
-  public void subscribe(InputEventType type, IKeyPress o) {
-    eventObservers.get(type).add(o);
-  }
-
-  @Override
-  public void subscribe(InputEventType type, IKeyRelease o) {
-    eventObservers.get(type).add(o);
-  }
-
-  @Override
-  public void subscribe(InputEventType type, IMousePress o) {
-    eventObservers.get(type).add(o);
-  }
-
-  @Override
-  public void subscribe(InputEventType type, IMouseRelease o) {
-    eventObservers.get(type).add(o);
+  @SuppressWarnings("unchecked")
+  public <T extends IObserver> void subscribe(Class <T> type, T instance) {
+    eventObservers.get(type).add(instance);
   }
 }
