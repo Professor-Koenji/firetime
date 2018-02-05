@@ -8,7 +8,7 @@ import com.koenji.firetime.entities.DebugBox;
 import com.koenji.firetime.systems.Renderer;
 import processing.event.KeyEvent;
 
-public class Splash extends Scene implements IKeyPress {
+public class Splash extends Scene {
 
   @Override
   public void added(ICore core) {
@@ -17,18 +17,16 @@ public class Splash extends Scene implements IKeyPress {
     System.out.println("Added!!!");
 
     // Observers
-    core.subscribe(InputEventType.KEY_PRESS, this);
 
     // Entities
-    add(new DebugBox());
+    for (int i = 0; i < 1000; ++i) {
+      float w = core.gc().random(0f, core.gc().getWidth());
+      float h = core.gc().random(0f, core.gc().getHeight());
+      add(new DebugBox((int) w, (int) h));
+    }
 
     // Systems
     Renderer r = new Renderer();
     add(r);
-  }
-
-  @Override
-  public void keyPress(KeyEvent event) {
-    System.out.println("HELLO!");
   }
 }

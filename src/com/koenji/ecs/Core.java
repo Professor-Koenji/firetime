@@ -67,6 +67,7 @@ public abstract class Core extends PApplet implements ICore {
     super.settings();
     // FX2D is the only rendered which works properly
     size(width, height, FX2D);
+    randomSeed(millis());
   }
 
   @Override
@@ -75,9 +76,11 @@ public abstract class Core extends PApplet implements ICore {
     // Set the title of the window
     surface.setTitle(title);
     // Set the games frame rate
-    frameRate((float) fps);
+    frameRate(fps);
     // Set the initial time
     time = millis();
+    // Clear the background
+    background(0);
     // Call init
     init();
   }
@@ -86,7 +89,8 @@ public abstract class Core extends PApplet implements ICore {
   final public void draw() {
     super.draw();
     // Clear the canvas first
-    background(clearColour);
+    fill(clearColour);
+    rect(0, 0, width, height);
     // Update the game logic
     int latestTime = millis();
     int dt = latestTime - time;
@@ -94,8 +98,9 @@ public abstract class Core extends PApplet implements ICore {
     sceneManager.update(dt);
     time = latestTime;
 
+    noStroke();
     fill(0xFFFFFFFF);
-    rect(mouseX, mouseY, 50, 50);
+    arc(mouseX, mouseY, 8, 8, 0, 6.28f);
   }
 
   @Override

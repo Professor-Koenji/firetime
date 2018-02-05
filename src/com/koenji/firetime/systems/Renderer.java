@@ -16,8 +16,12 @@ public class Renderer extends System {
         Position p = (Position) entity.getComponent(Position.class);
         DebugDraw dd = (DebugDraw) entity.getComponent(DebugDraw.class);
 
+        p.x += scene.gc().random(-5f, 5f);
+        p.y += scene.gc().random(-5f, 5f);
+
+        gc.noStroke();
         gc.fill(dd.rgba);
-        gc.rect(p.x, p.y, dd.w, dd.h);
+        gc.arc(p.x, p.y, 16, 16, 0, 6.28f);
       }
     }
     gc.fill(0xFFFFFFFF);
