@@ -11,5 +11,6 @@ public interface IEntity {
   IEntity addComponents(IComponent ...cs);
   IEntity removeComponent(Class<? extends IComponent> c);
   IComponent getComponent(Class<? extends IComponent> c);
+  boolean hasComponents(Class<? extends IComponent> cs);
   IScene getScene();
 }

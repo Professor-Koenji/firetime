@@ -1,4 +1,3 @@
 package com.koenji.ecs.component;
 
-public interface IComponent {
-}
+public interface IComponent {}

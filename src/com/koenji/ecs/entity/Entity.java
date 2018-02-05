@@ -29,15 +29,27 @@ public abstract class Entity implements IEntity {
   }
 
   public IEntity addComponents(IComponent... cs) {
+    for (IComponent c : cs) addComponent(c);
     return this;
   }
 
   public IEntity removeComponent(Class<? extends IComponent> c) {
+    components.remove(c);
     return this;
   }
 
   public IComponent getComponent(Class<? extends IComponent> c) {
     return components.get(c);
+  }
+
+  @SafeVarargs
+  public final boolean hasComponents(Class<? extends IComponent> ...cs) {
+    for (Class<? extends IComponent> c : cs) {
+      if (!components.containsKey(c)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public IScene getScene() {
