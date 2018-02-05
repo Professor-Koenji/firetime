@@ -69,6 +69,14 @@ public abstract class Scene implements IScene {
     removeAllSystems();
   }
 
+  public int getWidth() {
+    return core.getWidth();
+  }
+
+  public int getHeight() {
+    return core.getHeight();
+  }
+
   public Core gc() {
     return core.gc();
   }

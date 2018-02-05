@@ -1,9 +1,12 @@
 package com.koenji.ecs;
 
+import com.koenji.ecs.events.IKeyPressEvent;
+import com.koenji.ecs.input.*;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
 import com.koenji.ecs.scene.SceneManager;
 import processing.core.PApplet;
+import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 public abstract class Core extends PApplet implements ICore {
@@ -21,6 +24,10 @@ public abstract class Core extends PApplet implements ICore {
 
   // The scene manager
   private ISceneManager sceneManager;
+  // The input mnager
+  private IInputManager inputManager;
+  // Key Manager
+  private IKeyManager keyManager;
   // The last millis time
   private int time;
 
@@ -47,7 +54,9 @@ public abstract class Core extends PApplet implements ICore {
     this.title = title;
     this.clearColour = clearColour;
 
-    this.sceneManager = new SceneManager(this);
+    sceneManager = new SceneManager(this);
+    inputManager = new InputManager();
+    keyManager = new KeyManager();
   }
 
   @Override
@@ -87,13 +96,21 @@ public abstract class Core extends PApplet implements ICore {
   }
 
   @Override
-  final public void keyPressed() {
-    super.keyPressed();
+  public void keyPressed(KeyEvent event) {
+    super.keyPressed(event);
+    int keyCode = event.getKeyCode();
+    if (keyManager.isPressed(keyCode)) return;
+    keyManager.pressed(keyCode);
+    inputManager.notify(InputEventType.KEY_PRESS, event);
   }
 
   @Override
-  final public void keyReleased() {
-    super.keyReleased();
+  final public void keyReleased(KeyEvent event) {
+    super.keyReleased(event);
+    int keyCode = event.getKeyCode();
+    if (!keyManager.isPressed(keyCode)) return;
+    keyManager.released(keyCode);
+    ///// DO OBSERVE THING
   }
 
   @Override
@@ -125,6 +142,14 @@ public abstract class Core extends PApplet implements ICore {
     this.frameRate((float) fps);
   }
 
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
   // TODO: Refactor this to use a PGraphics instance
   public Core gc() {
     return this;
@@ -136,6 +161,10 @@ public abstract class Core extends PApplet implements ICore {
 
   public void remove(IScene scene) {
     sceneManager.remove(scene);
+  }
+
+  public void subscribe(InputEventType type, IKeyPressEvent o) {
+    inputManager.subscribe(type, o);
   }
 
   public void init() {}
