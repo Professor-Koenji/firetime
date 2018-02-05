@@ -1,6 +1,9 @@
 package com.koenji.ecs;
 
-import com.koenji.ecs.events.IKeyPressEvent;
+import com.koenji.ecs.events.IKeyPress;
+import com.koenji.ecs.events.IKeyRelease;
+import com.koenji.ecs.events.IMousePress;
+import com.koenji.ecs.events.IMouseRelease;
 import com.koenji.ecs.input.*;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
@@ -110,7 +113,7 @@ public abstract class Core extends PApplet implements ICore {
     int keyCode = event.getKeyCode();
     if (!keyManager.isPressed(keyCode)) return;
     keyManager.released(keyCode);
-    ///// DO OBSERVE THING
+    inputManager.notify(InputEventType.KEY_RELEASE, event);
   }
 
   @Override
@@ -119,13 +122,17 @@ public abstract class Core extends PApplet implements ICore {
   }
 
   @Override
-  final public void mousePressed() {
+  final public void mousePressed(MouseEvent event) {
     super.mousePressed();
+
+    inputManager.notify(InputEventType.MOUSE_PRESS, event);
   }
 
   @Override
-  final public void mouseReleased() {
+  final public void mouseReleased(MouseEvent event) {
     super.mouseReleased();
+
+    inputManager.notify(InputEventType.MOUSE_RELEASE, event);
   }
 
   public void setClearColour(int rgba) {
@@ -163,7 +170,19 @@ public abstract class Core extends PApplet implements ICore {
     sceneManager.remove(scene);
   }
 
-  public void subscribe(InputEventType type, IKeyPressEvent o) {
+  public void subscribe(InputEventType type, IKeyPress o) {
+    inputManager.subscribe(type, o);
+  }
+
+  public void subscribe(InputEventType type, IKeyRelease o) {
+    inputManager.subscribe(type, o);
+  }
+
+  public void subscribe(InputEventType type, IMousePress o) {
+    inputManager.subscribe(type, o);
+  }
+
+  public void subscribe(InputEventType type, IMouseRelease o) {
     inputManager.subscribe(type, o);
   }
 

@@ -1,14 +1,14 @@
 package com.koenji.firetime.scenes;
 
 import com.koenji.ecs.ICore;
-import com.koenji.ecs.events.IKeyPressEvent;
+import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.input.InputEventType;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.firetime.entities.DebugBox;
 import com.koenji.firetime.systems.Renderer;
 import processing.event.KeyEvent;
 
-public class Splash extends Scene implements IKeyPressEvent {
+public class Splash extends Scene implements IKeyPress {
 
   @Override
   public void added(ICore core) {
