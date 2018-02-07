@@ -3,8 +3,7 @@ package com.koenji.firetime.systems;
 import com.koenji.ecs.Core;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
-import com.koenji.firetime.components.Circle;
-import com.koenji.firetime.components.DebugDraw;
+import com.koenji.ecs.component.physics.Circle;
 import com.koenji.ecs.component.physics.Position;
 
 public class Renderer extends System {

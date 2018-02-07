@@ -25,7 +25,7 @@ public class Moveable extends System {
         Velocity v = e.getComponent(Velocity.class);
         Acceleration a = e.getComponent(Acceleration.class);
         v.add(a);
-        v.setMag(3f);
+        v.limit(10f);
       }
 
       // Position & Velocity
@@ -35,6 +35,18 @@ public class Moveable extends System {
         p.add(v);
       }
 
+      // Reset acceleration
+      if (e.hasComponents(Acceleration.class)) {
+        Acceleration a = e.getComponent(Acceleration.class);
+        if (e.hasComponents(Gravity.class)) {
+          Gravity g = e.getComponent(Gravity.class);
+          a.set(g.gravity);
+        } else {
+          a.set(0, 0);
+        }
+      }
+
+      // Bounding box stuff
       if (e.hasComponents(Position.class, Velocity.class, BoundingBox.class)) {
         Position p = e.getComponent(Position.class);
         Velocity v = e.getComponent(Velocity.class);
