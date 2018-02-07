@@ -70,9 +70,9 @@ public abstract class Core extends PApplet implements ICore {
     super.settings();
     // FX2D is the only rendered which works properly
     if (width > 0 && height > 0) {
-      size(width, height, FX2D);
+       size(width, height, P2D);
     } else {
-      fullScreen(FX2D);
+      fullScreen(P2D);
       this.width = displayWidth;
       this.height = displayHeight;
     }
@@ -97,11 +97,12 @@ public abstract class Core extends PApplet implements ICore {
     background(0);
     // Call init
     init();
+    loop();
   }
 
   @Override
   final public void draw() {
-    super.draw();
+    // super.draw();
     // Clear the canvas first
     fill(clearColour);
     rect(0, 0, width, height);

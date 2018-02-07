@@ -7,6 +7,7 @@ import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
+import processing.opengl.PShader;
 
 public class BasicRenderer extends System {
 
@@ -40,7 +41,5 @@ public class BasicRenderer extends System {
         core.arc(p.x, p.y, rc.r*2, rc.r*2, 0, core.TWO_PI);
       }
     }
-
-    core.filter(core.ERODE);
   }
 }
