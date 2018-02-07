@@ -23,8 +23,6 @@ public class Particle extends Entity implements IKeyPress {
 
     float size = scene.gc().random(8f, 32f);
 
-    scene.gc().subscribe(IKeyPress.class, this);
-
     addComponent(new Velocity(scene.gc().random(-5f, 5f), scene.gc().random(-5f,5f)));
     addComponent(new Acceleration());
     addComponent(new Friction(0.999f));
@@ -35,7 +33,6 @@ public class Particle extends Entity implements IKeyPress {
     addComponent(new Circle(size));
   }
 
-  @Override
   public void keyPress(KeyEvent event) {
     gravityEnabled = !gravityEnabled;
     if (gravityEnabled) {

@@ -23,7 +23,9 @@ public class TestScene extends Scene {
     for (int i = 0; i < 100; ++i) {
       float w = core.gc().random(0f, core.gc().getWidth());
       float h = core.gc().random(0f, core.gc().getHeight());
-      add(new Particle(w, h));
+      Particle p = new Particle(w, h);
+      core.subscribe(IKeyPress.class, p);
+      add(p);
     }
 
     // Systems
