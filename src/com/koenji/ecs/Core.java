@@ -53,18 +53,35 @@ public abstract class Core extends PApplet implements ICore {
     this.fps = fps;
     this.title = title;
     this.clearColour = clearColour;
+  }
 
-    sceneManager = new SceneManager(this);
-    inputManager = new InputManager();
-    keyManager = new KeyManager();
+  public Core(int fps, String title) {
+    this(fps, title, 0xFF000000);
+  }
+
+  public Core(int fps, String title, int clearColour) {
+    this.fps = fps;
+    this.title = title;
+    this.clearColour = clearColour;
   }
 
   @Override
   final public void settings() {
     super.settings();
     // FX2D is the only rendered which works properly
-    size(width, height, FX2D);
+    if (width > 0 && height > 0) {
+      size(width, height, FX2D);
+    } else {
+      fullScreen(FX2D);
+      this.width = displayWidth;
+      this.height = displayHeight;
+    }
     randomSeed(millis());
+
+    //
+    sceneManager = new SceneManager(this);
+    inputManager = new InputManager();
+    keyManager = new KeyManager();
   }
 
   @Override
