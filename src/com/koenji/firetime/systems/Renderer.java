@@ -3,6 +3,7 @@ package com.koenji.firetime.systems;
 import com.koenji.ecs.Core;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
+import com.koenji.firetime.components.Circle;
 import com.koenji.firetime.components.DebugDraw;
 import com.koenji.ecs.component.physics.Position;
 
@@ -12,13 +13,13 @@ public class Renderer extends System {
     Core gc = scene.gc();
     // Loop thru each entity, and draw it
     for (IEntity entity : entities) {
-      if (entity.hasComponents(Position.class, DebugDraw.class)) {
-        Position p = (Position) entity.getComponent(Position.class);
-        DebugDraw dd = (DebugDraw) entity.getComponent(DebugDraw.class);
+      if (entity.hasComponents(Position.class, Circle.class)) {
+        Position p = entity.getComponent(Position.class);
+        Circle c = entity.getComponent(Circle.class);
 
         gc.noStroke();
-        gc.fill(dd.rgba);
-        gc.arc(p.x, p.y, 16, 16, 0, 6.28f);
+        gc.fill(0x30FFFFFF);
+        gc.arc(p.x, p.y, c.r * 2, c.r * 2, 0, 6.28f);
       }
     }
     gc.fill(0xFFFFFFFF);

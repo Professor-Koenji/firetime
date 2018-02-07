@@ -1,9 +1,6 @@
 package com.koenji.ecs.system.physics;
 
-import com.koenji.ecs.component.physics.Acceleration;
-import com.koenji.ecs.component.physics.Friction;
-import com.koenji.ecs.component.physics.Position;
-import com.koenji.ecs.component.physics.Velocity;
+import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
@@ -28,6 +25,7 @@ public class Moveable extends System {
         Velocity v = e.getComponent(Velocity.class);
         Acceleration a = e.getComponent(Acceleration.class);
         v.add(a);
+        v.setMag(3f);
       }
 
       // Position & Velocity
@@ -35,6 +33,28 @@ public class Moveable extends System {
         Position p = e.getComponent(Position.class);
         Velocity v = e.getComponent(Velocity.class);
         p.add(v);
+      }
+
+      if (e.hasComponents(Position.class, Velocity.class, BoundingBox.class)) {
+        Position p = e.getComponent(Position.class);
+        Velocity v = e.getComponent(Velocity.class);
+        BoundingBox b = e.getComponent(BoundingBox.class);
+
+        if (p.x < b.position.x) {
+          p.x = b.position.x;
+          v.x *= -1;
+        } else if (p.x > b.position.x + b.size.x) {
+          p.x = b.position.x + b.size.x;
+          v.x *= -1;
+        }
+
+        if (p.y < b.position.y) {
+          p.y = b.position.y;
+          v.y *= -1;
+        } else if (p.y > b.position.y + b.size.y) {
+          p.y = b.position.y + b.size.y;
+          v.y *= -1;
+        }
       }
     }
   }

@@ -4,31 +4,33 @@ import com.koenji.ecs.ICore;
 import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.input.InputEventType;
 import com.koenji.ecs.scene.Scene;
+import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.Moveable;
 import com.koenji.firetime.entities.DebugBox;
+import com.koenji.firetime.entities.Particle;
 import com.koenji.firetime.systems.Renderer;
 import processing.event.KeyEvent;
 
-public class Splash extends Scene {
+public class TestScene extends Scene {
 
   @Override
   public void added(ICore core) {
     super.added(core);
 
-    System.out.println("Added!!!");
-
     // Observers
 
     // Entities
-    for (int i = 0; i < 1000; ++i) {
+    for (int i = 0; i < 100; ++i) {
       float w = core.gc().random(0f, core.gc().getWidth());
       float h = core.gc().random(0f, core.gc().getHeight());
-      add(new DebugBox((int) w, (int) h));
+      add(new Particle(w, h));
     }
 
     // Systems
     add(new Moveable());
-    Renderer r = new Renderer();
-    add(r);
+    add(new CircleCollider());
+
+    // Render system
+    add(new Renderer());
   }
 }
