@@ -7,7 +7,7 @@ import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
-import com.koenji.ecs.component.physics.Circle;
+import com.koenji.ecs.component.physics.CircleBody;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class CircleCollider extends System {
     List<IEntity> circles = new ArrayList<>();
 
     for (IEntity e : entities) {
-      if (e.hasComponents(Position.class, Circle.class, Velocity.class, InverseMass.class)) {
+      if (e.hasComponents(Position.class, CircleBody.class, Velocity.class, InverseMass.class)) {
         circles.add(e);
       }
     }
@@ -46,8 +46,8 @@ public class CircleCollider extends System {
         float dist = collisionDistance(
           a.getComponent(Position.class),
           b.getComponent(Position.class),
-          a.getComponent(Circle.class),
-          b.getComponent(Circle.class)
+          a.getComponent(CircleBody.class),
+          b.getComponent(CircleBody.class)
         );
 
         if (dist > 0) {
@@ -58,7 +58,7 @@ public class CircleCollider extends System {
     }
   }
 
-  private float collisionDistance(Position aP, Position bP, Circle aC, Circle bC) {
+  private float collisionDistance(Position aP, Position bP, CircleBody aC, CircleBody bC) {
     float dist = aP.dist(bP);
     return aC.r + bC.r - dist;
   }
@@ -73,16 +73,12 @@ public class CircleCollider extends System {
 
     PVector cn = PVector.sub(pA, pB).normalize();
 
-    PVector mtv = PVector.mult(cn, dist);
+    PVector mtv = PVector.mult(cn, dist).mult(.5f);
     pA.add(mtv);
     pB.sub(mtv);
 
     float cvA = vA.dot(cn);
     float cvB = vB.dot(cn);
-
-    core.stroke(0xFFFF3333);
-    core.strokeWeight(8f);
-    core.line(pA.x, pA.y, pB.x, pB.y);
 
     PVector fcvA1 = PVector.mult(cn, cvB);
     PVector fcvA2 = PVector.mult(cn, cvA);

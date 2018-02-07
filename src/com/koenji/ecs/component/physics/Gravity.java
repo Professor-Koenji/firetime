@@ -10,4 +10,6 @@ public class Gravity implements IComponent {
   public Gravity(float gravity) {
     this.gravity = new PVector(0, gravity);
   }
+
+  public Gravity(PVector vector) { this.gravity = vector; }
 }

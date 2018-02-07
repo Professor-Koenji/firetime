@@ -4,6 +4,7 @@ import com.koenji.ecs.Core;
 import com.koenji.ecs.ICore;
 import com.koenji.ecs.entity.EntityManager;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
@@ -38,6 +39,12 @@ public abstract class Scene implements IScene {
     entityManager.add(entity);
   }
 
+  public void add(IEntityGroup entityGroup) {
+    for (IEntity e : entityGroup.iterable()) {
+      add(e);
+    }
+  }
+
   @Override
   public void add(ISystem system) {
     systemManager.add(system);
@@ -46,6 +53,12 @@ public abstract class Scene implements IScene {
   @Override
   public void remove(IEntity entity) {
     entityManager.remove(entity);
+  }
+
+  public void remove(IEntityGroup entityGroup) {
+    for (IEntity e : entityGroup.iterable()) {
+      remove(e);
+    }
   }
 
   @Override

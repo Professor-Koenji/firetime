@@ -1,20 +1,17 @@
 package com.koenji.firetime.entities;
 
 import com.koenji.ecs.component.physics.*;
+import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.scene.IScene;
-import com.koenji.ecs.component.physics.Circle;
+import com.koenji.ecs.component.physics.CircleBody;
 import processing.event.KeyEvent;
 
-public class Particle extends Entity implements IKeyPress {
-
-  private boolean gravityEnabled;
+public class Particle extends Entity {
 
   public Particle(float x, float y) {
     addComponent(new Position(x, y));
-
-    gravityEnabled = true;
   }
 
   @Override
@@ -28,17 +25,12 @@ public class Particle extends Entity implements IKeyPress {
     addComponent(new Friction(0.999f));
     addComponent(new InverseMass(1 / size));
 
+    // Constrain Position within this box
     addComponent(new BoundingBox(0, 0, scene.getWidth(), scene.getHeight()));
 
-    addComponent(new Circle(size));
-  }
+    // Physics Body
+    addComponent(new CircleBody(size));
 
-  public void keyPress(KeyEvent event) {
-    gravityEnabled = !gravityEnabled;
-    if (gravityEnabled) {
-      addComponent(new Gravity(.1f));
-    } else {
-      removeComponent(Gravity.class);
-    }
+    addComponent(new RenderCircle(size));
   }
 }

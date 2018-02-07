@@ -5,7 +5,7 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 
-public class Moveable extends System {
+public class LinearMotion extends System {
 
   @Override
   public void update(Iterable<IEntity> entities, int dt) {
