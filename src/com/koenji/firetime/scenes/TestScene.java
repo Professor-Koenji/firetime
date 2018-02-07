@@ -20,7 +20,6 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
 
   private IEntityGroup particles;
   private PVector mousePos;
-  private PVector gravity;
 
   @Override
   public void added(ICore core) {
@@ -55,9 +54,8 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
   @Override
   public void mouseRelease(MouseEvent event) {
     PVector endPos = new PVector(event.getX(), event.getY());
-    endPos.sub(mousePos);
+    endPos.sub(mousePos).setMag(0.05f);
     //
-    gravity = endPos.setMag(.05f);
     particles.addComponent(new Gravity(endPos));
   }
 }

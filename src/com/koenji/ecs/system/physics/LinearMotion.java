@@ -2,12 +2,12 @@ package com.koenji.ecs.system.physics;
 
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
-import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 
 public class LinearMotion extends System {
 
   @Override
+  @SuppressWarnings("unchecked")
   public void update(Iterable<IEntity> entities, int dt) {
     super.update(entities, dt);
     //

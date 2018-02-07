@@ -1,11 +1,9 @@
 package com.koenji.ecs.system.physics;
 
-import com.koenji.ecs.Core;
 import com.koenji.ecs.component.physics.InverseMass;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
-import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import com.koenji.ecs.component.physics.CircleBody;
 import processing.core.PVector;
@@ -15,15 +13,8 @@ import java.util.List;
 
 public class CircleCollider extends System {
 
-  private Core core;
-
   @Override
-  public void added(IScene scene) {
-    super.added(scene);
-    this.core = scene.gc();
-  }
-
-  @Override
+  @SuppressWarnings("unchecked")
   public void update(Iterable<IEntity> entities, int dt) {
     super.update(entities, dt);
     //

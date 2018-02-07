@@ -10,6 +10,7 @@ public class Friction extends PVector implements IComponent {
   }
 
   public Friction(float x) {
+    //noinspection SuspiciousNameCombination
     this(x, x);
   }
 

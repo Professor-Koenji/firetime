@@ -3,10 +3,7 @@ package com.koenji.firetime.entities;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
-import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.scene.IScene;
-import com.koenji.ecs.component.physics.CircleBody;
-import processing.event.KeyEvent;
 
 public class Particle extends Entity {
 

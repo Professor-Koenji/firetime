@@ -1,7 +1,5 @@
 package com.koenji.ecs.input;
 
-import com.koenji.ecs.events.IKeyPress;
-
 public enum InputEventType {
   KEY_PRESS,
   KEY_RELEASE,

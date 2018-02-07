@@ -2,8 +2,6 @@ package com.koenji.ecs.input;
 
 import com.koenji.ecs.events.*;
 import processing.event.Event;
-import processing.event.KeyEvent;
-import processing.event.MouseEvent;
 
 import java.util.HashMap;
 import java.util.Map;
