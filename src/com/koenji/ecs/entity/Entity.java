@@ -4,12 +4,13 @@ import com.koenji.ecs.component.IComponent;
 import com.koenji.ecs.scene.IScene;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Entity implements IEntity {
 
   protected IScene scene;
 
-  private HashMap<Class<? extends IComponent>, IComponent> components;
+  private Map<Class<? extends IComponent>, IComponent> components;
 
   public Entity() {
     components = new HashMap<>();
