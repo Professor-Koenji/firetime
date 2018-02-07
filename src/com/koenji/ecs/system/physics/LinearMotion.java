@@ -25,7 +25,6 @@ public class LinearMotion extends System {
         Velocity v = e.getComponent(Velocity.class);
         Acceleration a = e.getComponent(Acceleration.class);
         v.add(a);
-        v.limit(10f);
       }
 
       // Position & Velocity
