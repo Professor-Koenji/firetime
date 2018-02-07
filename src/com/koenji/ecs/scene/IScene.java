@@ -19,8 +19,6 @@ public interface IScene {
   void removeAllEntities();
   void removeAllSystems();
   void removeAll();
-  int getWidth();
-  int getHeight();
   Core gc();
   int entityCount();
   int systemCount();

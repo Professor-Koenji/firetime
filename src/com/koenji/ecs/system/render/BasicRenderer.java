@@ -40,5 +40,7 @@ public class BasicRenderer extends System {
         core.arc(p.x, p.y, rc.r*2, rc.r*2, 0, core.TWO_PI);
       }
     }
+
+    core.filter(core.ERODE);
   }
 }

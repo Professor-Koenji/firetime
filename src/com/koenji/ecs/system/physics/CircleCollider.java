@@ -74,8 +74,8 @@ public class CircleCollider extends System {
     PVector fcvA1 = PVector.mult(cn, cvB);
     PVector fcvA2 = PVector.mult(cn, cvA);
 
-    PVector fcvA = PVector.sub(fcvA2, fcvA1).mult(.6f);
-    PVector fcvB = PVector.sub(fcvA1, fcvA2).mult(.6f);
+    PVector fcvA = PVector.sub(fcvA2, fcvA1).mult(.95f - imB.inverseMass);
+    PVector fcvB = PVector.sub(fcvA1, fcvA2).mult(.95f - imA.inverseMass);
 
     vA.add(fcvB);
     vB.add(fcvA);
