@@ -8,20 +8,16 @@ import com.koenji.ecs.component.render.RenderLine;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
-import processing.opengl.PShader;
 
 public class BasicRenderer extends System {
 
   private Core core;
-  private PShader shader;
 
   @Override
   public void added(IScene scene) {
     super.added(scene);
     //
     this.core = scene.gc();
-    //
-    shader = core.loadShader("invert.glsl");
   }
 
   @Override
@@ -53,7 +49,5 @@ public class BasicRenderer extends System {
         core.line(p.x, p.y, rl.to.x, rl.to.y);
       }
     }
-
-//    core.filter(shader);
   }
 }
