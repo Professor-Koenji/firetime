@@ -12,6 +12,7 @@ import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
+import com.koenji.firetime.entities.Line;
 import com.koenji.firetime.entities.Particle;
 import processing.core.PVector;
 import processing.event.MouseEvent;
@@ -26,7 +27,7 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
     super.added(core);
 
     // Add background EntityObject
-    add(EntityObject.create(new Background(0x10112233)));
+    add(EntityObject.create(new Background(0xff112233)));
 
     // Entities
     particles = new EntityGroup();
@@ -37,6 +38,10 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
       particles.add(p);
     }
     add(particles);
+    Line line = new Line();
+    core.subscribe(IMousePress.class, line);
+    core.subscribe(IMouseRelease.class, line);
+    add(line);
 
     // Systems
     add(new LinearMotion());
