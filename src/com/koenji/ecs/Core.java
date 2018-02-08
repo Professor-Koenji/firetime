@@ -77,7 +77,7 @@ public abstract class Core extends PApplet implements ICore {
       this.height = displayHeight;
     }
     randomSeed(millis());
-
+    smooth(8);
     //
     sceneManager = new SceneManager(this);
     inputManager = new InputManager();
