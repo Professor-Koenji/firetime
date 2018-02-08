@@ -15,7 +15,7 @@ public class Particle extends Entity {
   public void added(IScene scene) {
     super.added(scene);
 
-    float size = scene.gc().random(8f, 26f);
+    float size = scene.gc().random(2f, 52f);
 
     addComponent(new Velocity(scene.gc().random(-5f, 5f), scene.gc().random(-5f,5f)));
     addComponent(new Acceleration());
