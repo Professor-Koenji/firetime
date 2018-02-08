@@ -13,7 +13,7 @@ public class Line extends Entity implements IMousePress, IMouseRelease {
   public void update(int dt) {
     super.update(dt);
     //
-    addComponent(new RenderLine(scene.gc().mouseX, scene.gc().mouseY, 0xFFFFFFFF, 8));
+    addComponent(new RenderLine(scene.gc().mouseX, scene.gc().mouseY, 0xFFFFFFFF, 2));
   }
 
   @Override

@@ -59,7 +59,7 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
   @Override
   public void mouseRelease(MouseEvent event) {
     PVector endPos = new PVector(event.getX(), event.getY());
-    endPos.sub(mousePos).setMag(0.05f);
+    endPos.sub(mousePos).limit(.1f);
     //
     particles.addComponent(new Gravity(endPos));
   }
