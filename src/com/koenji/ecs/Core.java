@@ -139,6 +139,15 @@ public abstract class Core extends PApplet implements ICore {
   @Override
   final public void mouseMoved(MouseEvent event) {
     super.mouseMoved(event);
+
+    inputManager.notify(IMouseMove.class, event);
+  }
+
+  @Override
+  public void mouseDragged(MouseEvent event) {
+    super.mouseDragged(event);
+
+    inputManager.notify(IMouseMove.class, event);
   }
 
   @Override

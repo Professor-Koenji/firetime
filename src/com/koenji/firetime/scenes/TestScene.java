@@ -6,6 +6,7 @@ import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntityGroup;
+import com.koenji.ecs.events.IMouseMove;
 import com.koenji.ecs.events.IMousePress;
 import com.koenji.ecs.events.IMouseRelease;
 import com.koenji.ecs.scene.Scene;
@@ -38,9 +39,11 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
       particles.add(p);
     }
     add(particles);
+
     Line line = new Line();
     core.subscribe(IMousePress.class, line);
     core.subscribe(IMouseRelease.class, line);
+    core.subscribe(IMouseMove.class, line);
     add(line);
 
     // Systems

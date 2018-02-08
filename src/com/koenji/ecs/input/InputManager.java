@@ -18,6 +18,7 @@ public class InputManager implements IInputManager {
 
     eventObservers.put(IMousePress.class, new MousePressObservable());
     eventObservers.put(IMouseRelease.class, new MouseReleaseObservable());
+    eventObservers.put(IMouseMove.class, new MouseMoveObservable());
   }
 
   @SuppressWarnings("unchecked")
