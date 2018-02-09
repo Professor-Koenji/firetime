@@ -3,45 +3,48 @@ package com.koenji.firetime.builder;
 import com.koenji.ecs.component.IComponent;
 import com.koenji.ecs.component.physics.*;
 
-public class ComponentFactory {
+public class ComponentFactory implements IComponentFactory {
 
-  IComponent getComponent(String c) {
+  public ComponentFactory() {
+
+  }
+
+  public IComponent getComponent(String c, float ...options) {
+
+    //System.out.println(Arrays.toString(options));
 
     IComponent component;
 
     switch (c) {
-      case "acceleration" :
+      case "Acceleration" :
         component =  new Acceleration();
         break;
 
       case "BoundingBox" :
-        //component = new BoundingBox();
-        component = null;
+        component = new BoundingBox(options);
         break;
 
       case "CircleBody" :
-        //component = new CircleBody();
-        component = null;
+        component = new CircleBody(options);
         break;
 
       case "Friction" :
-        component = new Friction();
+        component = new Friction(options);
         break;
 
       case "InverseMass" :
-        //component = new InverseMass();
-        component = null;
+        component = new InverseMass(options);
         break;
 
       case "Position" :
-        component = new Position();
+        component = new Position(options);
         break;
 
       case "Velocity" :
-        component = new Velocity();
+        component = new Velocity(options);
         break;
 
-        default:
+      default :
           component = null;
 
 
@@ -49,4 +52,5 @@ public class ComponentFactory {
 
     return component;
   }
+
 }

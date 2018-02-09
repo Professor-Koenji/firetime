@@ -14,6 +14,10 @@ public class Friction extends PVector implements IComponent {
     this(x, x);
   }
 
+  public Friction(float[] x) {
+    this(x[0], x[0]);
+  }
+
   public Friction(float x, float y) {
     set(x, y);
   }

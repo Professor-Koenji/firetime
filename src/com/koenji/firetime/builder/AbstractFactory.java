@@ -1,12 +1,16 @@
 package com.koenji.firetime.builder;
 
-import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.entity.IEntity;
 
 public abstract class AbstractFactory implements IAbstractFactory {
 
-  protected IScene scene;
+  protected abstract IEntity makeEntity(String name);
 
-  public AbstractFactory(IScene scene) {
-    this.scene = scene;
+  public IEntity orderEntity(String type) {
+    IEntity entity = makeEntity(type);
+
+    // Do stuff with entity before rtn
+
+    return entity;
   }
 }

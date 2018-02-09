@@ -2,6 +2,7 @@ package com.koenji.ecs.entity;
 
 import com.koenji.ecs.component.IComponent;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.firetime.builder.IComponentFactory;
 
 import java.util.HashMap;
 import java.util.Map;

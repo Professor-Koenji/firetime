@@ -8,4 +8,8 @@ public class InverseMass implements IComponent {
   public InverseMass(float inverseMass) {
     this.inverseMass = inverseMass;
   }
+
+  public InverseMass(float[] inverseMass) {
+    this.inverseMass = inverseMass[0];
+  }
 }

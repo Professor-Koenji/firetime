@@ -13,6 +13,10 @@ public class Velocity extends PVector implements IComponent {
     this(x, y, 0);
   }
 
+  public Velocity(float[] v) {
+    this(v[0], v[1], 0);
+  }
+
   public Velocity(float x, float y, float z) {
     set(x, y, z);
   }

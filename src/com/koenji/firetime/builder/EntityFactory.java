@@ -1,27 +1,28 @@
 package com.koenji.firetime.builder;
 
 import com.koenji.ecs.entity.IEntity;
-import com.koenji.ecs.scene.Scene;
+import com.koenji.firetime.entities.*;
 
 public class EntityFactory extends AbstractFactory {
 
-  public EntityFactory(Scene scene) {
-    super(scene);
-  }
-
-  public IEntity getEntity(String e) {
+  @Override
+  protected IEntity makeEntity(String e) {
     IEntity entity;
 
-    switch(e) {
-      case "Particle" :
-        //entity = new Particle();
-        entity = null;
-        break;
+    if(e.equalsIgnoreCase("Particle")) {
+      IComponentFactory componentFactory = new ComponentFactory();
+      entity = new Particle(componentFactory);
 
-        default:
-          entity = null;
+
+    } else {
+      entity = null;
     }
 
     return entity;
   }
+
+//  @Override
+//  public IComponent getComponent(String component, float... options) {
+//    return null;
+//  }
 }

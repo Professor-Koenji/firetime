@@ -12,4 +12,9 @@ public class BoundingBox implements IComponent {
     this.position = new PVector(x, y);
     this.size = new PVector(w, h);
   }
+
+  public BoundingBox(float[] options) {
+    this.position = new PVector(options[0], options[1]);
+    this.size = new PVector(options[2], options[3]);
+  }
 }

@@ -9,4 +9,8 @@ public class CircleBody implements IComponent {
   public CircleBody(float r) {
     this.r = r;
   }
+
+  public CircleBody(float[] r) {
+    this.r = r[0];
+  }
 }
