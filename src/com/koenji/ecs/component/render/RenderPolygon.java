@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RenderConvex implements IComponent {
+public class RenderPolygon implements IComponent {
 
-  public List<PVector> vertices;
-  public int rgba;
+  public List<PVector> vertices; // Vertices of the polygon
+  public int rgba; // Colour of the shape
 
-  public RenderConvex(int rgba, PVector ...vertices) {
+  public RenderPolygon(int rgba, PVector ...vertices) {
     this.rgba = rgba;
     this.vertices = new ArrayList<>(Arrays.asList(vertices));
   }
 
-  public RenderConvex(ConvexBody body, int rgba) {
+  public RenderPolygon(ConvexBody body, int rgba) {
     this.vertices = body.vertices;
     this.rgba = rgba;
   }

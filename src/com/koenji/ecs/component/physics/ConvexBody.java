@@ -9,11 +9,13 @@ import java.util.List;
 
 public class ConvexBody implements IComponent {
 
+  // The vertices of the convex shape
   public List<PVector> vertices;
 
   public static ConvexBody square(float size) {
     return square(size, 0, 0);
   }
+
   public static ConvexBody square(float size, float offsetX, float offsetY) {
     return new ConvexBody(
       new PVector(offsetX, offsetY),
@@ -23,10 +25,18 @@ public class ConvexBody implements IComponent {
     );
   }
 
+  /**
+   * Creates a new ConvexBody with the given vertices
+   * @param vertices A list of points for the vertices of the shape
+   */
   public ConvexBody(PVector ...vertices) {
     this.vertices = new ArrayList<>(Arrays.asList(vertices));
   }
 
+  /**
+   * Gets a list of the edges of the shape as vectors between vertices
+   * @return A list of edge vectors
+   */
   public List<PVector> edges() {
     List<PVector> es = new ArrayList<>();
     for (int i = 0; i < vertices.size(); ++i) {

@@ -4,7 +4,7 @@ import com.koenji.ecs.Core;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.RenderCircle;
-import com.koenji.ecs.component.render.RenderConvex;
+import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.component.render.RenderLine;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
@@ -35,9 +35,9 @@ public class BasicRenderer extends System {
         core.rect(0, 0, core.getWidth(), core.getHeight());
       }
 
-      if (e.hasComponents(Position.class, RenderConvex.class)) {
+      if (e.hasComponents(Position.class, RenderPolygon.class)) {
         Position p = e.getComponent(Position.class);
-        RenderConvex rc = e.getComponent(RenderConvex.class);
+        RenderPolygon rc = e.getComponent(RenderPolygon.class);
         core.pushMatrix();
         core.translate(p.x, p.y);
         core.fill(rc.rgba);
