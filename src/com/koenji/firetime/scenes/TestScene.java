@@ -1,8 +1,11 @@
 package com.koenji.firetime.scenes;
 
 import com.koenji.ecs.ICore;
+import com.koenji.ecs.component.physics.ConvexBody;
 import com.koenji.ecs.component.physics.Gravity;
+import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
+import com.koenji.ecs.component.render.RenderConvex;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntityGroup;
@@ -18,10 +21,9 @@ import com.koenji.firetime.entities.Particle;
 import processing.core.PVector;
 import processing.event.MouseEvent;
 
-public class TestScene extends Scene implements IMousePress, IMouseRelease {
+public class TestScene extends Scene implements IMouseMove {
 
-  private IEntityGroup particles;
-  private PVector mousePos;
+  private Position mousePos;
 
   @Override
   public void added(ICore core) {
@@ -31,20 +33,24 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
     add(EntityObject.create(new Background(0xff112233)));
 
     // Entities
-    particles = new EntityGroup();
-    for (int i = 0; i < 90; ++i) {
-      float w = core.gc().random(0f, core.gc().getWidth());
-      float h = core.gc().random(0f, core.gc().getHeight());
-      Particle p = new Particle(w, h);
-      particles.add(p);
-    }
-    add(particles);
+    ConvexBody cb = new ConvexBody(
+      new PVector(0, 0),
+      new PVector(70, 20),
+      new PVector(140, 90),
+      new PVector(20, 100)
+    );
 
-    Line line = new Line();
-    core.subscribe(IMousePress.class, line);
-    core.subscribe(IMouseRelease.class, line);
-    core.subscribe(IMouseMove.class, line);
-    add(line);
+    add(EntityObject.create(
+      new Position(600, 420),
+      cb,
+      new RenderConvex(cb, 0xFF99CCFF)
+    ));
+
+    add(EntityObject.create(
+      mousePos = new Position(400, 400),
+      cb,
+      new RenderConvex(cb, 0xFFFF99FF)
+    ));
 
     // Systems
     add(new LinearMotion());
@@ -55,15 +61,7 @@ public class TestScene extends Scene implements IMousePress, IMouseRelease {
   }
 
   @Override
-  public void mousePress(MouseEvent event) {
-    mousePos = new PVector(event.getX(), event.getY());
-  }
-
-  @Override
-  public void mouseRelease(MouseEvent event) {
-    PVector endPos = new PVector(event.getX(), event.getY());
-    endPos.sub(mousePos).limit(.1f);
-    //
-    particles.addComponent(new Gravity(endPos));
+  public void mouseMove(MouseEvent event) {
+    mousePos.set(event.getX(), event.getY());
   }
 }
