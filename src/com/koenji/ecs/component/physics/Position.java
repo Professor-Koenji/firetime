@@ -15,4 +15,8 @@ public class Position extends PVector implements IComponent {
   public Position(float x, float y, float z) {
     set(x, y, z);
   }
+
+  public Position(PVector v) {
+    set(v.x, v.y, v.z);
+  }
 }

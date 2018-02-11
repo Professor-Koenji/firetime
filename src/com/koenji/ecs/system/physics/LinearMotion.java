@@ -39,7 +39,7 @@ public class LinearMotion extends System {
         Acceleration a = e.getComponent(Acceleration.class);
         if (e.hasComponents(Gravity.class)) {
           Gravity g = e.getComponent(Gravity.class);
-          a.set(g.gravity);
+          a.set(g);
         } else {
           a.set(0, 0);
         }

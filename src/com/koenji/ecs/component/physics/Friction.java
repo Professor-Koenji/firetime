@@ -18,4 +18,8 @@ public class Friction extends PVector implements IComponent {
     set(x, y);
   }
 
+  public Friction(PVector v) {
+    set(v.x, v.y, v.z);
+  }
+
 }

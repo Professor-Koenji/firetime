@@ -17,4 +17,8 @@ public class Acceleration extends PVector implements IComponent {
     set(x, y, z);
   }
 
+  public Acceleration(PVector v) {
+    set(v.x, v.y, v.z);
+  }
+
 }
