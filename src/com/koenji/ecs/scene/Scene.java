@@ -12,7 +12,7 @@ import com.koenji.ecs.system.SystemManager;
 
 public abstract class Scene implements IScene {
 
-  private ICore core;
+  protected ICore core;
 
   private IEntityManager entityManager;
   private ISystemManager systemManager;

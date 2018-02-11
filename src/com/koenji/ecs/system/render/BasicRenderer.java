@@ -72,6 +72,20 @@ public class BasicRenderer extends System {
         core.stroke(rl.rgba);
         core.line(p.x, p.y, rl.to.x, rl.to.y);
       }
+
+      if (e.hasComponents(Position.class, Text.class)) {
+        Position p = e.getComponent(Position.class);
+        Text t = e.getComponent(Text.class);
+        core.textSize(t.size);
+        core.noStroke();
+        core.fill(t.rgba);
+        core.textAlign(core.LEFT, core.TOP);
+        if (t.bounds != null) {
+          core.text(t.contents, p.x, p.y, t.bounds.x, t.bounds.y);
+        } else {
+          core.text(t.contents, p.x, p.y);
+        }
+      }
     }
   }
 }

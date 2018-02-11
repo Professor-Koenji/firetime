@@ -39,7 +39,7 @@ public class ConvexCollisions extends Scene implements IMouseMove {
       new PVector(-43, -25)
     );
 
-    for (int i = 0; i < 40; ++i) {
+    for (int i = 0; i < 15; ++i) {
       float x = core.gc().random(0, core.getWidth());
       float y = core.gc().random(0, core.getHeight());
       float sx = core.gc().random(-2f, 2f);

@@ -29,7 +29,7 @@ public class CirclePhysics extends Scene implements IMousePress, IMouseMove, IMo
     super.added(core);
     //
     particles = new EntityGroup();
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 25; ++i) {
       float x = core.random(0, core.getWidth());
       float y = core.random(0, core.getHeight());
       PVector vel = PVector.fromAngle(core.random(0f, 6.28f)).setMag(core.random(.5f, 2f));

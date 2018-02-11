@@ -1,7 +1,10 @@
 package com.koenji.ecs.debug;
 
 import com.koenji.ecs.ICore;
+import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
+import com.koenji.ecs.component.render.Text;
+import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.scene.Scene;
@@ -14,6 +17,8 @@ public class DebugScene extends Scene implements IKeyPress {
   private boolean show;
   private ISystem renderer;
 
+  private Text fpsDisplay;
+
   @Override
   public void added(ICore core) {
     super.added(core);
@@ -21,8 +26,19 @@ public class DebugScene extends Scene implements IKeyPress {
     add(EntityObject.create(
       new Background(0xA0000000)
     ));
+    add(EntityObject.create(
+      new Position(10, 10),
+      fpsDisplay = new Text("FPS: ", 16, 0xFFFFFFFF)
+    ));
     //
     show = false;
+  }
+
+  @Override
+  public void update(int dt) {
+    super.update(dt);
+    //
+    fpsDisplay.set("FPS: " + (1000 / dt));
   }
 
   @Override
