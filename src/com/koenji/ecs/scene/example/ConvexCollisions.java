@@ -1,10 +1,8 @@
 package com.koenji.ecs.scene.example;
 
 import com.koenji.ecs.ICore;
-import com.koenji.ecs.component.physics.BoundingBox;
-import com.koenji.ecs.component.physics.ConvexBody;
-import com.koenji.ecs.component.physics.Position;
-import com.koenji.ecs.component.physics.Velocity;
+import com.koenji.ecs.component.physics.*;
+import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.component.render.Stroke;
 import com.koenji.ecs.entity.EntityObject;
@@ -29,7 +27,7 @@ public class ConvexCollisions extends Scene implements IMouseMove {
 //    add(EntityObject.create(new Background(0xff112233)));
 
     // Entities
-    ConvexBody square = ConvexBody.square(100, -50, -50);
+    ConvexBody polygon = ConvexBody.polygon(20, 64, -32, -32);
     ConvexBody hexagon = new ConvexBody(
       new PVector(0, -50),
       new PVector(43, -25),
@@ -47,6 +45,8 @@ public class ConvexCollisions extends Scene implements IMouseMove {
       add(EntityObject.create(
         new Position(x, y),
         new Velocity(sx, sy),
+        new Acceleration(),
+        new Friction(0.98f),
         new BoundingBox(0, 0, core.getWidth(), core.getHeight()),
         hexagon,
         new RenderPolygon(hexagon, 0x6022FF99),
@@ -56,8 +56,8 @@ public class ConvexCollisions extends Scene implements IMouseMove {
 
     add(EntityObject.create(
       mousePos = new Position(400, 400),
-      square,
-      new RenderPolygon(square, 0x60FF99FF),
+      polygon,
+      new RenderCircle(64, 0x60FF99FF),
       new Stroke(4, 0xFFFF99FF)
     ));
 

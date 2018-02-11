@@ -1,7 +1,6 @@
 package com.koenji.ecs.system.physics;
 
-import com.koenji.ecs.component.physics.ConvexBody;
-import com.koenji.ecs.component.physics.Position;
+import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
 import processing.core.PVector;
@@ -36,7 +35,7 @@ public class ConvexCollider extends System {
         List<PVector> edgesB = bB.edges();
 
         // Offload all the data to our collision resolver
-        collisionResolver(pA, bA, edgesA, pB, bB, edgesB);
+        collisionResolver(a, b, pA, bA, edgesA, pB, bB, edgesB);
       }
     }
   }
@@ -50,7 +49,7 @@ public class ConvexCollider extends System {
    * @param bB The convex body of shape 2
    * @param edgesB The edges of shape 2
    */
-  private void collisionResolver(Position pA, ConvexBody bA, List<PVector> edgesA,
+  private void collisionResolver(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
                                     Position pB, ConvexBody bB, List<PVector> edgesB) {
     // Do SAT collision checks!
     List<PVector> edges = new ArrayList<>();
@@ -84,6 +83,8 @@ public class ConvexCollider extends System {
     // Only can get here if no seperating axis was found = collision
     // Translate shapes by MTV (if it exists, just to make IntelliJ happy)
     if (mtv != null) {
+      Acceleration vA = a.getComponent(Acceleration.class);
+      Acceleration vB = b.getComponent(Acceleration.class);
       // Set the magnitude of the mtv to our overlap / 2 (as each will move half the mtv)
       mtv.setMag(minOverlap * .5f);
       // Get our displacement vector between the two positions
@@ -91,14 +92,11 @@ public class ConvexCollider extends System {
       // Project the displacement upon our minimum translation vector
       float dot = mtv.dot(displacement);
       // If the projection was 'backwards', then mtv essentially is reversed
-      if (dot < 0 ) {
-        pA.add(mtv);
-        pB.sub(mtv);
-      } else {
-        // Else the mtv is normal, and sub 1st shape and add 2nd shape
-        pA.sub(mtv);
-        pB.add(mtv);
-      }
+      if (dot >= 0) mtv.mult(-1);
+      pA.add(mtv);
+      pB.sub(mtv);
+      if (vA != null) vA.add(mtv);
+      if (vB != null) vB.sub(mtv);
     }
   }
 
