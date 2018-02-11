@@ -24,13 +24,13 @@ public class ConvexCollisions extends Scene implements IMouseMove {
     super.added(core);
 
     // Entities
-    for (int i = 0; i < 150; ++i) {
+    for (int i = 0; i < 100; ++i) {
       float x = core.gc().random(0, core.getWidth());
       float y = core.gc().random(0, core.getHeight());
       float sx = core.gc().random(-2f, 2f);
       float sy = core.gc().random(-2f, 2f);
       int sides = (int) core.random(3, 8);
-      ConvexBody body = ConvexBody.polygon(sides, 16);
+      ConvexBody body = ConvexBody.polygon(sides, 32);
 
       int colour = (int) core.random(0, 0xFFFFFF);
       add(EntityObject.create(
@@ -38,8 +38,8 @@ public class ConvexCollisions extends Scene implements IMouseMove {
         new Velocity(sx, sy),
         new Acceleration(),
         new Friction(0.98f),
-        new Gravity(.25f),
-        new BoundingBox(BoundingBox.REFLECT, 0, 0, core.getWidth(), core.getHeight()),
+        new Gravity(.1f),
+        new BoundingBox(BoundingBox.WRAP, 0, 0, core.getWidth(), core.getHeight()),
         body,
         new RenderPolygon(body, 0x60000000 + colour),
         new Stroke(4, 0xFF000000 + colour)

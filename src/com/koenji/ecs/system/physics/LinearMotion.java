@@ -57,12 +57,18 @@ public class LinearMotion extends System {
               p.x = b.position.x;
               v.x *= -1;
               break;
+            case BoundingBox.WRAP:
+              p.x = b.position.x + b.size.x;
+              break;
           }
         } else if (p.x > b.position.x + b.size.x) {
           switch(b.type) {
             case BoundingBox.REFLECT:
               p.x = b.position.x + b.size.x;
               v.x *= -1;
+              break;
+            case BoundingBox.WRAP:
+              p.x = b.position.x;
               break;
           }
         }
@@ -73,12 +79,18 @@ public class LinearMotion extends System {
               p.y = b.position.y;
               v.y *= -1;
               break;
+            case BoundingBox.WRAP:
+              p.y = b.position.y + b.size.y;
+              break;
           }
         } else if (p.y > b.position.y + b.size.y) {
           switch(b.type) {
             case BoundingBox.REFLECT:
               p.y = b.position.y + b.size.y;
               v.y *= -1;
+              break;
+            case BoundingBox.WRAP:
+              p.y = b.position.y;
               break;
           }
         }
