@@ -104,6 +104,7 @@ public abstract class Core extends PApplet implements ICore {
   final public void draw() {
     // super.draw();
     // Clear the canvas first
+    noStroke();
     fill(clearColour);
     rect(0, 0, width, height);
     // Update the game logic
@@ -112,10 +113,6 @@ public abstract class Core extends PApplet implements ICore {
     update(dt);
     sceneManager.update(dt);
     time = latestTime;
-
-    noStroke();
-    fill(0xFFFFFFFF);
-    arc(mouseX, mouseY, 8, 8, 0, 6.28f);
   }
 
   @Override
