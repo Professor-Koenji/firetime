@@ -23,41 +23,37 @@ public class ConvexCollisions extends Scene implements IMouseMove {
   public void added(ICore core) {
     super.added(core);
 
-    // Add background EntityObject
-//    add(EntityObject.create(new Background(0xff112233)));
-
     // Entities
-    ConvexBody polygon = ConvexBody.polygon(20, 64, -32, -32);
-    ConvexBody hexagon = new ConvexBody(
-      new PVector(0, -50),
-      new PVector(43, -25),
-      new PVector(43, 25),
-      new PVector(0, 50),
-      new PVector(-43, 25),
-      new PVector(-43, -25)
-    );
-
-    for (int i = 0; i < 15; ++i) {
+    for (int i = 0; i < 150; ++i) {
       float x = core.gc().random(0, core.getWidth());
       float y = core.gc().random(0, core.getHeight());
       float sx = core.gc().random(-2f, 2f);
       float sy = core.gc().random(-2f, 2f);
+      int sides = (int) core.random(3, 8);
+      ConvexBody body = ConvexBody.polygon(sides, 16);
+
+      int colour = (int) core.random(0, 0xFFFFFF);
       add(EntityObject.create(
         new Position(x, y),
         new Velocity(sx, sy),
         new Acceleration(),
         new Friction(0.98f),
-        new BoundingBox(0, 0, core.getWidth(), core.getHeight()),
-        hexagon,
-        new RenderPolygon(hexagon, 0x6022FF99),
-        new Stroke(4, 0xFF22FF99)
+        new Gravity(.25f),
+        new BoundingBox(BoundingBox.REFLECT, 0, 0, core.getWidth(), core.getHeight()),
+        body,
+        new RenderPolygon(body, 0x60000000 + colour),
+        new Stroke(4, 0xFF000000 + colour)
       ));
     }
 
+    ConvexBody circle = ConvexBody.polygon(16, 64);
+    circle.setStatic(true);
+
     add(EntityObject.create(
       mousePos = new Position(400, 400),
-      polygon,
+      circle,
       new RenderCircle(64, 0x60FF99FF),
+//      new RenderPolygon(circle, 0x60FF99FF),
       new Stroke(4, 0xFFFF99FF)
     ));
 

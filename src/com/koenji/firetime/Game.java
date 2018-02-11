@@ -20,11 +20,11 @@ public class Game extends Core {
   @Override
   public void init() {
     // Add initial scene here
-    CirclePhysics cp = new CirclePhysics();
-    subscribe(IMousePress.class, cp);
-    subscribe(IMouseMove.class, cp);
-    subscribe(IMouseRelease.class, cp);
-    add(cp);
+//    CirclePhysics cp = new CirclePhysics();
+//    subscribe(IMousePress.class, cp);
+//    subscribe(IMouseMove.class, cp);
+//    subscribe(IMouseRelease.class, cp);
+//    add(cp);
 
     ConvexCollisions cc = new ConvexCollisions();
     subscribe(IMouseMove.class, cc);

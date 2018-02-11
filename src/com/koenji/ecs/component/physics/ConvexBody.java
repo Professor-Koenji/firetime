@@ -12,12 +12,21 @@ public class ConvexBody implements IComponent {
   // The vertices of the convex shape
   public List<PVector> vertices;
 
+  // The approximate size of this body
+  // Used in broad-phase collision checks
+  public int size;
+
+  // is Static
+  public boolean isStatic;
+
   public static ConvexBody square(float size) {
     return square(size, 0, 0);
   }
 
   public static ConvexBody square(float size, float offsetX, float offsetY) {
     return new ConvexBody(
+      (int) size,
+      false,
       new PVector(offsetX, offsetY),
       new PVector(offsetX + size, offsetY),
       new PVector(offsetX + size, offsetY + size),
@@ -25,22 +34,33 @@ public class ConvexBody implements IComponent {
     );
   }
 
+  public static ConvexBody polygon(int sides, float size) {
+    return polygon(sides, size, 0, 0);
+  }
+
   public static ConvexBody polygon(int sides, float size, float offsetX, float offsetY) {
     PVector[] vs = new PVector[sides];
     float angleSlice = ((float) Math.PI * 2) / sides;
     float angle = angleSlice / 2;
     for (int i = 0; i < sides; ++i) {
-      vs[i] = new PVector((float) Math.sin(angle) * size, (float) Math.cos(angle) * size);
+      vs[i] = new PVector((float) Math.sin(angle) * size + offsetX, (float) Math.cos(angle) * size + offsetY);
       angle += angleSlice;
     }
-    return new ConvexBody(vs);
+    return new ConvexBody((int) size, false,  vs);
   }
 
   /**
    * Creates a new ConvexBody with the given vertices
+   * @param size The approximate size of the body. Always over-estimate.
    * @param vertices A list of points for the vertices of the shape
    */
-  public ConvexBody(PVector ...vertices) {
+  public ConvexBody(int size, PVector ...vertices) {
+    this(size, false, vertices);
+  }
+
+  public ConvexBody(int size, boolean isStatic, PVector ...vertices) {
+    this.size = size;
+    this.isStatic = isStatic;
     this.vertices = new ArrayList<>(Arrays.asList(vertices));
   }
 
@@ -56,6 +76,10 @@ public class ConvexBody implements IComponent {
       es.add(PVector.sub(b, a));
     }
     return es;
+  }
+
+  public void setStatic(boolean isStatic) {
+    this.isStatic = isStatic;
   }
 
 }

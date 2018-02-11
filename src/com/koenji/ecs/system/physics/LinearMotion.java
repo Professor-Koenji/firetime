@@ -52,19 +52,35 @@ public class LinearMotion extends System {
         BoundingBox b = e.getComponent(BoundingBox.class);
 
         if (p.x < b.position.x) {
-          p.x = b.position.x;
-          v.x *= -1;
+          switch(b.type) {
+            case BoundingBox.REFLECT:
+              p.x = b.position.x;
+              v.x *= -1;
+              break;
+          }
         } else if (p.x > b.position.x + b.size.x) {
-          p.x = b.position.x + b.size.x;
-          v.x *= -1;
+          switch(b.type) {
+            case BoundingBox.REFLECT:
+              p.x = b.position.x + b.size.x;
+              v.x *= -1;
+              break;
+          }
         }
 
         if (p.y < b.position.y) {
-          p.y = b.position.y;
-          v.y *= -1;
+          switch(b.type) {
+            case BoundingBox.REFLECT:
+              p.y = b.position.y;
+              v.y *= -1;
+              break;
+          }
         } else if (p.y > b.position.y + b.size.y) {
-          p.y = b.position.y + b.size.y;
-          v.y *= -1;
+          switch(b.type) {
+            case BoundingBox.REFLECT:
+              p.y = b.position.y + b.size.y;
+              v.y *= -1;
+              break;
+          }
         }
       }
     }

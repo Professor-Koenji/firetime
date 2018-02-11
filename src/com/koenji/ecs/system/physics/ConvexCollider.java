@@ -32,16 +32,33 @@ public class ConvexCollider extends System {
         // Get the position, body & edges
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);
+
+        /**
+         * Broad-phase checks
+         */
+        // Are both ConvexBody's static?
+        if (bA.isStatic && bB.isStatic) continue;
+        // Simple one is if positions are further apart than body sizes
+        if (PVector.sub(pB, pA).mag() > bA.size + bB.size + 50) {
+          continue;
+        }
+
+        // Get the 2nd bodies edges by this point, as we will need them
         List<PVector> edgesB = bB.edges();
 
         // Offload all the data to our collision resolver
-        collisionResolver(a, b, pA, bA, edgesA, pB, bB, edgesB);
+        /**
+         * Narrow-phase checks
+         */
+        collisionCheck(a, b, pA, bA, edgesA, pB, bB, edgesB);
       }
     }
   }
 
   /**
    * Resolves collisions between two given convexbodies and their positions
+   * @param a The first IEntity
+   * @param b The second IEntity
    * @param pA The position of shape 1
    * @param bA The convex body of shape 1
    * @param edgesA The edges of shape 1
@@ -49,8 +66,8 @@ public class ConvexCollider extends System {
    * @param bB The convex body of shape 2
    * @param edgesB The edges of shape 2
    */
-  private void collisionResolver(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
-                                    Position pB, ConvexBody bB, List<PVector> edgesB) {
+  private void collisionCheck(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
+                              Position pB, ConvexBody bB, List<PVector> edgesB) {
     // Do SAT collision checks!
     List<PVector> edges = new ArrayList<>();
     // Add all edges into our edge list
@@ -93,10 +110,14 @@ public class ConvexCollider extends System {
       float dot = mtv.dot(displacement);
       // If the projection was 'backwards', then mtv essentially is reversed
       if (dot >= 0) mtv.mult(-1);
-      pA.add(mtv);
-      pB.sub(mtv);
-      if (vA != null) vA.add(mtv);
-      if (vB != null) vB.sub(mtv);
+      if (!bA.isStatic) {
+        pA.add(mtv);
+        if (vA != null) vA.add(mtv);
+      }
+      if (!bB.isStatic) {
+        pB.sub(mtv);
+        if (vB != null) vB.sub(mtv);
+      }
     }
   }
 
