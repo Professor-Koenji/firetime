@@ -16,8 +16,6 @@ import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
-import com.koenji.firetime.entities.Line;
-import javafx.geometry.Pos;
 import processing.core.PVector;
 import processing.event.MouseEvent;
 

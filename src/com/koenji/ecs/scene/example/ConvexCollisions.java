@@ -5,7 +5,6 @@ import com.koenji.ecs.component.physics.BoundingBox;
 import com.koenji.ecs.component.physics.ConvexBody;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
-import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.component.render.Stroke;
 import com.koenji.ecs.entity.EntityObject;

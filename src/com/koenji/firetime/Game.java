@@ -1,6 +1,8 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
+import com.koenji.ecs.debug.DebugScene;
+import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.events.IMouseMove;
 import com.koenji.ecs.events.IMousePress;
 import com.koenji.ecs.events.IMouseRelease;
@@ -27,5 +29,9 @@ public class Game extends Core {
     ConvexCollisions cc = new ConvexCollisions();
     subscribe(IMouseMove.class, cc);
     add(cc);
+
+    DebugScene ds = new DebugScene();
+    subscribe(IKeyPress.class, ds);
+    add(ds);
   }
 }
