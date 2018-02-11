@@ -1,12 +1,11 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
-import com.koenji.ecs.debug.DebugScene;
-import com.koenji.ecs.events.IKeyPress;
 import com.koenji.ecs.events.IMouseMove;
 import com.koenji.ecs.events.IMousePress;
 import com.koenji.ecs.events.IMouseRelease;
-import com.koenji.firetime.scenes.TestScene;
+import com.koenji.ecs.scene.example.CirclePhysics;
+import com.koenji.ecs.scene.example.ConvexCollisions;
 
 public class Game extends Core {
 
@@ -18,12 +17,15 @@ public class Game extends Core {
 
   @Override
   public void init() {
-    TestScene ts = new TestScene();
-    subscribe(IMouseMove.class, ts);
-    add(ts);
+    // Add initial scene here
+    CirclePhysics cp = new CirclePhysics();
+    subscribe(IMousePress.class, cp);
+    subscribe(IMouseMove.class, cp);
+    subscribe(IMouseRelease.class, cp);
+    add(cp);
 
-    DebugScene ds = new DebugScene();
-    subscribe(IKeyPress.class, ds);
-    add(ds);
+    ConvexCollisions cc = new ConvexCollisions();
+    subscribe(IMouseMove.class, cc);
+    add(cc);
   }
 }

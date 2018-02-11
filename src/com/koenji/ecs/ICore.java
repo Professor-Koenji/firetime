@@ -9,6 +9,8 @@ public interface ICore {
   void setFramerate(int fps);
   int getWidth();
   int getHeight();
+  float random(float min);
+  float random(float min, float max);
   Core gc();
   void init();
   void update(int dt);

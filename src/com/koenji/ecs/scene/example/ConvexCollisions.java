@@ -1,10 +1,13 @@
-package com.koenji.firetime.scenes;
+package com.koenji.ecs.scene.example;
 
 import com.koenji.ecs.ICore;
+import com.koenji.ecs.component.physics.BoundingBox;
 import com.koenji.ecs.component.physics.ConvexBody;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
+import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.RenderPolygon;
+import com.koenji.ecs.component.render.Stroke;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.events.IMouseMove;
 import com.koenji.ecs.scene.Scene;
@@ -15,7 +18,7 @@ import com.koenji.ecs.system.render.BasicRenderer;
 import processing.core.PVector;
 import processing.event.MouseEvent;
 
-public class TestScene extends Scene implements IMouseMove {
+public class ConvexCollisions extends Scene implements IMouseMove {
 
   private Position mousePos;
 
@@ -29,32 +32,34 @@ public class TestScene extends Scene implements IMouseMove {
     // Entities
     ConvexBody square = ConvexBody.square(100, -50, -50);
     ConvexBody hexagon = new ConvexBody(
-      new PVector(0, -100),
-      new PVector(86, -50),
-      new PVector(86, 50),
-      new PVector(0, 100),
-      new PVector(-86, 50),
-      new PVector(-86, -50)
+      new PVector(0, -50),
+      new PVector(43, -25),
+      new PVector(43, 25),
+      new PVector(0, 50),
+      new PVector(-43, 25),
+      new PVector(-43, -25)
     );
 
-    add(EntityObject.create(
-      new Position(600, 420),
-      new Velocity(0.5f, 0),
-      hexagon,
-      new RenderPolygon(hexagon, 0xFF99CCFF)
-    ));
-
-    add(EntityObject.create(
-      new Position(900, 230),
-      new Velocity(-1f, .5f),
-      hexagon,
-      new RenderPolygon(hexagon, 0xFF22FF99)
-    ));
+    for (int i = 0; i < 40; ++i) {
+      float x = core.gc().random(0, core.getWidth());
+      float y = core.gc().random(0, core.getHeight());
+      float sx = core.gc().random(-2f, 2f);
+      float sy = core.gc().random(-2f, 2f);
+      add(EntityObject.create(
+        new Position(x, y),
+        new Velocity(sx, sy),
+        new BoundingBox(0, 0, core.getWidth(), core.getHeight()),
+        hexagon,
+        new RenderPolygon(hexagon, 0x6022FF99),
+        new Stroke(4, 0xFF22FF99)
+      ));
+    }
 
     add(EntityObject.create(
       mousePos = new Position(400, 400),
       square,
-      new RenderPolygon(square, 0xFFFF99FF)
+      new RenderPolygon(square, 0x60FF99FF),
+      new Stroke(4, 0xFFFF99FF)
     ));
 
     // Systems

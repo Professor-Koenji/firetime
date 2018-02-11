@@ -17,4 +17,8 @@ public class Velocity extends PVector implements IComponent {
     set(x, y, z);
   }
 
+  public Velocity(PVector vector) {
+    set(vector.x, vector.y, vector.z);
+  }
+
 }
