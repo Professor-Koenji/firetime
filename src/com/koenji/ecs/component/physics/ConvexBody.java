@@ -25,6 +25,17 @@ public class ConvexBody implements IComponent {
     );
   }
 
+  public static ConvexBody polygon(int sides, float size, float offsetX, float offsetY) {
+    PVector[] vs = new PVector[sides];
+    float angleSlice = ((float) Math.PI * 2) / sides;
+    float angle = angleSlice / 2;
+    for (int i = 0; i < sides; ++i) {
+      vs[i] = new PVector((float) Math.sin(angle) * size, (float) Math.cos(angle) * size);
+      angle += angleSlice;
+    }
+    return new ConvexBody(vs);
+  }
+
   /**
    * Creates a new ConvexBody with the given vertices
    * @param vertices A list of points for the vertices of the shape
