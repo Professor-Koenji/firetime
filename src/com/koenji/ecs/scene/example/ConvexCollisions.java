@@ -2,6 +2,7 @@ package com.koenji.ecs.scene.example;
 
 import com.koenji.ecs.ICore;
 import com.koenji.ecs.component.physics.*;
+import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.component.render.Stroke;
@@ -23,8 +24,12 @@ public class ConvexCollisions extends Scene implements IMouseMove {
   public void added(ICore core) {
     super.added(core);
 
+    add(EntityObject.create(
+      new Background(0x30000099)
+    ));
+
     // Entities
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 20; ++i) {
       float x = core.gc().random(0, core.getWidth());
       float y = core.gc().random(0, core.getHeight());
       float sx = core.gc().random(-2f, 2f);
@@ -39,7 +44,7 @@ public class ConvexCollisions extends Scene implements IMouseMove {
         new Acceleration(),
         new Friction(0.98f),
         new Gravity(.1f),
-        new BoundingBox(BoundingBox.WRAP, 0, 0, core.getWidth(), core.getHeight()),
+        new BoundingBox(BoundingBox.REFLECT, 0, 0, core.getWidth(), core.getHeight()),
         body,
         new RenderPolygon(body, 0x60000000 + colour),
         new Stroke(4, 0xFF000000 + colour)

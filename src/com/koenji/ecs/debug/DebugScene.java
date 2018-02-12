@@ -43,7 +43,6 @@ public class DebugScene extends Scene implements IKeyPress {
 
   @Override
   public void keyPress(KeyEvent event) {
-    java.lang.System.out.println(event.getKeyCode());
     // F1 Key
     if (event.getKeyCode() == 97) {
       show = !show;

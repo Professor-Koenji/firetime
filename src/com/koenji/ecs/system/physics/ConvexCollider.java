@@ -100,8 +100,8 @@ public class ConvexCollider extends System {
     // Only can get here if no seperating axis was found = collision
     // Translate shapes by MTV (if it exists, just to make IntelliJ happy)
     if (mtv != null) {
-      Acceleration vA = a.getComponent(Acceleration.class);
-      Acceleration vB = b.getComponent(Acceleration.class);
+      Velocity vA = a.getComponent(Velocity.class);
+      Velocity vB = b.getComponent(Velocity.class);
       // Set the magnitude of the mtv to our overlap / 2 (as each will move half the mtv)
       mtv.setMag(minOverlap * .5f);
       // Get our displacement vector between the two positions
@@ -112,11 +112,11 @@ public class ConvexCollider extends System {
       if (dot >= 0) mtv.mult(-1);
       if (!bA.isStatic) {
         pA.add(mtv);
-        if (vA != null) vA.add(mtv);
+        if (vA != null) vA.add(PVector.mult(mtv, 2));
       }
       if (!bB.isStatic) {
         pB.sub(mtv);
-        if (vB != null) vB.sub(mtv);
+        if (vB != null) vB.sub(PVector.mult(mtv, 2));
       }
     }
   }
