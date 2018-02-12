@@ -2,6 +2,7 @@ package com.koenji.ecs.system.render;
 
 import com.koenji.ecs.Core;
 import com.koenji.ecs.component.physics.Position;
+import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.*;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.scene.IScene;
@@ -38,8 +39,10 @@ public class BasicRenderer extends System {
       if (e.hasComponents(Position.class, RenderPolygon.class)) {
         Position p = e.getComponent(Position.class);
         RenderPolygon rc = e.getComponent(RenderPolygon.class);
+        Rotation r = e.getComponent(Rotation.class);
         core.pushMatrix();
         core.translate(p.x, p.y);
+        if (r != null) core.rotate(r.angle);
         core.fill(rc.rgba);
         if (stroke != null) {
           core.strokeWeight(stroke.weight);

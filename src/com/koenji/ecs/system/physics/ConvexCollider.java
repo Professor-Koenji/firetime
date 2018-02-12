@@ -25,7 +25,8 @@ public class ConvexCollider extends System {
       // Get the position, body & edges
       Position pA = a.getComponent(Position.class);
       ConvexBody bA = a.getComponent(ConvexBody.class);
-      List<PVector> edgesA = bA.edges();
+      Rotation rA = a.getComponent(Rotation.class);
+      List<PVector> edgesA = bA.edges(rA);
 
       for (int j = i + 1; j < convex.size(); ++j) {
         IEntity b = convex.get(j);
@@ -44,7 +45,8 @@ public class ConvexCollider extends System {
         }
 
         // Get the 2nd bodies edges by this point, as we will need them
-        List<PVector> edgesB = bB.edges();
+        Rotation rB = b.getComponent(Rotation.class);
+        List<PVector> edgesB = bB.edges(rB);
 
         // Offload all the data to our collision resolver
         /**
@@ -83,9 +85,11 @@ public class ConvexCollider extends System {
       //noinspection SuspiciousNameCombination
       PVector axis = new PVector(edge.y, -edge.x).normalize();
       // Get the projection range of the first body upon the axis
-      float[] s1 = project(axis, bA, pA);
+      Rotation rA = a.getComponent(Rotation.class);
+      float[] s1 = project(axis, bA.rotatedVertices(rA), pA);
       // Projection range of the second body upon the axis
-      float[] s2 = project(axis, bB, pB);
+      Rotation rB = b.getComponent(Rotation.class);
+      float[] s2 = project(axis, bB.rotatedVertices(rB), pB);
       // If these projections dont overlap, then we have no collision, and return.
       if (overlap(s1, s2)) return;
       // Else we may have a collision, so get the collision overlap
@@ -124,18 +128,18 @@ public class ConvexCollider extends System {
   /**
    * Projects a given ConvexBody upon an axis, returning the projection range
    * @param axis The axis on which to project the shape upon
-   * @param shape The shape to perform the axis projection
+   * @param vertices The shape to perform the axis projection
    * @param offset An offset of the shapes vertices (global position)
    * @return A projection range of [min, max] projection values
    */
-  private float[] project(PVector axis, ConvexBody shape, PVector offset) {
+  private float[] project(PVector axis, List<PVector> vertices, PVector offset) {
     // Get the min/max initial from the projection of the first vertex
-    float first = axis.dot(PVector.add(shape.vertices.get(0), offset));
+    float first = axis.dot(PVector.add(vertices.get(0), offset));
     float[] ret = {first, first};
 
     // Project every other vertex in the shape
-    for (int i = 1; i < shape.vertices.size(); ++i) {
-      float p = axis.dot(PVector.add(shape.vertices.get(i), offset));
+    for (int i = 1; i < vertices.size(); ++i) {
+      float p = axis.dot(PVector.add(vertices.get(i), offset));
       // min/max the projection values
       if (p < ret[0]) ret[0] = p;
       if (p > ret[1]) ret[1] = p;

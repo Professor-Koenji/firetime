@@ -15,6 +15,7 @@ import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.firetime.entity.game.Player;
+import com.koenji.firetime.entity.game.Wall;
 import processing.core.PVector;
 
 public class GamePrototype extends Scene {
@@ -27,21 +28,8 @@ public class GamePrototype extends Scene {
       new Background(0x10000040)
     ));
 
-    ConvexBody wall = new ConvexBody(
-      250,
-      new PVector(-200, -20),
-      new PVector(200, -20),
-      new PVector(200, 20),
-      new PVector(-200, 20)
-    );
-    wall.isStatic = true;
-    add(EntityObject.create(
-      new Position(300, 400),
-      new Velocity(),
-      new Acceleration(),
-      wall,
-      new RenderPolygon(wall, 0xFF3399CC)
-    ));
+    Wall wall = new Wall();
+    add(wall);
     //
     Player p = new Player();
     core.subscribe(IKeyPress.class, p);

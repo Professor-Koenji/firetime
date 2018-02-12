@@ -69,13 +69,40 @@ public class ConvexBody implements IComponent {
    * @return A list of edge vectors
    */
   public List<PVector> edges() {
+    return edges(null);
+  }
+
+  public List<PVector> edges(Rotation r) {
     List<PVector> es = new ArrayList<>();
     for (int i = 0; i < vertices.size(); ++i) {
       PVector a = vertices.get(i);
       PVector b = vertices.get((i + 1) % vertices.size());
-      es.add(PVector.sub(b, a));
+      PVector edge;
+      //
+      if (r != null) {
+        edge = PVector.sub(rotate(b, r.angle), rotate(a, r.angle));
+      } else {
+        edge = PVector.sub(b, a);
+      }
+      // Rotate the edge
+      es.add(edge);
     }
     return es;
+  }
+
+  public List<PVector> rotatedVertices(Rotation r) {
+    if (r == null) return vertices;
+    List<PVector> rots = new ArrayList<>();
+    for (PVector v : vertices) {
+      rots.add(rotate(v, r.angle));
+    }
+    return rots;
+  }
+
+  private PVector rotate(PVector v, float angle) {
+    float x = v.x * (float) Math.cos(angle) - v.y * (float) Math.sin(angle);
+    float y = v.x * (float) Math.sin(angle) + v.y * (float) Math.cos(angle);
+    return new PVector(x, y);
   }
 
   public void setStatic(boolean isStatic) {
