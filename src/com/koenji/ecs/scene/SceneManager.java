@@ -37,8 +37,8 @@ public class SceneManager implements ISceneManager {
 
   public void update(int dt) {
     // Remove any scenes first
-    scenes.removeAll(toRemove);
     for (IScene scene : toRemove) {
+      scenes.remove(scene);
       scene.removed();
     }
     // Add new scenes

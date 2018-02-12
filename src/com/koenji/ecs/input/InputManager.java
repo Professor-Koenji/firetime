@@ -4,6 +4,7 @@ import com.koenji.ecs.events.*;
 import processing.event.Event;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class InputManager implements IInputManager {
@@ -29,5 +30,11 @@ public class InputManager implements IInputManager {
   @SuppressWarnings("unchecked")
   public <T extends IObserver> void subscribe(Class <T> type, T instance) {
     eventObservers.get(type).add(instance);
+  }
+
+  public <T extends IObserver> void unsubscribeAll(T instance) {
+    for (Class<? extends IObserver> o : eventObservers.keySet()) {
+      eventObservers.get(o).remove(instance);
+    }
   }
 }

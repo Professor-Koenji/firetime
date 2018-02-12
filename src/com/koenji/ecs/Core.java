@@ -199,6 +199,7 @@ public abstract class Core extends PApplet implements ICore {
   public <T extends IObserver> void subscribe(Class<T> type, T instance) {
     inputManager.subscribe(type, instance);
   }
+  public <T extends IObserver> void unsubscribeAll(T instance) { inputManager.unsubscribeAll(instance); }
 
   public void init() {}
   public void update(int dt) {}

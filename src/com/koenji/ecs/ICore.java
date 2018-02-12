@@ -17,4 +17,5 @@ public interface ICore {
   void add(IScene scene);
   void remove(IScene scene);
   <T extends IObserver> void subscribe(Class<T> type, T instance);
+  <T extends IObserver> void unsubscribeAll(T instance);
 }
