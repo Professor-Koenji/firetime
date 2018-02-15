@@ -1,9 +1,9 @@
-package com.koenji.firetime.InputTest;
+package com.koenji.firetime.InputTest.Command;
 
 import com.koenji.ecs.component.physics.Acceleration;
 import com.koenji.ecs.entity.IEntity;
 
-public class MoveUpCommand implements ICommand {
+public class MoveDownCommand implements ICommand {
 
   private final float SPEED = .13f;
 
@@ -13,6 +13,6 @@ public class MoveUpCommand implements ICommand {
     //
     Acceleration a = entity.getComponent(Acceleration.class);
 
-    a.add(0, -SPEED);
+    a.add(0, SPEED);
   }
 }

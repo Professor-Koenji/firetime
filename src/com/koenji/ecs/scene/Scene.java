@@ -6,13 +6,18 @@ import com.koenji.ecs.entity.EntityManager;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
+import com.koenji.ecs.events.*;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
+import com.koenji.firetime.InputTest.InputHandler;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
-public abstract class Scene implements IScene {
+public abstract class Scene implements IScene, IKeyPress, IKeyRelease, IMouseMove, IMousePress, IMouseRelease {
 
   protected ICore core;
+  protected InputHandler inputHandler;
 
   private IEntityManager entityManager;
   private ISystemManager systemManager;
@@ -20,6 +25,7 @@ public abstract class Scene implements IScene {
   public Scene() {
     this.entityManager = new EntityManager(this);
     this.systemManager = new SystemManager(this, entityManager);
+    this.inputHandler = new InputHandler();
   }
 
   public void added(ICore core) {
@@ -94,5 +100,26 @@ public abstract class Scene implements IScene {
   @Override
   public int systemCount() {
     return systemManager.count();
+  }
+
+  @Override
+  public void keyPress(KeyEvent event) {
+
+  }
+
+  public void keyRelease(KeyEvent event) {
+
+  }
+
+  public void mouseMove(MouseEvent event) {
+
+  }
+
+  public void mousePress(MouseEvent event) {
+
+  }
+
+  public void mouseRelease(MouseEvent event) {
+
   }
 }

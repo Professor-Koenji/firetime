@@ -1,6 +1,8 @@
 package com.koenji.firetime.InputTest;
 
+import com.koenji.firetime.InputTest.Command.ICommand;
 import processing.event.KeyEvent;
+
 import java.util.HashMap;
 import java.util.Map;
 

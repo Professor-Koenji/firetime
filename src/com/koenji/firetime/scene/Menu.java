@@ -6,7 +6,7 @@ import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.scene.example.ConvexCollisions;
 import processing.event.MouseEvent;
 
-public class Menu extends Scene implements IMousePress {
+public class Menu extends Scene {
 
   @Override
   public void removed() {
