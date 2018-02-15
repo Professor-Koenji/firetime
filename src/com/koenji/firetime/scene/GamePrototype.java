@@ -56,7 +56,7 @@ public class GamePrototype extends Scene {
     inputHandler.bindCommand(68, new MoveRightCommand());
 
     p = new Player();
-    
+
     core.subscribe(IKeyPress.class, this::keyPress);
     core.subscribe(IKeyRelease.class, this::keyRelease);
     core.subscribe(IMousePress.class, this::mousePress);
