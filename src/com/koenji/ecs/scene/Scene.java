@@ -10,6 +10,7 @@ import com.koenji.ecs.events.*;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
+import com.koenji.firetime.InputTest.IInputHandler;
 import com.koenji.firetime.InputTest.InputHandler;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -17,7 +18,7 @@ import processing.event.MouseEvent;
 public abstract class Scene implements IScene, IKeyPress, IKeyRelease, IMouseMove, IMousePress, IMouseRelease {
 
   protected ICore core;
-  protected InputHandler inputHandler;
+  protected IInputHandler inputHandler;
 
   private IEntityManager entityManager;
   private ISystemManager systemManager;

@@ -79,9 +79,6 @@ public class GamePrototype extends Scene {
 
   @Override
   public void keyPress(KeyEvent event) {
-//    if(inputHandler.executeOnce(event) != null) {
-//      inputHandler.executeOnce(event).execute(p);
-//    }
     inputHandler.handleKeyPress(event);
   }
 
