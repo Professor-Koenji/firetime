@@ -57,10 +57,10 @@ public class GamePrototype extends Scene {
 
     p = new Player();
 
-    core.subscribe(IKeyPress.class, this::keyPress);
-    core.subscribe(IKeyRelease.class, this::keyRelease);
-    core.subscribe(IMousePress.class, this::mousePress);
-    core.subscribe(IMouseMove.class, this::mouseMove);
+    core.subscribe(IKeyPress.class, this);
+    core.subscribe(IKeyRelease.class, this);
+    core.subscribe(IMousePress.class, this);
+    core.subscribe(IMouseMove.class, this);
     add(p);
     //
     add(new LinearMotion());
@@ -70,11 +70,24 @@ public class GamePrototype extends Scene {
   }
 
   @Override
-  public void keyPress(KeyEvent event) {
-
-    if(inputHandler.handleInput(event) != null ) {
-      inputHandler.handleInput(event).execute(p);
+  public void update(int dt) {
+    super.update(dt);
+    for(ICommand e :  inputHandler.update()) {
+      e.execute(p);
     }
+  }
+
+  @Override
+  public void keyPress(KeyEvent event) {
+//    if(inputHandler.executeOnce(event) != null) {
+//      inputHandler.executeOnce(event).execute(p);
+//    }
+    inputHandler.handleKeyPress(event);
+  }
+
+  @Override
+  public void keyRelease(KeyEvent event) {
+    inputHandler.handleKeyRelease(event);
   }
 
   @Override

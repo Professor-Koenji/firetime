@@ -32,7 +32,10 @@ public abstract class Scene implements IScene, IKeyPress, IKeyRelease, IMouseMov
     this.core = core;
   }
 
-  public void removed() {}
+  public void removed() {
+    // remove event observer for instance
+    core.unsubscribeAll(this);
+  }
 
   @Override
   public void update(int dt) {
