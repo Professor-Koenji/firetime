@@ -11,25 +11,27 @@ import java.util.List;
 public class ConvexCollider extends System {
 
   @Override
-  public void update(Iterable<IEntity> entities, int dt) {
-    super.update(entities, dt);
-    // A list of convex objects
-    List<IEntity> convex = new ArrayList<>();
-    // Filter out any non-convex (Pos, ConBody) entities
-    for (IEntity e : entities) {
-      if (e.hasComponents(Position.class, ConvexBody.class)) convex.add(e);
+  public void entityAdded(IEntity entity) {
+    // Only those with Position & ConvexBody
+    if (entity.hasComponents(Position.class, ConvexBody.class)) {
+      entities.add(entity);
     }
+  }
+
+  @Override
+  public void update(int dt) {
+    super.update(dt);
     // Loop thru all but last convex entity
-    for (int i = 0; i < convex.size() - 1; ++i) {
-      IEntity a = convex.get(i);
+    for (int i = 0; i < entities.size() - 1; ++i) {
+      IEntity a = entities.get(i);
       // Get the position, body & edges
       Position pA = a.getComponent(Position.class);
       ConvexBody bA = a.getComponent(ConvexBody.class);
       Rotation rA = a.getComponent(Rotation.class);
       List<PVector> edgesA = bA.edges(rA);
 
-      for (int j = i + 1; j < convex.size(); ++j) {
-        IEntity b = convex.get(j);
+      for (int j = i + 1; j < entities.size(); ++j) {
+        IEntity b = entities.get(j);
         // Get the position, body & edges
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);

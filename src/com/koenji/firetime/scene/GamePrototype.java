@@ -30,7 +30,7 @@ public class GamePrototype extends Scene {
 
     Wall wall = new Wall();
     add(wall);
-    //
+    //d
     Player p = new Player();
     core.subscribe(IKeyPress.class, p);
     core.subscribe(IKeyRelease.class, p);

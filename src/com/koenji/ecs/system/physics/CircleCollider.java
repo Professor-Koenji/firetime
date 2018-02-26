@@ -4,6 +4,8 @@ import com.koenji.ecs.component.physics.InverseMass;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.entity.IEntityManager;
+import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import com.koenji.ecs.component.physics.CircleBody;
 import processing.core.PVector;
@@ -14,24 +16,22 @@ import java.util.List;
 public class CircleCollider extends System {
 
   @Override
-  @SuppressWarnings("unchecked")
-  public void update(Iterable<IEntity> entities, int dt) {
-    super.update(entities, dt);
-    //
-
-    List<IEntity> circles = new ArrayList<>();
-
-    for (IEntity e : entities) {
-      if (e.hasComponents(Position.class, CircleBody.class, Velocity.class, InverseMass.class)) {
-        circles.add(e);
-      }
+  public void entityAdded(IEntity entity) {
+    // Only add if components are present
+    if (entity.hasComponents(Position.class, CircleBody.class, Velocity.class, InverseMass.class)) {
+      entities.add(entity);
     }
+  }
 
+  @Override
+  @SuppressWarnings("unchecked")
+  public void update(int dt) {
+    super.update(dt);
     //
-    for (int i = 0; i < circles.size() - 1; ++i) {
-      IEntity a = circles.get(i);
-      for (int j = i + 1; j < circles.size(); ++j) {
-        IEntity b = circles.get(j);
+    for (int i = 0; i < entities.size() - 1; ++i) {
+      IEntity a = entities.get(i);
+      for (int j = i + 1; j < entities.size(); ++j) {
+        IEntity b = entities.get(j);
 
         //
         float dist = collisionDistance(

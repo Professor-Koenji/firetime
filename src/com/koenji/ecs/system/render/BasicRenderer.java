@@ -5,6 +5,7 @@ import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.*;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import processing.core.PConstants;
@@ -15,16 +16,16 @@ public class BasicRenderer extends System {
   private Core core;
 
   @Override
-  public void added(IScene scene) {
-    super.added(scene);
+  public void added(IScene scene, IEntityManager entityManager) {
+    super.added(scene, entityManager);
     //
     this.core = scene.gc();
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public void update(Iterable<IEntity> entities, int dt) {
-    super.update(entities, dt);
+  public void update(int dt) {
+    super.update(dt);
     //
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);

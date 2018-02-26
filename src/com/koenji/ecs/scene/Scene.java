@@ -37,6 +37,7 @@ public abstract class Scene implements IScene {
   @Override
   public void add(IEntity entity) {
     entityManager.add(entity);
+    systemManager.entityAdded(entity);
   }
 
   public void add(IEntityGroup entityGroup) {
@@ -53,6 +54,7 @@ public abstract class Scene implements IScene {
   @Override
   public void remove(IEntity entity) {
     entityManager.remove(entity);
+    systemManager.entityRemoved(entity);
   }
 
   public void remove(IEntityGroup entityGroup) {
@@ -80,6 +82,12 @@ public abstract class Scene implements IScene {
   public void removeAll() {
     removeAllEntities();
     removeAllSystems();
+  }
+
+  @Override
+  public void modifiedEntity(IEntity entity) {
+    systemManager.entityRemoved(entity);
+    systemManager.entityAdded(entity);
   }
 
   public Core gc() {

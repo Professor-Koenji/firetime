@@ -26,6 +26,7 @@ public abstract class Entity implements IEntity {
 
   public IEntity addComponent(IComponent c) {
     components.put(c.getClass(), c);
+    if (scene != null) scene.modifiedEntity(this);
     return this;
   }
 
@@ -36,6 +37,7 @@ public abstract class Entity implements IEntity {
 
   public IEntity removeComponent(Class<? extends IComponent> c) {
     components.remove(c);
+    if (scene != null) scene.modifiedEntity(this);
     return this;
   }
 

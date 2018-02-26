@@ -8,8 +8,8 @@ public class LinearMotion extends System {
 
   @Override
   @SuppressWarnings("unchecked")
-  public void update(Iterable<IEntity> entities, int dt) {
-    super.update(entities, dt);
+  public void update(int dt) {
+    super.update(dt);
     //
     for (IEntity e : entities) {
       // Velocity & Friction

@@ -1,5 +1,6 @@
 package com.koenji.ecs.system;
 
+import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.scene.IScene;
 
@@ -47,7 +48,7 @@ public class SystemManager implements ISystemManager {
     // Add new scenes
     systems.addAll(toAdd);
     for (ISystem system : toAdd) {
-      system.added(scene);
+      system.added(scene, entityManager);
     }
     // Empty modifier lists
     toAdd.clear();
@@ -55,11 +56,25 @@ public class SystemManager implements ISystemManager {
     // Update all current scenes
     for (ISystem system : systems) {
       // Update system
-      system.update(entityManager.iterable(), dt);
+      system.update(dt);
     }
   }
 
   public int count() {
     return systems.size();
+  }
+
+  @Override
+  public void entityAdded(IEntity entity) {
+    for (ISystem system : systems) {
+      system.entityAdded(entity);
+    }
+  }
+
+  @Override
+  public void entityRemoved(IEntity entity) {
+    for (ISystem system : systems) {
+      system.entityRemoved(entity);
+    }
   }
 }
