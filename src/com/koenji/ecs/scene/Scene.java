@@ -14,8 +14,8 @@ import com.koenji.ecs.system.SystemManager;
 public abstract class Scene implements IScene {
 
   protected ICore core;
-  protected IEventBus eventBus;
 
+  private IEventBus eventBus;
   private IEntityManager entityManager;
   private ISystemManager systemManager;
 

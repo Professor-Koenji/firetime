@@ -3,11 +3,10 @@ package com.koenji.ecs.event.bus;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.scene.Group;
 
 public class EventBus implements IEventBus {
 
-  private Group group = new Group();
+  private EventGroup group = new EventGroup();
 
   @Override
   public void fireEvent(Event event) {
@@ -20,7 +19,7 @@ public class EventBus implements IEventBus {
   }
 
   @Override
-  public <T extends Event> void removeEventHandler(EventType<T> type, EventHandler<? super T> handler) {
-    group.removeEventHandler(type, handler);
+  public <T extends Event> void removeEventHandler(EventType<T> type) {
+    group.removeEventHandler(type);
   }
 }
