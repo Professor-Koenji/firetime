@@ -7,13 +7,13 @@ import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.component.render.Stroke;
 import com.koenji.ecs.entity.EntityObject;
-import com.koenji.ecs.events.IMouseMove;
+import com.koenji.ecs.event.bus.IEventBus;
+import com.koenji.ecs.event.observer.IMouseMove;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
-import processing.core.PVector;
 import processing.event.MouseEvent;
 
 public class ConvexCollisions extends Scene implements IMouseMove {
@@ -21,8 +21,8 @@ public class ConvexCollisions extends Scene implements IMouseMove {
   private Position mousePos;
 
   @Override
-  public void added(ICore core) {
-    super.added(core);
+  public void added(ICore core, IEventBus eventBus) {
+    super.added(core, eventBus);
 
     add(EntityObject.create(
       new Background(0x30000099)

@@ -1,9 +1,8 @@
 package com.koenji.firetime.scene;
 
-import com.koenji.ecs.ICore;
-import com.koenji.ecs.events.IMousePress;
+import com.koenji.ecs.event.bus.IEventBus;
+import com.koenji.ecs.event.observer.IMousePress;
 import com.koenji.ecs.scene.Scene;
-import com.koenji.ecs.scene.example.ConvexCollisions;
 import processing.event.MouseEvent;
 
 public class Menu extends Scene implements IMousePress {

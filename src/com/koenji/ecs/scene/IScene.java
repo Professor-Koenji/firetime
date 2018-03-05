@@ -4,10 +4,11 @@ import com.koenji.ecs.Core;
 import com.koenji.ecs.ICore;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
+import com.koenji.ecs.event.bus.IEventBus;
 import com.koenji.ecs.system.ISystem;
 
 public interface IScene {
-  void added(ICore core);
+  void added(ICore core, IEventBus eventBus);
   void removed();
   void update(int dt);
   void add(IEntity entity);
@@ -20,6 +21,7 @@ public interface IScene {
   void removeAllSystems();
   void removeAll();
   void modifiedEntity(IEntity entity);
+  IEventBus getEventBus();
   Core gc();
   int entityCount();
   int systemCount();

@@ -9,9 +9,10 @@ import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
-import com.koenji.ecs.events.IMouseMove;
-import com.koenji.ecs.events.IMousePress;
-import com.koenji.ecs.events.IMouseRelease;
+import com.koenji.ecs.event.bus.IEventBus;
+import com.koenji.ecs.event.observer.IMouseMove;
+import com.koenji.ecs.event.observer.IMousePress;
+import com.koenji.ecs.event.observer.IMouseRelease;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
@@ -25,8 +26,8 @@ public class CirclePhysics extends Scene implements IMousePress, IMouseMove, IMo
   private IEntity gravity;
 
   @Override
-  public void added(ICore core) {
-    super.added(core);
+  public void added(ICore core, IEventBus eventBus) {
+    super.added(core, eventBus);
     //
     particles = new EntityGroup();
     for (int i = 0; i < 25; ++i) {

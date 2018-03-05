@@ -1,6 +1,6 @@
 package com.koenji.ecs.input;
 
-import com.koenji.ecs.events.IObserver;
+import com.koenji.ecs.event.observer.IObserver;
 import processing.event.Event;
 
 public interface IInputManager {

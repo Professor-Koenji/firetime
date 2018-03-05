@@ -6,6 +6,7 @@ import com.koenji.ecs.entity.EntityManager;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
+import com.koenji.ecs.event.bus.IEventBus;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
@@ -13,6 +14,7 @@ import com.koenji.ecs.system.SystemManager;
 public abstract class Scene implements IScene {
 
   protected ICore core;
+  protected IEventBus eventBus;
 
   private IEntityManager entityManager;
   private ISystemManager systemManager;
@@ -22,8 +24,9 @@ public abstract class Scene implements IScene {
     this.systemManager = new SystemManager(this, entityManager);
   }
 
-  public void added(ICore core) {
+  public void added(ICore core, IEventBus eventBus) {
     this.core = core;
+    this.eventBus = eventBus;
   }
 
   public void removed() {}
@@ -102,5 +105,10 @@ public abstract class Scene implements IScene {
   @Override
   public int systemCount() {
     return systemManager.count();
+  }
+
+  @Override
+  public IEventBus getEventBus() {
+    return eventBus;
   }
 }

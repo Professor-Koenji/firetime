@@ -1,4 +1,4 @@
-package com.koenji.ecs.events;
+package com.koenji.ecs.event.observer;
 
 import processing.event.MouseEvent;
 

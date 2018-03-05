@@ -1,6 +1,6 @@
 package com.koenji.ecs;
 
-import com.koenji.ecs.events.*;
+import com.koenji.ecs.event.observer.*;
 import com.koenji.ecs.input.*;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
@@ -24,7 +24,7 @@ public abstract class Core extends PApplet implements ICore {
 
   // The scene manager
   private ISceneManager sceneManager;
-  // The input mnager
+  // The input manager
   private IInputManager inputManager;
   // Key Manager
   private IKeyManager keyManager;

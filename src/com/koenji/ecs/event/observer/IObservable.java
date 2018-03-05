@@ -1,4 +1,4 @@
-package com.koenji.ecs.events;
+package com.koenji.ecs.event.observer;
 
 public interface IObservable<T, T2> {
   void notify(T2 event);

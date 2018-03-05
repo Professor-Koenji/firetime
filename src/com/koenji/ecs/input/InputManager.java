@@ -1,10 +1,9 @@
 package com.koenji.ecs.input;
 
-import com.koenji.ecs.events.*;
+import com.koenji.ecs.event.observer.*;
 import processing.event.Event;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class InputManager implements IInputManager {
