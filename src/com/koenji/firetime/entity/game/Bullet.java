@@ -36,7 +36,7 @@ public class Bullet extends Entity implements IKeyPress {
 
     scene.gc().subscribe(IKeyPress.class, this);
 
-    scene.getEventBus().fireEvent(new WeaponFireEvent());
+    scene.fireEvent(new WeaponFireEvent());
   }
 
   @Override

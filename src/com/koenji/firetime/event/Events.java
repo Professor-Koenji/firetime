@@ -6,8 +6,8 @@ import javafx.event.EventType;
 public class Events {
 
   // Global game event
-  public static final EventType<Event> ANY = new EventType<>(Event.ANY);
+  public static final EventType<Event> ANY = new EventType<>(Event.ANY, "ANY");
 
   // Specific events
-  public static final EventType<WeaponFireEvent> WEAPON_FIRE = new EventType<>(ANY);
+  public static final EventType<WeaponFireEvent> WEAPON_FIRE = new EventType<>(ANY, "WEAPON_FIRE");
 }

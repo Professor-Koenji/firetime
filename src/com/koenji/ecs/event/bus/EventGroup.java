@@ -18,10 +18,17 @@ public class EventGroup implements IEventGroup {
   }
 
   @Override
+  // TODO: Make this work for any depth of parent-child event types
   public void fireEvent(Event event) {
     EventType et = event.getEventType();
-    if (!eventObjects.containsKey(et)) return;
-    eventObjects.get(et).handle(event);
+    if (eventObjects.containsKey(et)) {
+      eventObjects.get(et).handle(event);
+    }
+    EventType parent = et.getSuperType();
+    if (parent == null) return;
+    if (eventObjects.containsKey(parent)) {
+      eventObjects.get(parent).handle(event);
+    }
   }
 
   @Override

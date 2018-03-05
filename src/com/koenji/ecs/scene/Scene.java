@@ -10,6 +10,9 @@ import com.koenji.ecs.event.bus.IEventBus;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 
 public abstract class Scene implements IScene {
 
@@ -108,7 +111,32 @@ public abstract class Scene implements IScene {
   }
 
   @Override
-  public IEventBus getEventBus() {
-    return eventBus;
+  public void fireEvent(Event type) {
+    fireEvent(type, false);
+  }
+
+  @Override
+  public void fireEvent(Event type, boolean propagate) {
+    eventBus.fireEvent(type, this, propagate);
+  }
+
+  @Override
+  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler) {
+    eventBus.addEventHandler(type, handler, this);
+  }
+
+  @Override
+  public <T extends Event> void removeEventHandler(EventType<T> type) {
+    eventBus.removeEventHandler(type, this, false);
+  }
+
+  @Override
+  public <T extends Event> void removeEventHandler(EventType<T> type, boolean global) {
+    eventBus.removeEventHandler(type, this, global);
+  }
+
+  @Override
+  public void removeAllEventHandlers(boolean global) {
+    eventBus.removeAllEventHandlers(this, global);
   }
 }

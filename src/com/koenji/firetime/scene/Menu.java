@@ -15,7 +15,7 @@ public class Menu extends Scene implements IMousePress {
   public void added(ICore core, IEventBus eventBus) {
     super.added(core, eventBus);
     //
-    getEventBus().addEventHandler(Events.WEAPON_FIRE, this::callback);
+    addEventHandler(Events.WEAPON_FIRE, this::callback);
   }
 
   private void callback(WeaponFireEvent event) {
@@ -26,7 +26,7 @@ public class Menu extends Scene implements IMousePress {
   public void removed() {
     super.removed();
     //
-    getEventBus().removeEventHandler(Events.WEAPON_FIRE);
+    removeEventHandler(Events.WEAPON_FIRE);
     core.unsubscribeAll(this);
   }
 
@@ -34,7 +34,7 @@ public class Menu extends Scene implements IMousePress {
   public void update(int dt) {
     super.update(dt);
 
-    getEventBus().fireEvent(new WeaponFireEvent());
+    fireEvent(new WeaponFireEvent(), false);
   }
 
   @Override

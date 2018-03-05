@@ -43,5 +43,9 @@ public class GamePrototype extends Scene {
     add(new CircleCollider());
     add(new ConvexCollider());
     add(new BasicRenderer());
+
+    addEventHandler(Events.ANY, event -> {
+      System.out.println("ANY GAME EVENT");
+    });
   }
 }
