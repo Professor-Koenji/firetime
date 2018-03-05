@@ -1,7 +1,6 @@
 package com.koenji.firetime.event;
 
 import javafx.event.Event;
-import javafx.event.EventType;
 
 public class WeaponFireEvent extends Event {
 

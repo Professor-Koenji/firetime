@@ -34,7 +34,7 @@ public class EventBus implements IEventBus {
   public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler, IScene scene) {
     if (!sceneEventGroups.containsKey(scene)) {
       sceneEventGroups.put(scene, new EventGroup());
-    };
+    }
     sceneEventGroups.get(scene).addEventHandler(type, handler);
   }
 

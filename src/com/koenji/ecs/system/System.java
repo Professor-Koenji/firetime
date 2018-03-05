@@ -5,7 +5,6 @@ import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.scene.IScene;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class System implements ISystem {

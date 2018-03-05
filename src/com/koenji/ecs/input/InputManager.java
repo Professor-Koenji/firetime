@@ -31,6 +31,7 @@ public class InputManager implements IInputManager {
     eventObservers.get(type).add(instance);
   }
 
+  @SuppressWarnings("unchecked")
   public <T extends IObserver> void unsubscribeAll(T instance) {
     for (Class<? extends IObserver> o : eventObservers.keySet()) {
       eventObservers.get(o).remove(instance);

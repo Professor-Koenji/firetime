@@ -16,8 +16,6 @@ import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.firetime.entity.game.Player;
 import com.koenji.firetime.entity.game.Wall;
 import com.koenji.firetime.event.Events;
-import com.koenji.firetime.event.WeaponFireEvent;
-import javafx.event.Event;
 
 public class GamePrototype extends Scene {
 
@@ -44,8 +42,6 @@ public class GamePrototype extends Scene {
     add(new ConvexCollider());
     add(new BasicRenderer());
 
-    addEventHandler(Events.ANY, event -> {
-      System.out.println("ANY GAME EVENT");
-    });
+    addEventHandler(Events.ANY, event -> System.out.println("ANY GAME EVENT"));
   }
 }

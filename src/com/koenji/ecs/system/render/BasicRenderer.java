@@ -8,7 +8,6 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
-import processing.core.PConstants;
 import processing.core.PVector;
 
 public class BasicRenderer extends System {

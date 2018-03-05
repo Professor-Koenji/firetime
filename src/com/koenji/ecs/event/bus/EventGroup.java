@@ -4,9 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class EventGroup implements IEventGroup {
@@ -18,17 +16,16 @@ public class EventGroup implements IEventGroup {
   }
 
   @Override
-  // TODO: Make this work for any depth of parent-child event types
   public void fireEvent(Event event) {
     EventType et = event.getEventType();
-    if (eventObjects.containsKey(et)) {
-      eventObjects.get(et).handle(event);
-    }
+    handleEvent(et, event);
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T extends Event> void handleEvent(EventType et, T event) {
+    if (eventObjects.containsKey(et)) eventObjects.get(et).handle(event);
     EventType parent = et.getSuperType();
-    if (parent == null) return;
-    if (eventObjects.containsKey(parent)) {
-      eventObjects.get(parent).handle(event);
-    }
+    if (parent != null) handleEvent(parent, event);
   }
 
   @Override

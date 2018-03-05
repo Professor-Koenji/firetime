@@ -11,6 +11,7 @@ import java.util.List;
 public class ConvexCollider extends System {
 
   @Override
+  @SuppressWarnings("unchecked")
   public void entityAdded(IEntity entity) {
     // Only those with Position & ConvexBody
     if (entity.hasComponents(Position.class, ConvexBody.class)) {
@@ -36,8 +37,8 @@ public class ConvexCollider extends System {
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);
 
-        /**
-         * Broad-phase checks
+        /*
+         Broad-phase collision check
          */
         // Are both ConvexBody's static?
         if (bA.isStatic && bB.isStatic) continue;
@@ -51,7 +52,7 @@ public class ConvexCollider extends System {
         List<PVector> edgesB = bB.edges(rB);
 
         // Offload all the data to our collision resolver
-        /**
+        /*
          * Narrow-phase checks
          */
         collisionCheck(a, b, pA, bA, edgesA, pB, bB, edgesB);

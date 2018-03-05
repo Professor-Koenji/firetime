@@ -6,7 +6,6 @@ import com.koenji.ecs.event.observer.IMousePress;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.firetime.event.Events;
 import com.koenji.firetime.event.WeaponFireEvent;
-import javafx.event.Event;
 import processing.event.MouseEvent;
 
 public class Menu extends Scene implements IMousePress {

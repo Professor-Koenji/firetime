@@ -4,14 +4,9 @@ import com.koenji.ecs.component.physics.InverseMass;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
-import com.koenji.ecs.entity.IEntityManager;
-import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import com.koenji.ecs.component.physics.CircleBody;
 import processing.core.PVector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CircleCollider extends System {
 
