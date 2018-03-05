@@ -7,16 +7,16 @@ import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.component.render.Stroke;
 import com.koenji.ecs.entity.EntityObject;
-import com.koenji.ecs.event.bus.IEventBus;
-import com.koenji.ecs.event.observer.IMouseMove;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
-import processing.event.MouseEvent;
 
-public class ConvexCollisions extends Scene implements IMouseMove {
+public class ConvexCollisions extends Scene {
 
   private Position mousePos;
 
@@ -69,10 +69,11 @@ public class ConvexCollisions extends Scene implements IMouseMove {
 
     // Render systems
     add(new BasicRenderer());
+
+    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
   }
 
-  @Override
-  public void mouseMove(MouseEvent event) {
-    mousePos.set(event.getX(), event.getY());
+  private void mouseMove(MouseEvent event) {
+    mousePos.set(event.position());
   }
 }

@@ -1,4 +1,4 @@
-package com.koenji.ecs.event.bus;
+package com.koenji.ecs.event;
 
 import com.koenji.ecs.scene.IScene;
 import javafx.event.Event;
@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 
 public interface IEventBus {
+  void fireEvent(Event event);
   void fireEvent(Event event, IScene scene, boolean propagate);
 
   <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler, IScene scene);

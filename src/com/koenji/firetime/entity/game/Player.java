@@ -3,16 +3,16 @@ package com.koenji.firetime.entity.game;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
-import com.koenji.ecs.event.observer.IKeyPress;
-import com.koenji.ecs.event.observer.IKeyRelease;
-import com.koenji.ecs.event.observer.IMouseMove;
-import com.koenji.ecs.event.observer.IMousePress;
+import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.events.IKeyEvent;
+import com.koenji.ecs.event.events.KeyEvent;
+import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.firetime.event.WeaponFireEvent;
+import jdk.internal.util.xml.impl.Input;
 import processing.core.PVector;
-import processing.event.KeyEvent;
-import processing.event.MouseEvent;
 
-public class Player extends Entity implements IKeyPress, IKeyRelease, IMousePress, IMouseMove {
+public class Player extends Entity {
 
   private boolean[] keys = new boolean[]{false,false,false,false};
 
@@ -54,9 +54,8 @@ public class Player extends Entity implements IKeyPress, IKeyRelease, IMousePres
     }
   }
 
-  @Override
-  public void keyPress(KeyEvent event) {
-    switch(event.getKeyCode()) {
+  public void keyPress(IKeyEvent event) {
+    switch(event.keyCode()) {
       case 87: // W
         keys[0] = true;
         break;
@@ -72,9 +71,8 @@ public class Player extends Entity implements IKeyPress, IKeyRelease, IMousePres
     }
   }
 
-  @Override
-  public void keyRelease(KeyEvent event) {
-    switch(event.getKeyCode()) {
+  public void keyRelease(IKeyEvent event) {
+    switch(event.keyCode()) {
       case 87: // W
         keys[0] = false;
         break;
@@ -90,19 +88,14 @@ public class Player extends Entity implements IKeyPress, IKeyRelease, IMousePres
     }
   }
 
-  @Override
   public void mousePress(MouseEvent event) {
+    scene.fireEvent(new WeaponFireEvent());
 
     Position p = getComponent(Position.class);
 
-    PVector v = PVector.sub(new PVector(event.getX(), event.getY()), p);
+    PVector v = PVector.sub(event.position(), p);
 
     Bullet b = new Bullet(PVector.add(p, v.setMag(20f)), v.setMag(5f));
     scene.add(b);
-  }
-
-  @Override
-  public void mouseMove(MouseEvent event) {
-
   }
 }

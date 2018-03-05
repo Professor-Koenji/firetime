@@ -1,4 +1,4 @@
-package com.koenji.ecs.event.bus;
+package com.koenji.ecs.event;
 
 import com.koenji.ecs.scene.IScene;
 import javafx.event.Event;
@@ -17,6 +17,11 @@ public class EventBus implements IEventBus {
   }
 
   @Override
+  public void fireEvent(Event event) {
+    fireEvent(event, null, true);
+  }
+
+  @Override
   public void fireEvent(Event event, IScene scene, boolean propagate) {
     if (propagate) {
       // Dispatch event on all eventgroups#
@@ -24,7 +29,7 @@ public class EventBus implements IEventBus {
         eg.fireEvent(event);
       }
     } else {
-      if (!sceneEventGroups.containsKey(scene)) return;
+      if (scene != null && !sceneEventGroups.containsKey(scene)) return;
       IEventGroup eg = sceneEventGroups.get(scene);
       eg.fireEvent(event);
     }

@@ -1,6 +1,5 @@
 package com.koenji.ecs;
 
-import com.koenji.ecs.event.observer.IObserver;
 import com.koenji.ecs.scene.IScene;
 
 public interface ICore {
@@ -16,6 +15,4 @@ public interface ICore {
   void update(int dt);
   void add(IScene scene);
   void remove(IScene scene);
-  <T extends IObserver> void subscribe(Class<T> type, T instance);
-  <T extends IObserver> void unsubscribeAll(T instance);
 }

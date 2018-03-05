@@ -6,7 +6,7 @@ import com.koenji.ecs.entity.EntityManager;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
-import com.koenji.ecs.event.bus.IEventBus;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
@@ -32,7 +32,9 @@ public abstract class Scene implements IScene {
     this.eventBus = eventBus;
   }
 
-  public void removed() {}
+  public void removed(boolean clearEvents) {
+    if (clearEvents) removeAllEventHandlers();
+  }
 
   @Override
   public void update(int dt) {
@@ -133,6 +135,11 @@ public abstract class Scene implements IScene {
   @Override
   public <T extends Event> void removeEventHandler(EventType<T> type, boolean global) {
     eventBus.removeEventHandler(type, this, global);
+  }
+
+  @Override
+  public void removeAllEventHandlers() {
+    removeAllEventHandlers(false);
   }
 
   @Override

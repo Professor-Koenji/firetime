@@ -1,13 +1,14 @@
 package com.koenji.ecs;
 
-import com.koenji.ecs.event.observer.*;
-import com.koenji.ecs.input.*;
+import com.koenji.ecs.event.EventBus;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.events.KeyEvent;
+import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
 import com.koenji.ecs.scene.SceneManager;
 import processing.core.PApplet;
-import processing.event.KeyEvent;
-import processing.event.MouseEvent;
 
 public abstract class Core extends PApplet implements ICore {
 
@@ -22,12 +23,10 @@ public abstract class Core extends PApplet implements ICore {
   // The background colour of the canvas clear
   private int clearColour;
 
+  // The event bus
+  private IEventBus eventBus;
   // The scene manager
   private ISceneManager sceneManager;
-  // The input manager
-  private IInputManager inputManager;
-  // Key Manager
-  private IKeyManager keyManager;
   // The last millis time
   private int time;
 
@@ -79,9 +78,8 @@ public abstract class Core extends PApplet implements ICore {
     randomSeed(millis());
     smooth(8);
     //
-    sceneManager = new SceneManager(this);
-    inputManager = new InputManager();
-    keyManager = new KeyManager();
+    eventBus = new EventBus();
+    sceneManager = new SceneManager(this, eventBus);
   }
 
   @Override
@@ -116,49 +114,55 @@ public abstract class Core extends PApplet implements ICore {
   }
 
   @Override
-  public void keyPressed(KeyEvent event) {
+  public void keyPressed(processing.event.KeyEvent event) {
     super.keyPressed(event);
     int keyCode = event.getKeyCode();
-    if (keyManager.isPressed(keyCode)) return;
-    keyManager.pressed(keyCode);
-    inputManager.notify(IKeyPress.class, event);
+    boolean isAutoRepeat = event.isAutoRepeat();
+    eventBus.fireEvent(new KeyEvent(InputEvents.KEY_PRESSED, keyCode, isAutoRepeat));
   }
 
   @Override
-  final public void keyReleased(KeyEvent event) {
+  final public void keyReleased(processing.event.KeyEvent event) {
     super.keyReleased(event);
     int keyCode = event.getKeyCode();
-    if (!keyManager.isPressed(keyCode)) return;
-    keyManager.released(keyCode);
-    inputManager.notify(IKeyRelease.class, event);
+    boolean isAutoRepeat = event.isAutoRepeat();
+    eventBus.fireEvent(new KeyEvent(InputEvents.KEY_RELEASED, keyCode, isAutoRepeat));
   }
 
   @Override
-  final public void mouseMoved(MouseEvent event) {
+  final public void mouseMoved(processing.event.MouseEvent event) {
     super.mouseMoved(event);
-
-    inputManager.notify(IMouseMove.class, event);
+    int x = event.getX();
+    int y = event.getY();
+    int button = event.getButton();
+    eventBus.fireEvent(new MouseEvent(InputEvents.MOUSE_MOVED, x, y, button));
   }
 
   @Override
-  public void mouseDragged(MouseEvent event) {
+  public void mouseDragged(processing.event.MouseEvent event) {
     super.mouseDragged(event);
-
-    inputManager.notify(IMouseMove.class, event);
+    int x = event.getX();
+    int y = event.getY();
+    int button = event.getButton();
+    eventBus.fireEvent(new MouseEvent(InputEvents.MOUSE_MOVED, x, y, button));
   }
 
   @Override
-  final public void mousePressed(MouseEvent event) {
+  final public void mousePressed(processing.event.MouseEvent event) {
     super.mousePressed();
-
-    inputManager.notify(IMousePress.class, event);
+    int x = event.getX();
+    int y = event.getY();
+    int button = event.getButton();
+    eventBus.fireEvent(new MouseEvent(InputEvents.MOUSE_PRESSED, x, y, button));
   }
 
   @Override
-  final public void mouseReleased(MouseEvent event) {
+  final public void mouseReleased(processing.event.MouseEvent event) {
     super.mouseReleased();
-
-    inputManager.notify(IMouseRelease.class, event);
+    int x = event.getX();
+    int y = event.getY();
+    int button = event.getButton();
+    eventBus.fireEvent(new MouseEvent(InputEvents.MOUSE_RELEASED, x, y, button));
   }
 
   public void setClearColour(int rgba) {
@@ -195,11 +199,6 @@ public abstract class Core extends PApplet implements ICore {
   public void remove(IScene scene) {
     sceneManager.remove(scene);
   }
-
-  public <T extends IObserver> void subscribe(Class<T> type, T instance) {
-    inputManager.subscribe(type, instance);
-  }
-  public <T extends IObserver> void unsubscribeAll(T instance) { inputManager.unsubscribeAll(instance); }
 
   public void init() {}
   public void update(int dt) {}

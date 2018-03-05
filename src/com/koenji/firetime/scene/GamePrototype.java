@@ -3,11 +3,8 @@ package com.koenji.firetime.scene;
 import com.koenji.ecs.ICore;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.entity.EntityObject;
-import com.koenji.ecs.event.bus.IEventBus;
-import com.koenji.ecs.event.observer.IKeyPress;
-import com.koenji.ecs.event.observer.IKeyRelease;
-import com.koenji.ecs.event.observer.IMouseMove;
-import com.koenji.ecs.event.observer.IMousePress;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.ConvexCollider;
@@ -31,17 +28,18 @@ public class GamePrototype extends Scene {
     add(wall);
     //d
     Player p = new Player();
-    core.subscribe(IKeyPress.class, p);
-    core.subscribe(IKeyRelease.class, p);
-    core.subscribe(IMousePress.class, p);
-    core.subscribe(IMouseMove.class, p);
+    addEventHandler(InputEvents.KEY_PRESSED, p::keyPress);
+    addEventHandler(InputEvents.KEY_RELEASED, p::keyRelease);
+    addEventHandler(InputEvents.MOUSE_PRESSED, p::mousePress);
     add(p);
-    //
+
+    addEventHandler(Events.WEAPON_FIRE, e -> {
+      System.out.println("WEAPON FIRE SOUND EFFECT!");
+    });
+
     add(new LinearMotion());
     add(new CircleCollider());
     add(new ConvexCollider());
     add(new BasicRenderer());
-
-    addEventHandler(Events.ANY, event -> System.out.println("ANY GAME EVENT"));
   }
 }

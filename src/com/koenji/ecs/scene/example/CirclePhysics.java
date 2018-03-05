@@ -9,18 +9,16 @@ import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
-import com.koenji.ecs.event.bus.IEventBus;
-import com.koenji.ecs.event.observer.IMouseMove;
-import com.koenji.ecs.event.observer.IMousePress;
-import com.koenji.ecs.event.observer.IMouseRelease;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import processing.core.PVector;
-import processing.event.MouseEvent;
 
-public class CirclePhysics extends Scene implements IMousePress, IMouseMove, IMouseRelease {
+public class CirclePhysics extends Scene {
 
   private IEntityGroup particles;
   private IEntity gravity;
@@ -56,23 +54,26 @@ public class CirclePhysics extends Scene implements IMousePress, IMouseMove, IMo
     add(new LinearMotion());
     add(new CircleCollider());
     add(new BasicRenderer());
+
+    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
+    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
+    addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
+
   }
 
-  @Override
   public void mouseMove(MouseEvent event) {
     RenderLine l = gravity.getComponent(RenderLine.class);
     if (l != null) {
-      l.to.set(event.getX(), event.getY());
+      l.to.set(event.position().x, event.position().y);
     }
   }
 
-  @Override
   public void mousePress(MouseEvent event) {
-    gravity.getComponent(Position.class).set(event.getX(), event.getY());
-    gravity.addComponent(new RenderLine(event.getX(), event.getY(), 0xFFFF88FF, 6));
+    gravity.getComponent(Position.class).set(event.position().x, event.position().y);
+    gravity.addComponent(new RenderLine(event.position().x, event.position().y, 0xFFFF88FF, 6));
+    System.out.println(gravity);
   }
 
-  @Override
   public void mouseRelease(MouseEvent event) {
     PVector grav = PVector.sub(gravity.getComponent(RenderLine.class).to, gravity.getComponent(Position.class)).setMag(.1f);
     particles.addComponent(new Gravity(grav));

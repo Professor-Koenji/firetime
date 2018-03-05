@@ -2,8 +2,8 @@ package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
 import com.koenji.ecs.debug.DebugScene;
-import com.koenji.ecs.event.observer.IKeyPress;
-import com.koenji.ecs.event.observer.IMousePress;
+import com.koenji.ecs.scene.example.CirclePhysics;
+import com.koenji.ecs.scene.example.ConvexCollisions;
 import com.koenji.firetime.scene.Menu;
 
 public class Game extends Core {
@@ -15,13 +15,10 @@ public class Game extends Core {
 
   @Override
   public void init() {
-
-    Menu menu = new Menu();
-    subscribe(IMousePress.class, menu);
-    add(menu);
+    ConvexCollisions cc = new ConvexCollisions();
+    add(cc);
 
     DebugScene ds = new DebugScene();
-    subscribe(IKeyPress.class, ds);
     add(ds);
   }
 }

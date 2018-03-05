@@ -1,4 +1,4 @@
-package com.koenji.ecs.event.bus;
+package com.koenji.ecs.event;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
