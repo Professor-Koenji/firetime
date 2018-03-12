@@ -28,11 +28,11 @@ public class CirclePhysics extends Scene {
     super.added(core, eventBus);
     //
     particles = new EntityGroup();
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < 100; ++i) {
       float x = core.random(0, core.getWidth());
       float y = core.random(0, core.getHeight());
       PVector vel = PVector.fromAngle(core.random(0f, 6.28f)).setMag(core.random(.5f, 2f));
-      float size = core.random(8, 32);
+      float size = core.random(4, 16);
       particles.add(EntityObject.create(
         new Position(x, y),
         new Velocity(vel),
@@ -47,13 +47,16 @@ public class CirclePhysics extends Scene {
       ));
     }
     add(particles);
-    add(gravity = EntityObject.create(
-      new Position()
-    ));
+    gravity = EntityObject.create(new Position());
+    add(gravity);
     // Systems
     add(new LinearMotion());
     add(new CircleCollider());
     add(new BasicRenderer());
+    // Add events
+    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
+    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
+    addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
   }
 
   public void mouseMove(MouseEvent event) {
@@ -66,7 +69,6 @@ public class CirclePhysics extends Scene {
   public void mousePress(MouseEvent event) {
     gravity.getComponent(Position.class).set(event.position().x, event.position().y);
     gravity.addComponent(new RenderLine(event.position().x, event.position().y, 0xFFFF88FF, 6));
-    System.out.println(gravity);
   }
 
   public void mouseRelease(MouseEvent event) {

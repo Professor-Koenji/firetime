@@ -4,11 +4,29 @@ import com.koenji.ecs.component.physics.InverseMass;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.graph.tree.IQuadTree;
+import com.koenji.ecs.graph.tree.IRect;
+import com.koenji.ecs.graph.tree.QuadTree;
+import com.koenji.ecs.graph.tree.Rect;
+import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import com.koenji.ecs.component.physics.CircleBody;
 import processing.core.PVector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CircleCollider extends System {
+
+  private IQuadTree quadTree;
+
+  @Override
+  public void added(IScene scene, IEventController eventController) {
+    super.added(scene, eventController);
+    //
+    quadTree = new QuadTree(new Rect(scene.gc().getWidth(), scene.gc().getHeight()), 10, 5);
+  }
 
   @Override
   public void entityAdded(IEntity entity) {
@@ -22,25 +40,34 @@ public class CircleCollider extends System {
   @SuppressWarnings("unchecked")
   public void update(int dt) {
     super.update(dt);
+    // Construct the quad tree!
+    List<CircleEntity> circles = new ArrayList<>();
+    quadTree.clear();
+    for (IEntity e : entities) {
+      CircleEntity ce = new CircleEntity(e);
+      circles.add(ce);
+      quadTree.insert(ce);
+    }
     //
-    for (int i = 0; i < entities.size() - 1; ++i) {
-      IEntity a = entities.get(i);
-      for (int j = i + 1; j < entities.size(); ++j) {
-        IEntity b = entities.get(j);
-
-        //
-        float dist = collisionDistance(
-          a.getComponent(Position.class),
-          b.getComponent(Position.class),
-          a.getComponent(CircleBody.class),
-          b.getComponent(CircleBody.class)
-        );
-
-        if (dist > 0) {
-          collisionResponse(a, b, dist);
-        }
-
+    for (CircleEntity ce : circles) {
+      List<IRect> nearbyCircles = quadTree.retrieve(ce);
+      for (IRect nc : nearbyCircles) {
+        CircleEntity nce = (CircleEntity) nc;
+        collisionCheck(ce.getEntity(), nce.getEntity());
       }
+    }
+  }
+
+  private void collisionCheck(IEntity a, IEntity b) {
+    float dist = collisionDistance(
+      a.getComponent(Position.class),
+      b.getComponent(Position.class),
+      a.getComponent(CircleBody.class),
+      b.getComponent(CircleBody.class)
+    );
+
+    if (dist > 0) {
+      collisionResponse(a, b, dist);
     }
   }
 
@@ -74,5 +101,38 @@ public class CircleCollider extends System {
 
     vA.add(fcvB);
     vB.add(fcvA);
+  }
+}
+
+class CircleEntity implements IRect {
+
+  private IEntity entity;
+
+  public CircleEntity(IEntity entity) {
+    this.entity = entity;
+  }
+
+  @Override
+  public float getX() {
+    return entity.getComponent(Position.class).x;
+  }
+
+  @Override
+  public float getY() {
+    return entity.getComponent(Position.class).y;
+  }
+
+  @Override
+  public float getW() {
+    return entity.getComponent(CircleBody.class).r * 2;
+  }
+
+  @Override
+  public float getH() {
+    return getW();
+  }
+
+  public IEntity getEntity() {
+    return entity;
   }
 }
