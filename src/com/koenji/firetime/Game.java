@@ -26,6 +26,9 @@ public class Game extends Core {
   List<INode> nodes;
   List<INode> path;
 
+  INode start;
+  INode target;
+
   public Game() {
     // Set initial resolution, fps & title
     super(800, 600, 60, "Firetime", 0x30000000);
@@ -34,33 +37,28 @@ public class Game extends Core {
   @Override
   public void init() {
     nodes = new ArrayList<>();
-    INode root = new Node(50, 50);
-    INode b = new Node(200, 45);
-    INode c = new Node(400, 190);
-    INode d = new Node(200, 390);
-    INode e = new Node(500, 400);
-    INode f = new Node(40, 240);
+    randomSeed(millis());
 
-    root.addNeighbour(b);
-    root.addNeighbour(c);
-    root.addNeighbour(d);
-    root.addNeighbour(f);
+    for (int i = 0; i < 50; ++i) {
+      INode n = new Node((int) random(0, 800), (int) random(0, 600));
+      nodes.add(n);
+      //
+      for (INode n2 : nodes) {
+        if (random(1,10) > 7) n.addNeighbour(n2);
+      }
+    }
 
-    b.addNeighbour(d);
+    start = nodes.get(0);
+    target = new Node(100, 100);
+    target.addNeighbour(nodes.get(10));
+    nodes.add(target);
+    Pathfinder pf = new Pathfinder(start);
+    path = pf.findPath(target);
 
-    d.addNeighbour(f);
-
-    e.addNeighbour(d);
-
-    Pathfinder pf = new Pathfinder(e);
-    path = pf.findPath(c);
-
-    nodes.add(root);
-    nodes.add(b);
-    nodes.add(c);
-    nodes.add(d);
-    nodes.add(e);
-    nodes.add(f);
+    addEventHandler(InputEvents.MOUSE_MOVED, event -> {
+      start.set(event.position());
+      path = pf.findPath(target);
+    });
   }
 
   @Override
@@ -70,14 +68,21 @@ public class Game extends Core {
     for (INode n : nodes) {
       List<INode> ns = n.getNeighbours();
       for (INode n2 : ns) {
-        stroke(path.contains(n) && path.contains(n2) ? 0xFF3333FF : 0x30FFFFFF);
-        strokeWeight(4);
+        stroke(path != null && path.contains(n) && path.contains(n2) ? 0xFF3333FF : 0x01FFFFFF);
+        strokeWeight(1);
         line(n.getX(), n.getY(), n2.getX(), n2.getY());
       }
-      fill(path.contains(n) ? 0x603333FF : 0x30FFFFFF);
-      stroke(path.contains(n) ? 0xFF3333FF : 0x30FFFFFF);
+      fill(path != null && path.contains(n) ? 0x603333FF : 0x30FFFFFF);
+      stroke(path != null && path.contains(n) ? 0xFF3333FF : 0x30FFFFFF);
+      if (n == start) {
+        fill(0xFF66FF66);
+        stroke(0xFF66FF66);
+      } else if (n == target) {
+        fill(0xFFFF6666);
+        stroke(0xFFFF6666);
+      }
       arc(n.getX(), n.getY(), 16, 16, 0, (float) Math.PI * 2f);
-      text("x: " + n.getX() + ", y: " + n.getY(), n.getX() + 16, n.getY() + 16);
+//      text("x: " + n.getX() + ", y: " + n.getY(), n.getX() + 16, n.getY() + 16);
     }
   }
 }

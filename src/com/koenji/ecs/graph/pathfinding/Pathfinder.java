@@ -27,7 +27,7 @@ public class Pathfinder {
       open.sort(new Comparator<IPathNode>() {
         @Override
         public int compare(IPathNode o1, IPathNode o2) {
-          return o1.getF() > o2.getF() ? -1 : 1;
+          return o1.getF() < o2.getF() ? -1 : 1;
         }
       });
       IPathNode current = open.get(0);

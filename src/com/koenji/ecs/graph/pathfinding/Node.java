@@ -1,5 +1,7 @@
 package com.koenji.ecs.graph.pathfinding;
 
+import processing.core.PVector;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,11 @@ public class Node implements INode {
 
   public int getY() {
     return y;
+  }
+
+  public void set(PVector position) {
+    this.x = (int) position.x;
+    this.y = (int) position.y;
   }
 
   public List<INode> getNeighbours() {
