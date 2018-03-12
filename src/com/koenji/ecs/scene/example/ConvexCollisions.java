@@ -69,6 +69,8 @@ public class ConvexCollisions extends Scene {
 
     // Render systems
     add(new BasicRenderer());
+
+    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
   }
 
   private void mouseMove(MouseEvent event) {
