@@ -45,4 +45,8 @@ public class Node implements INode {
     neighbours.remove(node);
     node.removeNeighbour(this);
   }
+
+  public void removeAllNeighbours() {
+    for (int i = neighbours.size() - 1; i >= 0; --i) removeNeighbour(neighbours.get(i));
+  }
 }

@@ -11,4 +11,5 @@ public interface INode {
   List<INode> getNeighbours();
   void addNeighbour(INode node);
   void removeNeighbour(INode node);
+  void removeAllNeighbours();
 }
