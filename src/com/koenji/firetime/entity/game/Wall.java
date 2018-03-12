@@ -3,6 +3,7 @@ package com.koenji.firetime.entity.game;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.Entity;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import processing.core.PVector;
 
@@ -11,8 +12,8 @@ public class Wall extends Entity {
   private Rotation rot;
 
   @Override
-  public void added(IScene scene) {
-    super.added(scene);
+  public void added(IScene scene, IEventController eventController) {
+    super.added(scene, eventController);
     //
     ConvexBody wall = new ConvexBody(
       250,

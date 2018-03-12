@@ -2,7 +2,9 @@ package com.koenji.ecs.system;
 
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +12,16 @@ import java.util.List;
 public class SystemManager implements ISystemManager {
 
   private IScene scene;
+  private IEventController eventController;
   private IEntityManager entityManager;
 
   private List<ISystem> toAdd;
   private List<ISystem> toRemove;
   private List<ISystem> systems;
 
-  public SystemManager(IScene scene, IEntityManager entityManager) {
+  public SystemManager(Scene scene, IEntityManager entityManager) {
     this.scene = scene;
+    this.eventController = scene;
     this.entityManager = entityManager;
 
     toAdd = new ArrayList<>();
@@ -48,7 +52,7 @@ public class SystemManager implements ISystemManager {
     // Add new scenes
     systems.addAll(toAdd);
     for (ISystem system : toAdd) {
-      system.added(scene, entityManager);
+      system.added(scene, eventController, entityManager);
     }
     // Empty modifier lists
     toAdd.clear();

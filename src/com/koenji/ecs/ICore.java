@@ -1,5 +1,6 @@
 package com.koenji.ecs;
 
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.scene.IScene;
 
 public interface ICore {

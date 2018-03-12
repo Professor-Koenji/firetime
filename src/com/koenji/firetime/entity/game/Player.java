@@ -3,13 +3,11 @@ package com.koenji.firetime.entity.game;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
-import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.event.events.IKeyEvent;
-import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.firetime.event.WeaponFireEvent;
-import jdk.internal.util.xml.impl.Input;
 import processing.core.PVector;
 
 public class Player extends Entity {
@@ -19,8 +17,8 @@ public class Player extends Entity {
   private Acceleration accel;
 
   @Override
-  public void added(IScene scene) {
-    super.added(scene);
+  public void added(IScene scene, IEventController eventController) {
+    super.added(scene, eventController);
     //
     addComponents(
       new Position(50, 50),
@@ -89,7 +87,7 @@ public class Player extends Entity {
   }
 
   public void mousePress(MouseEvent event) {
-    scene.fireEvent(new WeaponFireEvent());
+    eventController.fireEvent(new WeaponFireEvent(), false);
 
     Position p = getComponent(Position.class);
 

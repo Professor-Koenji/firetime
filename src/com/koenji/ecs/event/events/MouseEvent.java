@@ -1,6 +1,5 @@
 package com.koenji.ecs.event.events;
 
-import com.koenji.ecs.event.InputEvents;
 import javafx.event.Event;
 import javafx.event.EventType;
 import processing.core.PVector;

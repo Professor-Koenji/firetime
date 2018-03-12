@@ -33,10 +33,6 @@ public class GamePrototype extends Scene {
     addEventHandler(InputEvents.MOUSE_PRESSED, p::mousePress);
     add(p);
 
-    addEventHandler(Events.WEAPON_FIRE, e -> {
-      System.out.println("WEAPON FIRE SOUND EFFECT!");
-    });
-
     add(new LinearMotion());
     add(new CircleCollider());
     add(new ConvexCollider());

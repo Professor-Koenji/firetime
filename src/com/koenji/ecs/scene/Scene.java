@@ -7,6 +7,7 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
@@ -14,7 +15,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 
-public abstract class Scene implements IScene {
+public abstract class Scene implements IScene, IEventController {
 
   protected ICore core;
 

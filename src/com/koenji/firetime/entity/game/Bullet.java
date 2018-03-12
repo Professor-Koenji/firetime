@@ -3,6 +3,7 @@ package com.koenji.firetime.entity.game;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.firetime.event.WeaponFireEvent;
 import processing.core.PVector;
@@ -26,14 +27,12 @@ public class Bullet extends Entity {
   }
 
   @Override
-  public void added(IScene scene) {
-    super.added(scene);
+  public void added(IScene scene, IEventController eventController) {
+    super.added(scene, eventController);
     //
     addComponents(new BoundingBox(BoundingBox.WRAP, 0, 0, scene.gc().getWidth(), scene.gc().getHeight()));
-
-//    scene.gc().subscribe(IKeyPress.class, this);
-
-    scene.fireEvent(new WeaponFireEvent());
+    //
+    // fireEvent(new WeaponFireEvent());
   }
 
   public void keyPress(KeyEvent event) {

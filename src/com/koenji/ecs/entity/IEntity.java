@@ -1,10 +1,11 @@
 package com.koenji.ecs.entity;
 
 import com.koenji.ecs.component.IComponent;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 
 public interface IEntity {
-  void added(IScene scene);
+  void added(IScene scene, IEventController eventController);
   void removed();
   void update(int dt);
   IEntity addComponent(IComponent c);

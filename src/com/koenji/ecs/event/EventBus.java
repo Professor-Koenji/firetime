@@ -10,10 +10,10 @@ import java.util.Map;
 
 public class EventBus implements IEventBus {
 
-  private Map<IScene, IEventGroup> sceneEventGroups;
+  private Map<IEventController, IEventGroup> eventControllerGroups;
 
   public EventBus() {
-    sceneEventGroups = new HashMap<>();
+    eventControllerGroups = new HashMap<>();
   }
 
   @Override
@@ -22,50 +22,50 @@ public class EventBus implements IEventBus {
   }
 
   @Override
-  public void fireEvent(Event event, IScene scene, boolean propagate) {
-    if (propagate) {
+  public void fireEvent(Event event, IEventController eventController, boolean propagate) {
+    if (propagate || eventController == null) {
       // Dispatch event on all eventgroups#
-      for (IEventGroup eg : sceneEventGroups.values()) {
+      for (IEventGroup eg : eventControllerGroups.values()) {
         eg.fireEvent(event);
       }
     } else {
-      if (scene != null && !sceneEventGroups.containsKey(scene)) return;
-      IEventGroup eg = sceneEventGroups.get(scene);
+      if (!eventControllerGroups.containsKey(eventController)) return;
+      IEventGroup eg = eventControllerGroups.get(eventController);
       eg.fireEvent(event);
     }
   }
 
   @Override
-  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler, IScene scene) {
-    if (!sceneEventGroups.containsKey(scene)) {
-      sceneEventGroups.put(scene, new EventGroup());
+  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler, IEventController eventController) {
+    if (!eventControllerGroups.containsKey(eventController)) {
+      eventControllerGroups.put(eventController, new EventGroup());
     }
-    sceneEventGroups.get(scene).addEventHandler(type, handler);
+    eventControllerGroups.get(eventController).addEventHandler(type, handler);
   }
 
   @Override
-  public <T extends Event> void removeEventHandler(EventType<T> type, IScene scene, boolean global) {
+  public <T extends Event> void removeEventHandler(EventType<T> type, IEventController eventController, boolean global) {
     if (global) {
       // Remove this event type on EVERY SCENE
-      for (IEventGroup eg : sceneEventGroups.values()) {
+      for (IEventGroup eg : eventControllerGroups.values()) {
         eg.removeEventHandler(type);
       }
     } else {
-      if (!sceneEventGroups.containsKey(scene)) return;
-      IEventGroup eg = sceneEventGroups.get(scene);
+      if (eventController != null && !eventControllerGroups.containsKey(eventController)) return;
+      IEventGroup eg = eventControllerGroups.get(eventController);
       eg.removeEventHandler(type);
     }
   }
 
   @Override
-  public void removeAllEventHandlers(IScene scene, boolean global) {
+  public void removeAllEventHandlers(IEventController eventController, boolean global) {
     if (global) {
-      for (IEventGroup eg : sceneEventGroups.values()) {
+      for (IEventGroup eg : eventControllerGroups.values()) {
         eg.removeAllEventHandlers();
       }
     } else {
-      if (!sceneEventGroups.containsKey(scene)) return;
-      IEventGroup eg = sceneEventGroups.get(scene);
+      if (!eventControllerGroups.containsKey(eventController)) return;
+      IEventGroup eg = eventControllerGroups.get(eventController);
       eg.removeAllEventHandlers();
     }
   }

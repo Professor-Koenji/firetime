@@ -54,11 +54,6 @@ public class CirclePhysics extends Scene {
     add(new LinearMotion());
     add(new CircleCollider());
     add(new BasicRenderer());
-
-    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
-    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
-    addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
-
   }
 
   public void mouseMove(MouseEvent event) {

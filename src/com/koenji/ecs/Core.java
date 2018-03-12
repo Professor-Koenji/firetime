@@ -2,15 +2,19 @@ package com.koenji.ecs;
 
 import com.koenji.ecs.event.EventBus;
 import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
 import com.koenji.ecs.scene.SceneManager;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import processing.core.PApplet;
 
-public abstract class Core extends PApplet implements ICore {
+public abstract class Core extends PApplet implements ICore, IEventController {
 
   // The width of the window
   private int width;
@@ -202,4 +206,39 @@ public abstract class Core extends PApplet implements ICore {
 
   public void init() {}
   public void update(int dt) {}
+
+  @Override
+  public void fireEvent(Event type) {
+    fireEvent(type, false);
+  }
+
+  @Override
+  public void fireEvent(Event type, boolean propagate) {
+    eventBus.fireEvent(type, this, propagate);
+  }
+
+  @Override
+  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler) {
+    eventBus.addEventHandler(type, handler, null);
+  }
+
+  @Override
+  public <T extends Event> void removeEventHandler(EventType<T> type) {
+    removeEventHandler(type, false);
+  }
+
+  @Override
+  public <T extends Event> void removeEventHandler(EventType<T> type, boolean global) {
+    eventBus.removeEventHandler(type, this, global);
+  }
+
+  @Override
+  public void removeAllEventHandlers() {
+    removeAllEventHandlers(false);
+  }
+
+  @Override
+  public void removeAllEventHandlers(boolean global) {
+    eventBus.removeAllEventHandlers(this, global);
+  }
 }

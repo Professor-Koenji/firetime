@@ -6,6 +6,7 @@ import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.*;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
+import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import processing.core.PVector;
@@ -15,8 +16,8 @@ public class BasicRenderer extends System {
   private Core core;
 
   @Override
-  public void added(IScene scene, IEntityManager entityManager) {
-    super.added(scene, entityManager);
+  public void added(IScene scene, IEventController eventController, IEntityManager entityManager) {
+    super.added(scene, eventController, entityManager);
     //
     this.core = scene.gc();
   }
