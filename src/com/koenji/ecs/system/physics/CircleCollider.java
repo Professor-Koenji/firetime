@@ -50,10 +50,9 @@ public class CircleCollider extends System {
     }
     //
     for (CircleEntity ce : circles) {
-      List<IRect> nearbyCircles = quadTree.retrieve(ce);
-      for (IRect nc : nearbyCircles) {
-        CircleEntity nce = (CircleEntity) nc;
-        collisionCheck(ce.getEntity(), nce.getEntity());
+      List<CircleEntity> nearbyCircles = quadTree.retrieve(ce);
+      for (CircleEntity nc : nearbyCircles) {
+        collisionCheck(ce.getEntity(), nc.getEntity());
       }
     }
   }
@@ -102,37 +101,40 @@ public class CircleCollider extends System {
     vA.add(fcvB);
     vB.add(fcvA);
   }
+
+  private class CircleEntity implements IRect {
+
+    private IEntity entity;
+
+    public CircleEntity(IEntity entity) {
+      this.entity = entity;
+    }
+
+    @Override
+    public float getX() {
+      return entity.getComponent(Position.class).x;
+    }
+
+    @Override
+    public float getY() {
+      return entity.getComponent(Position.class).y;
+    }
+
+    @Override
+    public float getW() {
+      return entity.getComponent(CircleBody.class).r * 2;
+    }
+
+    @Override
+    public float getH() {
+      return getW();
+    }
+
+    public IEntity getEntity() {
+      return entity;
+    }
+  }
+
 }
 
-class CircleEntity implements IRect {
 
-  private IEntity entity;
-
-  public CircleEntity(IEntity entity) {
-    this.entity = entity;
-  }
-
-  @Override
-  public float getX() {
-    return entity.getComponent(Position.class).x;
-  }
-
-  @Override
-  public float getY() {
-    return entity.getComponent(Position.class).y;
-  }
-
-  @Override
-  public float getW() {
-    return entity.getComponent(CircleBody.class).r * 2;
-  }
-
-  @Override
-  public float getH() {
-    return getW();
-  }
-
-  public IEntity getEntity() {
-    return entity;
-  }
-}

@@ -82,7 +82,7 @@ public class QuadTree implements IQuadTree {
   }
 
   @Override
-  public void insert(IRect rect) {
+  public <T extends IRect> void insert(T rect) {
     // -1 -> 3
     // -1 is not classified into a single QT
     // 0 = TL, 1 = TR, 2 = BL, 3 = BR
@@ -114,7 +114,7 @@ public class QuadTree implements IQuadTree {
   }
 
   @Override
-  public List<IRect> retrieve(IRect rect) {
+  public <T extends IRect> List retrieve(T rect) {
     List<IRect> objects = new ArrayList<>();
     int region = getRegion(rect);
     if (region != -1 && nodes[0] != null) {

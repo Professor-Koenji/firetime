@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IQuadTree {
   void clear();
-  void insert(IRect rect);
-  List<IRect> retrieve(IRect rect);
+  <T extends IRect> void insert(T rect);
+  <T extends IRect> List<T> retrieve(T rect);
 }
