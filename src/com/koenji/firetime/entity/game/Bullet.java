@@ -5,7 +5,6 @@ import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
-import com.koenji.firetime.event.WeaponFireEvent;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 

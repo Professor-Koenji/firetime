@@ -1,4 +1,6 @@
-package com.koenji.ecs.graph.pathfinding;
+package com.koenji.ecs.graph.pathfinding.nodes;
+
+import java.util.List;
 
 public interface IPathNode {
   float getG();
@@ -8,4 +10,5 @@ public interface IPathNode {
   INode getNode();
   void setPrevious(IPathNode previous);
   IPathNode getPrevious();
+  List<INode> createPath();
 }

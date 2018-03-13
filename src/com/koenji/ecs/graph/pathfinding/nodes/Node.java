@@ -1,5 +1,6 @@
-package com.koenji.ecs.graph.pathfinding;
+package com.koenji.ecs.graph.pathfinding.nodes;
 
+import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import processing.core.PVector;
 
 import java.util.ArrayList;

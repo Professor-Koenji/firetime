@@ -1,4 +1,4 @@
-package com.koenji.ecs.graph.pathfinding;
+package com.koenji.ecs.graph.pathfinding.nodes;
 
 import processing.core.PVector;
 

@@ -1,6 +1,5 @@
 package com.koenji.ecs.event;
 
-import com.koenji.ecs.scene.IScene;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;

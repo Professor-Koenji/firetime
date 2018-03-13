@@ -6,9 +6,6 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.system.ISystem;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 
 public interface IScene {
   void added(ICore core, IEventBus eventBus);

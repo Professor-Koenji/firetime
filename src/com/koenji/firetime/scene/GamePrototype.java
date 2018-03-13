@@ -12,7 +12,6 @@ import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.firetime.entity.game.Player;
 import com.koenji.firetime.entity.game.Wall;
-import com.koenji.firetime.event.Events;
 
 public class GamePrototype extends Scene {
 
