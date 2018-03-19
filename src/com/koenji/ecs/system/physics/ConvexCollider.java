@@ -216,7 +216,7 @@ public class ConvexCollider extends System {
 
     @Override
     public float getW() {
-      return entity.getComponent(ConvexBody.class).size;
+      return entity.getComponent(ConvexBody.class).size * 2f;
     }
 
     @Override
