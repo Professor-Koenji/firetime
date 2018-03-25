@@ -1,7 +1,9 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.service.Locator;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
@@ -23,8 +25,8 @@ public class Game extends Core {
     File sfxFile = new File("assets/sfx/cannon.wav");
     Sound sfx = TinySound.loadSound(sfxFile);
 
-    addEventHandler(InputEvents.KEY_PRESSED, e -> {
+    Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e-> {
       sfx.play();
-    });
+    }, null);
   }
 }
