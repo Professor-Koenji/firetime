@@ -121,4 +121,9 @@ public class QuadTree implements IQuadTree {
     objects.addAll(this.objects);
     return objects;
   }
+
+  @Override
+  public IQuadTree[] getNodes() {
+    return nodes;
+  }
 }
