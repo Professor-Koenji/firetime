@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * EventBus class defines the behaviour of an event implementation within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

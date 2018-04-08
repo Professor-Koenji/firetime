@@ -7,7 +7,7 @@ import javafx.event.EventType;
 /**
  * IEventBus interface defines the behaviour of an event implementation within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

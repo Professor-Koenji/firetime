@@ -7,7 +7,7 @@ import processing.core.PVector;
 /**
  * MouseEvent is the concrete class that can be 'fired' as a MouseEvent within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 
