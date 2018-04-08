@@ -2,6 +2,12 @@ package com.koenji.ecs.system;
 
 import com.koenji.ecs.entity.IEntity;
 
+/**
+ * The interface for the SystemManager class.
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
+ */
 public interface ISystemManager {
   void add(ISystem system);
   void remove(ISystem system);
