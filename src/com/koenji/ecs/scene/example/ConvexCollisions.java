@@ -34,7 +34,7 @@ public class ConvexCollisions extends Scene {
       float y = core.gc().random(0, core.getHeight());
       float sx = core.gc().random(-2f, 2f);
       float sy = core.gc().random(-2f, 2f);
-      int sides = (int) core.random(3, 8);
+      int sides = (int) core.random(4, 8);
       ConvexBody body = ConvexBody.polygon(sides, 32);
 
       int colour = (int) core.random(0, 0xFFFFFF);
@@ -44,7 +44,7 @@ public class ConvexCollisions extends Scene {
         new Acceleration(),
         new Friction(0.98f),
         new Gravity(.1f),
-        new BoundingBox(BoundingBox.REFLECT, 0, 0, core.getWidth(), core.getHeight()),
+        new BoundingBox(BoundingBox.REFLECT, 32, 32, core.getWidth() - 64, core.getHeight() - 64),
         body,
         new RenderPolygon(body, 0x60000000 + colour),
         new Stroke(4, 0xFF000000 + colour)

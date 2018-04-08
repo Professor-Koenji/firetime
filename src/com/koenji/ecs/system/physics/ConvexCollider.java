@@ -2,6 +2,12 @@ package com.koenji.ecs.system.physics;
 
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.graph.tree.IQuadTree;
+import com.koenji.ecs.graph.tree.IRect;
+import com.koenji.ecs.graph.tree.QuadTree;
+import com.koenji.ecs.graph.tree.Rect;
+import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.system.System;
 import processing.core.PVector;
 
@@ -9,6 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConvexCollider extends System {
+
+  private IQuadTree quadTree;
+
+  @Override
+  public void added(IScene scene, IEventController eventController) {
+    super.added(scene, eventController);
+    //
+    quadTree = new QuadTree(new Rect(scene.gc().getWidth(), scene.gc().getHeight()), 10, 5);
+  }
 
   @Override
   @SuppressWarnings("unchecked")
@@ -22,17 +37,29 @@ public class ConvexCollider extends System {
   @Override
   public void update(int dt) {
     super.update(dt);
-    // Loop thru all but last convex entity
-    for (int i = 0; i < entities.size() - 1; ++i) {
-      IEntity a = entities.get(i);
+
+    // Setup the quadtree
+    List<ConvexEntity> shapes = new ArrayList<>();
+    quadTree.clear();
+    for (IEntity e : entities) {
+      ConvexEntity ce = new ConvexEntity(e);
+      shapes.add(ce);
+      quadTree.insert(ce);
+    }
+
+    for (ConvexEntity ce : shapes) {
+      // Pre-fetch some stuff
+      IEntity a = ce.getEntity();
       // Get the position, body & edges
       Position pA = a.getComponent(Position.class);
       ConvexBody bA = a.getComponent(ConvexBody.class);
       Rotation rA = a.getComponent(Rotation.class);
       List<PVector> edgesA = bA.edges(rA);
 
-      for (int j = i + 1; j < entities.size(); ++j) {
-        IEntity b = entities.get(j);
+      // Get nearby convex entities
+      List<ConvexEntity> nearby = quadTree.retrieve(ce);
+      for (ConvexEntity nce : nearby) {
+        IEntity b = nce.getEntity();
         // Get the position, body & edges
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);
@@ -40,12 +67,9 @@ public class ConvexCollider extends System {
         /*
          Broad-phase collision check
          */
-        // Are both ConvexBody's static?
+        // Are both ConvexBody's static, if so just skip!
+        // Static bodies cannot have collision response with each other
         if (bA.isStatic && bB.isStatic) continue;
-        // Simple one is if positions are further apart than body sizes
-        if (PVector.sub(pB, pA).mag() > bA.size + bB.size + 50) {
-          continue;
-        }
 
         // Get the 2nd bodies edges by this point, as we will need them
         Rotation rB = b.getComponent(Rotation.class);
@@ -170,5 +194,38 @@ public class ConvexCollider extends System {
    */
   private float overlapAmount(float[] r1, float[] r2) {
     return Math.min(r1[1], r2[1]) - Math.max(r1[0], r2[0]);
+  }
+
+  private class ConvexEntity implements IRect {
+
+    private IEntity entity;
+
+    public ConvexEntity(IEntity entity) {
+      this.entity = entity;
+    }
+
+    @Override
+    public float getX() {
+      return entity.getComponent(Position.class).x;
+    }
+
+    @Override
+    public float getY() {
+      return entity.getComponent(Position.class).y;
+    }
+
+    @Override
+    public float getW() {
+      return entity.getComponent(ConvexBody.class).size * 2f;
+    }
+
+    @Override
+    public float getH() {
+      return getW();
+    }
+
+    public IEntity getEntity() {
+      return entity;
+    }
   }
 }
