@@ -45,11 +45,11 @@ public class SimplePhysicsQT extends Scene {
     ));
     //
     particles = new EntityGroup();
-    for (int i = 0; i < 200; ++i) {
+    for (int i = 0; i < 1000; ++i) {
       float x = rng.random(0, gc.getWidth());
       float y = rng.random(0, gc.getHeight());
       PVector vel = PVector.fromAngle(rng.random(0f, 6.28f)).setMag(rng.random(.5f, 2f));
-      float size = rng.random(4, 8);
+      float size = rng.random(1, 4);
       int colour = (int) rng.random(0, 0xFFFFFF);
       particles.add(EntityObject.create(
         new Position(x, y),
