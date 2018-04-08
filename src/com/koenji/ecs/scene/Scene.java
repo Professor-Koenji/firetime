@@ -8,6 +8,7 @@ import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
 import com.koenji.ecs.system.SystemManager;
@@ -28,9 +29,9 @@ public abstract class Scene implements IScene, IEventController {
     this.systemManager = new SystemManager(this, entityManager);
   }
 
-  public void added(ICore core, IEventBus eventBus) {
+  public void added(ICore core) {
     this.core = core;
-    this.eventBus = eventBus;
+    eventBus = Locator.get(IEventBus.class);
   }
 
   public void removed(boolean clearEvents) {

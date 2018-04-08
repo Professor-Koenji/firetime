@@ -16,8 +16,8 @@ import com.koenji.firetime.entity.game.Wall;
 public class GamePrototype extends Scene {
 
   @Override
-  public void added(ICore core, IEventBus eventBus) {
-    super.added(core, eventBus);
+  public void added(ICore core) {
+    super.added(core);
     //
     add(EntityObject.create(
       new Background(0x10000040)
