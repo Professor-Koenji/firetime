@@ -9,7 +9,7 @@ import java.util.List;
  * EntityGroup defines the behaviour of a number of IEntities,
  * an implementation of an IEntityGroup interface within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

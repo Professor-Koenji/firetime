@@ -5,7 +5,7 @@ import com.koenji.ecs.component.IComponent;
 /**
  * IEntityGroup defines the behaviour of an implementation of a number of Entities within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

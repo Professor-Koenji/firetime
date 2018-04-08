@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * AudioManager defines the concrete implementation of the IAudioManager interface which uses the TinySound library
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

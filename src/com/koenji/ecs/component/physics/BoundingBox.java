@@ -7,7 +7,7 @@ import processing.core.PVector;
  * BoundingBox component to represent the confines of the body acting upon,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 
