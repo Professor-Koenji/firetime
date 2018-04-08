@@ -9,8 +9,6 @@ import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.graph.pathfinding.nodes.Node;
 import com.koenji.ecs.graph.pathfinding.Pathfinder;
 import com.koenji.ecs.scene.example.ConvexCollisions;
-import com.koenji.firetime.scene.GamePrototype;
-import com.koenji.firetime.scene.Menu;
 import processing.core.PVector;
 import com.koenji.ecs.service.Locator;
 import kuusisto.tinysound.Music;
@@ -29,7 +27,5 @@ public class Game extends Core {
   @Override
   public void init() {
     super.init();
-
-    add(new Menu());
   }
 }
