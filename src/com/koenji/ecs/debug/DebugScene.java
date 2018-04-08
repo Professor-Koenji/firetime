@@ -10,6 +10,14 @@ import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.render.BasicRenderer;
 
+/**
+ * DebugScene is a Scene created to show the current fps state/value,
+ * a concrete implementation of the Scene abstract class
+ *
+ * @author Brad Davis & Chris Williams
+ * @version 1.0
+ */
+
 public class DebugScene extends Scene {
 
   private boolean show;

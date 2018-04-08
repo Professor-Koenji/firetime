@@ -7,22 +7,42 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * ConvexBody component to represent the confines of the body acting upon,
+ * a concrete implementation of the IComponent interface
+ *
+ * @author Brad Davis & Chris Williams
+ * @version 1.0
+ */
+
 public class ConvexBody implements IComponent {
 
-  // The vertices of the convex shape
+  // DECLARE the vertices of the convex shape
   public List<PVector> vertices;
 
-  // The approximate size of this body
+  // DECLARE the approximate size of this body
   // Used in broad-phase collision checks
   public int size;
 
-  // is Static
+  // DECLARE the is Static value
   public boolean isStatic;
 
+  /**
+   * Method: create a static instance of a square body with size passed
+   * @param size - size of the body
+   * @return     - typeof ConvexBody
+   */
   public static ConvexBody square(float size) {
     return square(size, 0, 0);
   }
 
+  /**
+   * Method: create a static instance of a square body with size and offset for x & y
+   * @param size      - of the body
+   * @param offsetX   - x offset
+   * @param offsetY   - y offset
+   * @return          - typeof ConvexBody
+   */
   public static ConvexBody square(float size, float offsetX, float offsetY) {
     return new ConvexBody(
       (int) size,
@@ -34,10 +54,24 @@ public class ConvexBody implements IComponent {
     );
   }
 
+  /**
+   * Method: create a static instance of a polygon body setting the num of sides and size
+   * @param sides - of the body
+   * @param size  - of the body
+   * @return      - typeof ConvexBody
+   */
   public static ConvexBody polygon(int sides, float size) {
     return polygon(sides, size, 0, 0);
   }
 
+  /**
+   * Method: create a static instance of a polygon, setting the size
+   * @param sides   - of the body
+   * @param size    - of the body
+   * @param offsetX - x offset
+   * @param offsetY - y offset
+   * @return        - typeof ConvexBody
+   */
   public static ConvexBody polygon(int sides, float size, float offsetX, float offsetY) {
     PVector[] vs = new PVector[sides];
     float angleSlice = ((float) Math.PI * 2) / sides;
@@ -50,14 +84,20 @@ public class ConvexBody implements IComponent {
   }
 
   /**
-   * Creates a new ConvexBody with the given vertices
-   * @param size The approximate size of the body. Always over-estimate.
-   * @param vertices A list of points for the vertices of the shape
+   * Constructor: creates a new ConvexBody with the given vertices
+   * @param size     - the approximate size of the body. Always over-estimate.
+   * @param vertices - a list of points for the vertices of the shape
    */
   public ConvexBody(int size, PVector ...vertices) {
     this(size, false, vertices);
   }
 
+  /**
+   * Constructor: creates a new ConvexBody with given vertices and define if static
+   * @param size     - the approximate size of the body. Always over-estimate.
+   * @param isStatic - flag to set the isStatic field
+   * @param vertices - a list of points for the vertices of the shape
+   */
   public ConvexBody(int size, boolean isStatic, PVector ...vertices) {
     this.size = size;
     this.isStatic = isStatic;
@@ -65,13 +105,18 @@ public class ConvexBody implements IComponent {
   }
 
   /**
-   * Gets a list of the edges of the shape as vectors between vertices
-   * @return A list of edge vectors
+   * Method: Gets a list of the edges of the shape as vectors between vertices
+   * @return - A list of edge vectors
    */
   public List<PVector> edges() {
     return edges(null);
   }
 
+  /**
+   * Method: Gets a list of the edges of the shape as vectors between vertices with Rotation
+   * @param r - Rotation class of the angle
+   * @return  - A list of edge vectors
+   */
   public List<PVector> edges(Rotation r) {
     List<PVector> es = new ArrayList<>();
     for (int i = 0; i < vertices.size(); ++i) {
@@ -90,6 +135,11 @@ public class ConvexBody implements IComponent {
     return es;
   }
 
+  /**
+   * Method: Rotates vertices List by the Rotation class
+   * @param r - value of the Rotation class
+   * @return  - List of edge vectors
+   */
   public List<PVector> rotatedVertices(Rotation r) {
     if (r == null) return vertices;
     List<PVector> rots = new ArrayList<>();
@@ -99,12 +149,22 @@ public class ConvexBody implements IComponent {
     return rots;
   }
 
+  /**
+   * Method: Rotates a PVector given the angle
+   * @param v     - PVector class, x,y
+   * @param angle - float of the angle
+   * @return      - new PVector with rotation
+   */
   private PVector rotate(PVector v, float angle) {
     float x = v.x * (float) Math.cos(angle) - v.y * (float) Math.sin(angle);
     float y = v.x * (float) Math.sin(angle) + v.y * (float) Math.cos(angle);
     return new PVector(x, y);
   }
 
+  /**
+   * Method: Setter of the isStatic field
+   * @param isStatic - boolean flag
+   */
   public void setStatic(boolean isStatic) {
     this.isStatic = isStatic;
   }
