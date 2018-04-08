@@ -2,7 +2,10 @@ package com.koenji.ecs.system.physics;
 
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.event.PhysicsEvents;
+import com.koenji.ecs.event.events.CollisionEvent;
 import com.koenji.ecs.graph.tree.IQuadTree;
 import com.koenji.ecs.graph.tree.IRect;
 import com.koenji.ecs.graph.tree.QuadTree;
@@ -16,6 +19,12 @@ import processing.core.PVector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ConvexCollider handles collisions via polygons using SAT on Convex bodies.
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
+ */
 public class ConvexCollider extends System {
 
   private IQuadTree qt;
@@ -64,6 +73,8 @@ public class ConvexCollider extends System {
       List<ConvexEntity> nearby = qt.retrieve(ce);
       for (ConvexEntity nce : nearby) {
         IEntity b = nce.getEntity();
+        // Check we arent ourselves
+        if (a == b) continue;
         // Get the position, body & edges
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);
@@ -153,6 +164,9 @@ public class ConvexCollider extends System {
         pB.sub(mtv);
         if (vB != null) vB.sub(PVector.mult(mtv, 2));
       }
+      // Fire an event!
+      java.lang.System.out.println("Collision: " + minOverlap);
+      Locator.get(IEventBus.class).fireEvent(new CollisionEvent(PhysicsEvents.CONVEX_COLLISION, a, b));
     }
   }
 

@@ -10,6 +10,7 @@ import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.PhysicsEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.graph.tree.IQuadTree;
@@ -33,8 +34,6 @@ public class CollisionDetection extends Scene {
 
   private Position mousePos;
 
-  private IEntityGroup shapes;
-
   private ISystem qtRenderer;
   private boolean debug;
 
@@ -49,9 +48,8 @@ public class CollisionDetection extends Scene {
       new Background(0xFFF8FBFE)
     ));
 
-    shapes = new EntityGroup();
     // Entities
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 2; ++i) {
       float x = rng.random(0, gc.getWidth());
       float y = rng.random(0, gc.getHeight());
       float sx = rng.random(-2f, 2f);
@@ -60,7 +58,7 @@ public class CollisionDetection extends Scene {
       ConvexBody body = ConvexBody.polygon(sides, rng.random(10, 50));
 
       int colour = (int) rng.random(0, 0xFFFFFF);
-      shapes.add(EntityObject.create(
+      add(EntityObject.create(
         new Position(x, y),
         new Velocity(sx, sy),
         new Acceleration(),
@@ -72,7 +70,6 @@ public class CollisionDetection extends Scene {
         new RenderPolygon(body, 0xFF000000 + colour)
       ));
     }
-    add(shapes);
 
     // Spinners
     IEntityGroup spinners = new EntityGroup();

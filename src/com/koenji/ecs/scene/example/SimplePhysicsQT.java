@@ -67,7 +67,7 @@ public class SimplePhysicsQT extends Scene {
     gravity = EntityObject.create(new Position());
     add(gravity);
     // Systems
-    IQuadTree qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 10);
+    IQuadTree qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 5, 10);
     add(new LinearMotion());
     add(new CircleCollider(qt));
     add(new BasicRenderer());
