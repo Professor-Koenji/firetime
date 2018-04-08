@@ -33,6 +33,7 @@ public class CircleCollider extends System {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public void entityAdded(IEntity entity) {
     // Only add if components are present
     if (entity.hasComponents(Position.class, CircleBody.class, Velocity.class, InverseMass.class)) {

@@ -21,14 +21,12 @@ public class ConvexCollisions extends Scene {
 
   private Position mousePos;
 
-  private IRandom rng;
-  private IGraphicsContext gc;
-
   @Override
   public void added() {
     super.added();
 
-    rng = Locator.get(IRandom.class);
+    IRandom rng = Locator.get(IRandom.class);
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
 
     add(EntityObject.create(
       new Background(0x30000099)
