@@ -10,6 +10,7 @@ import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.PhysicsEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.graph.tree.IQuadTree;

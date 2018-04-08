@@ -3,6 +3,13 @@ package com.koenji.ecs.service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A service locator for use in registering some common
+ * utlity and service classes.
+ *
+ * @author Chris Williams
+ * @version 1.0
+ */
 public class Locator {
 
   private static Map<Class<?>, Object> services = new HashMap<>();

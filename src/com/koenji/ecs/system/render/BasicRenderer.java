@@ -12,6 +12,12 @@ import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.System;
 import processing.core.PVector;
 
+/**
+ * A general-purpose basic renderer that draws most primitives and polgon shapes.
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.2
+ */
 public class BasicRenderer extends System {
 
   private IGraphicsContext gc;
@@ -27,7 +33,8 @@ public class BasicRenderer extends System {
   @SuppressWarnings("unchecked")
   public void update(int dt) {
     super.update(dt);
-    //
+    // Ensure no nullptr exceptions from null gc
+    // Automatically removes this system if gc isn't available for some reason.
     if (gc == null) {
       java.lang.System.out.println("GraphicsContext is not available -> BasicRenderer will remove itself.");
       scene.remove(this);
@@ -37,6 +44,7 @@ public class BasicRenderer extends System {
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
 
+      // Background renderer
       if (e.hasComponents(Background.class)) {
         Background b = e.getComponent(Background.class);
         gc.noStroke();
@@ -44,12 +52,15 @@ public class BasicRenderer extends System {
         gc.rect(0, 0, gc.getWidth(), gc.getHeight());
       }
 
+      // Rendering polygons
       if (e.hasComponents(Position.class, RenderPolygon.class)) {
         Position p = e.getComponent(Position.class);
         RenderPolygon rc = e.getComponent(RenderPolygon.class);
         Rotation r = e.getComponent(Rotation.class);
+        // Save matrix state
         gc.pushMatrix();
         gc.translate(p.x, p.y);
+        // Rotation matrix
         if (r != null) gc.rotate(r.angle);
         gc.fill(rc.rgba);
         if (stroke != null) {
@@ -61,9 +72,11 @@ public class BasicRenderer extends System {
         gc.beginShape();
         for (PVector v : rc.vertices) gc.vertex(v.x, v.y);
         gc.endShape(gc.CLOSE);
+        // Restore transformation matrix
         gc.popMatrix();
       }
 
+      // Circles
       if (e.hasComponents(Position.class, RenderCircle.class)) {
         Position p = e.getComponent(Position.class);
         RenderCircle rc = e.getComponent(RenderCircle.class);
@@ -77,6 +90,7 @@ public class BasicRenderer extends System {
         gc.arc(p.x, p.y, rc.r*2, rc.r*2, 0, gc.TWO_PI);
       }
 
+      // Lines
       if (e.hasComponents(Position.class, RenderLine.class)) {
         Position p = e.getComponent(Position.class);
         RenderLine rl = e.getComponent(RenderLine.class);
@@ -85,6 +99,7 @@ public class BasicRenderer extends System {
         gc.line(p.x, p.y, rl.to.x, rl.to.y);
       }
 
+      // Text
       if (e.hasComponents(Position.class, Text.class)) {
         Position p = e.getComponent(Position.class);
         Text t = e.getComponent(Text.class);

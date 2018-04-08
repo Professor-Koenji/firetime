@@ -1,6 +1,11 @@
 package com.koenji.firetime.scenes;
 
+import com.koenji.ecs.component.physics.CircleBody;
+import com.koenji.ecs.component.physics.ConvexBody;
+import com.koenji.ecs.component.render.RenderCircle;
+import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.PhysicsEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.Scene;
