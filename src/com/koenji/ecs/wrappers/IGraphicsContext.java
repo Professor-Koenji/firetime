@@ -17,6 +17,7 @@ public interface IGraphicsContext {
 
   void fill(int rgb);
   void fill(int rgb, float alpha);
+  void noFill();
 
   void rotate(float angle);
   void translate(float x, float y);

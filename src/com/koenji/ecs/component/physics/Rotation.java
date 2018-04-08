@@ -14,6 +14,10 @@ public class Rotation implements IComponent {
 
   // DECLARE a float to rep the angle
   public float angle;
+  
+  public Rotation() {
+    this(0);
+  }
 
   /**
    * Constructor: set the angle field given the value

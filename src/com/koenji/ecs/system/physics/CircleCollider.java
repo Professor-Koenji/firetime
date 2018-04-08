@@ -21,18 +21,19 @@ import java.util.List;
 
 public class CircleCollider extends System {
 
-  private IQuadTree quadTree;
+  private IQuadTree qt;
 
-  @Override
-  public void added(IScene scene, IEventController eventController) {
-    super.added(scene, eventController);
-    //
+  public CircleCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
-    //
-    quadTree = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+    this.qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+  }
+
+  public CircleCollider(IQuadTree qt) {
+    this.qt = qt;
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public void entityAdded(IEntity entity) {
     // Only add if components are present
     if (entity.hasComponents(Position.class, CircleBody.class, Velocity.class, InverseMass.class)) {
@@ -46,15 +47,15 @@ public class CircleCollider extends System {
     super.update(dt);
     // Construct the quad tree!
     List<CircleEntity> circles = new ArrayList<>();
-    quadTree.clear();
+    qt.clear();
     for (IEntity e : entities) {
       CircleEntity ce = new CircleEntity(e);
       circles.add(ce);
-      quadTree.insert(ce);
+      qt.insert(ce);
     }
     //
     for (CircleEntity ce : circles) {
-      List<CircleEntity> nearbyCircles = quadTree.retrieve(ce);
+      List<CircleEntity> nearbyCircles = qt.retrieve(ce);
       for (CircleEntity nc : nearbyCircles) {
         collisionCheck(ce.getEntity(), nc.getEntity());
       }
