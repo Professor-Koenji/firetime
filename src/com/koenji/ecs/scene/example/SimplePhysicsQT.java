@@ -25,6 +25,13 @@ import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRandom;
 import processing.core.PVector;
 
+/**
+ * Another demonstration of particle physics simulation using the CircleCollider &
+ * LinearMotion systems, with an optional debug-view of the QuadTree at work. (Press 'space')
+ *
+ * @author Brad Davies
+ * @version 1.2
+ */
 public class SimplePhysicsQT extends Scene {
 
   private IEntityGroup particles;

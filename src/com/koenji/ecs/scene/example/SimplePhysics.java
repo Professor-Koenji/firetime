@@ -28,6 +28,12 @@ import com.koenji.ecs.wrappers.IRandom;
 import javafx.event.Event;
 import processing.core.PVector;
 
+/**
+ * A demonstration of particle physics simulation using the CircleCollider & LinearMotion systems.
+ *
+ * @author Brad Davies
+ * @version 1.2
+ */
 public class SimplePhysics extends Scene {
 
   private IEntityGroup particles;

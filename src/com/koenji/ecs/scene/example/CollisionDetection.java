@@ -30,9 +30,13 @@ import processing.core.PVector;
 
 import java.security.Key;
 
+/**
+ * A demonstration of SAT collision detection using the ConvexCollider system.
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.1
+ */
 public class CollisionDetection extends Scene {
-
-  private Position mousePos;
 
   private ISystem qtRenderer;
   private boolean debug;
@@ -105,7 +109,6 @@ public class CollisionDetection extends Scene {
     debug = false;
     qtRenderer = new QuadtreeRenderer(qt, 0xFFFF3333);
 
-    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
     addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
   }
 
@@ -120,9 +123,5 @@ public class CollisionDetection extends Scene {
       if (debug) add(qtRenderer);
       else remove(qtRenderer);
     }
-  }
-
-  private void mouseMove(MouseEvent event) {
-    if (mousePos != null) mousePos.set(event.position());
   }
 }
