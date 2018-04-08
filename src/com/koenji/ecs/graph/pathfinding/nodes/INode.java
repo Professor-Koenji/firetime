@@ -5,7 +5,7 @@ import processing.core.PVector;
 import java.util.List;
 
 /**
- * A raw 2D waypoint-style graph node implementation.
+ * A raw 2D waypoint-style graph node implementation
  *
  * @author Brad Davies & Chris Williams
  * @version 1.0

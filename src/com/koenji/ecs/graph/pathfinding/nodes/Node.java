@@ -7,21 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Node implementation used within the provided Path Findings systems.
+ * Node class defines the behaviour of a node used in the system, implementing the INode interface.
  *
  * @author Brad Davies & Chris Williams
- * @version 1.1
+ * @version 1.0
  */
 public class Node implements INode {
 
+  // int values of position x,y
   private int x;
   private int y;
+  // List of node neighbours
   private List<INode> neighbours;
 
   /**
-   * Constructs a new Node.
-   * @param x The X position of the node.
-   * @param y The Y position of the node.
+   * Constructor: set the x,y of the node and create the neighbours List
+   * @param x
+   * @param y
    */
   public Node(int x, int y) {
     this.x = x;
@@ -30,22 +32,24 @@ public class Node implements INode {
   }
 
   /**
-   * @return Gets the X position of the Node.
+   * Method: GETTER for the x value
+   * @return - int of x
    */
   public int getX() {
     return x;
   }
 
   /**
-   * @return Gets the Y position of the node.
+   * Method: GETTER for the y value
+   * @return - int of y
    */
   public int getY() {
     return y;
   }
 
   /**
-   * Sets the Node to the vector position.
-   * @param position The desired position of this Node.
+   * Method: SETTER for the nodes position
+   * @param position - PVector class of position
    */
   public void set(PVector position) {
     this.x = (int) position.x;
@@ -53,15 +57,16 @@ public class Node implements INode {
   }
 
   /**
-   * @return Returns all neighbours of this Node.
+   * Method: returns a List of neighbouring Nodes
+   * @return - List of neighbours
    */
   public List<INode> getNeighbours() {
     return neighbours;
   }
 
   /**
-   * Connects the nodes together.
-   * @param node Connect the given node to this node.
+   * Method: adds a node to the neighbours List and tries to add itself to neighbour
+   * @param node - INode neighbour
    */
   public void addNeighbour(INode node) {
     if (neighbours.contains(node)) return;
@@ -70,8 +75,8 @@ public class Node implements INode {
   }
 
   /**
-   * Removes the graph connection between the two nodes.
-   * @param node Disconnect the link between this node and the given node.
+   * Method: removes a node from neighbours List and tries to remove itself from neighbour
+   * @param node
    */
   public void removeNeighbour(INode node) {
     if (!neighbours.contains(node)) return;
@@ -80,7 +85,7 @@ public class Node implements INode {
   }
 
   /**
-   * Remove all neighbours from this node.
+   * Method: calls the removeNeighbour method on all neighbours
    */
   public void removeAllNeighbours() {
     for (int i = neighbours.size() - 1; i >= 0; --i) removeNeighbour(neighbours.get(i));

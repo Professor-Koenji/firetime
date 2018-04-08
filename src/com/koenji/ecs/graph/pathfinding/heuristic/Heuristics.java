@@ -1,7 +1,10 @@
 package com.koenji.ecs.graph.pathfinding.heuristic;
 
 /**
- * A static list of out-of-the-box Heuristics provided.
+ * Heuristics class defines the most popular heurisitics used for pathfinding
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
  */
 public class Heuristics {
 

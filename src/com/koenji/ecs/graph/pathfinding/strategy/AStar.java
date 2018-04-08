@@ -8,18 +8,41 @@ import com.koenji.ecs.graph.pathfinding.nodes.PathNode;
 
 import java.util.*;
 
+/**
+ * A* strategy to find the path between INodes, guaranteed to find the shortest path, defaults to using the
+ * Euclidean strategy
+ *
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
+ */
+
 public class AStar implements IPathStrategy {
 
+  // store the heuristic
   private IHeuristic heuristic;
 
+  /**
+   * Constructor: set the default heuristic to euclidean
+   */
   public AStar() {
     this.heuristic = Heuristics.euclidean;
   }
 
+  /**
+   * Constructor: set the heuristic
+   * @param heuristic
+   */
   public AStar(IHeuristic heuristic) {
     this.heuristic = heuristic;
   }
 
+  /**
+   * Method: used to find shortest path between the start and target nodes, returns a List of INodes of path if found, null if no path found
+   * @param start   - starting INode
+   * @param target  - INode of target
+   * @return        - return the INodes path
+   */
   @Override
   public List<INode> findPath(INode start, INode target) {
     // Open and Closed lists

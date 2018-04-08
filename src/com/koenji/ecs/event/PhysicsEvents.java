@@ -5,9 +5,9 @@ import javafx.event.Event;
 import javafx.event.EventType;
 
 /**
- * PhysicsEvents defines some basic collision events that are emitted from the two collision systems.
+ * PhysicsEvents defines the generic collision events handled by the system, mapping them to a respective EventType
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davis & Chris Williams
  * @version 1.0
  */
 public class PhysicsEvents {
