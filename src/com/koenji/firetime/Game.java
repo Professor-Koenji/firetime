@@ -31,13 +31,5 @@ public class Game extends Core {
     super.init();
 
     add(new Menu());
-    //
-//    TinySound.init();
-//    File sfxFile = new File("assets/sfx/cannon.wav");
-//    Sound sfx = TinySound.loadSound(sfxFile);
-//
-//    Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e-> {
-//      sfx.play();
-//    }, null);
   }
 }
