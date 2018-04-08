@@ -16,6 +16,14 @@ import com.koenji.ecs.wrappers.IRandom;
 import com.koenji.ecs.wrappers.IRootScene;
 import processing.core.PApplet;
 
+/**
+ * The main class that provides the full ECS and Processing functionality.
+ * Your own implementation should extend this class, and have it instantiated
+ * statically through PApplet.main(class);
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
+ */
 public abstract class Core extends PApplet implements IRandom, IGraphicsContext, IRootScene {
 
   // The width of the window

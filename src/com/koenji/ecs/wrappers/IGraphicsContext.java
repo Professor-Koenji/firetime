@@ -7,6 +7,9 @@ import processing.core.PApplet;
  * Helps abstract away the complexities of the PApplet class (that is 3rd party),
  * and helps to use it cleanly as part of the Service Location pattern without
  * having access to completely unrelated functionality (random numbers, audio, etc.).
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
  */
 public interface IGraphicsContext {
 

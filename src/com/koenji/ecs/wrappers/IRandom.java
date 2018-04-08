@@ -3,6 +3,9 @@ package com.koenji.ecs.wrappers;
 /**
  * A wrapper interface that should sit on-top of any object that implements
  * pseudo-random number generator functionality.
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.0
  */
 public interface IRandom {
 
