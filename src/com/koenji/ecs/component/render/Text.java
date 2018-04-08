@@ -24,7 +24,6 @@ public class Text implements IComponent {
 
   /**
    * Constructor: set the value, size and colour of text
-   *
    * @param contents  - String value of text
    * @param size      - int value of the size
    * @param rgba      - int value of colour
@@ -35,7 +34,6 @@ public class Text implements IComponent {
 
   /**
    * Constructor: set the value, size, colour & position of text
-   *
    * @param contents  - String value of text
    * @param size      - int value of the size
    * @param rgba      - int value of colour
@@ -50,7 +48,6 @@ public class Text implements IComponent {
 
   /**
    * Method: SETTER for the contents field
-   *
    * @param contents - value of the text
    */
   public void set(String contents) {

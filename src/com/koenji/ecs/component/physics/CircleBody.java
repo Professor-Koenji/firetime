@@ -17,7 +17,6 @@ public class CircleBody implements IComponent {
 
   /**
    * Constructor: set the radius of the body
-   *
    * @param r - float of the radius
    */
   public CircleBody(float r) {

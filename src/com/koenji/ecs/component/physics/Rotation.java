@@ -17,7 +17,6 @@ public class Rotation implements IComponent {
 
   /**
    * Constructor: set the angle field given the value
-   *
    * @param angle - float of the angle
    */
   public Rotation(float angle) {

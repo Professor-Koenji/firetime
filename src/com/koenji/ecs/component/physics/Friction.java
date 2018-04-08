@@ -40,7 +40,6 @@ public class Friction extends PVector implements IComponent {
 
   /**
    * Constructor: set x,y,z values via a PVector
-   *
    * @param v - PVector class of x,y,z
    */
   public Friction(PVector v) {

@@ -22,7 +22,6 @@ public class Velocity extends PVector implements IComponent {
 
   /**
    * Constructor: set the x & y values, z = 0
-   *
    * @param x - float of the x value
    * @param y - float of the y value
    */
@@ -32,7 +31,6 @@ public class Velocity extends PVector implements IComponent {
 
   /**
    * Constructor: set the x,y & z values
-   *
    * @param x - float of the x value
    * @param y - float of the y value
    * @param z - float of the z value
@@ -43,7 +41,6 @@ public class Velocity extends PVector implements IComponent {
 
   /**
    * Constructor: set the x,y & z values via a PVector class
-   *
    * @param vector - PVector class with x,y,z values
    */
   public Velocity(PVector vector) {

@@ -21,7 +21,6 @@ public class Position extends PVector implements IComponent {
 
   /**
    * Constructor: set the x and y position
-   *
    * @param x - float value of x
    * @param y - float value of y
    */
@@ -31,7 +30,6 @@ public class Position extends PVector implements IComponent {
 
   /**
    * Constructor: set the x,y and z position
-   *
    * @param x - float value of x
    * @param y - float value of y
    * @param z - float value of z
@@ -42,7 +40,6 @@ public class Position extends PVector implements IComponent {
 
   /**
    * Constructor: set the x,y & z position via PVector class
-   *
    * @param v - PVector class with x,y,z values
    */
   public Position(PVector v) {

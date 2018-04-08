@@ -16,7 +16,6 @@ public class Background implements IComponent {
 
   /**
    * Constructor: set the rgba field given the value passed
-   *
    * @param rgba - int of the rgba value
    */
   public Background(int rgba) {

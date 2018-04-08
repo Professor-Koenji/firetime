@@ -25,7 +25,6 @@ public class RenderPolygon implements IComponent {
 
   /**
    * Constructor: set the colour and vertices of the polygon
-   *
    * @param rgba      - int value of the colour
    * @param vertices  - PVector class(es) of the vertices
    */
@@ -36,7 +35,6 @@ public class RenderPolygon implements IComponent {
 
   /**
    * Constructor: set a polygon given the ConvexBody and colour
-   *
    * @param body  - ConvexBody to build from
    * @param rgba  - int value of the colour
    */

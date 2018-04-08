@@ -21,7 +21,6 @@ public class RenderLine implements IComponent {
 
   /**
    * Constructor: set the x,y colour and weight of the RenderLine
-   *
    * @param x       - float x value
    * @param y       - float y value
    * @param rgba    - int rgba value

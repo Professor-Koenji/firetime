@@ -29,7 +29,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: create a static instance of a square body with size passed
-   *
    * @param size - size of the body
    * @return     - typeof ConvexBody
    */
@@ -39,7 +38,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: create a static instance of a square body with size and offset for x & y
-   *
    * @param size      - of the body
    * @param offsetX   - x offset
    * @param offsetY   - y offset
@@ -58,7 +56,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: create a static instance of a polygon body setting the num of sides and size
-   *
    * @param sides - of the body
    * @param size  - of the body
    * @return      - typeof ConvexBody
@@ -69,7 +66,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: create a static instance of a polygon, setting the size
-   *
    * @param sides   - of the body
    * @param size    - of the body
    * @param offsetX - x offset
@@ -89,7 +85,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Constructor: creates a new ConvexBody with the given vertices
-   *
    * @param size     - the approximate size of the body. Always over-estimate.
    * @param vertices - a list of points for the vertices of the shape
    */
@@ -99,7 +94,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Constructor: creates a new ConvexBody with given vertices and define if static
-   *
    * @param size     - the approximate size of the body. Always over-estimate.
    * @param isStatic - flag to set the isStatic field
    * @param vertices - a list of points for the vertices of the shape
@@ -112,7 +106,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: Gets a list of the edges of the shape as vectors between vertices
-   *
    * @return - A list of edge vectors
    */
   public List<PVector> edges() {
@@ -121,7 +114,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: Gets a list of the edges of the shape as vectors between vertices with Rotation
-   *
    * @param r - Rotation class of the angle
    * @return  - A list of edge vectors
    */
@@ -145,7 +137,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: Rotates vertices List by the Rotation class
-   *
    * @param r - value of the Rotation class
    * @return  - List of edge vectors
    */
@@ -160,7 +151,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: Rotates a PVector given the angle
-   *
    * @param v     - PVector class, x,y
    * @param angle - float of the angle
    * @return      - new PVector with rotation
@@ -173,7 +163,6 @@ public class ConvexBody implements IComponent {
 
   /**
    * Method: Setter of the isStatic field
-   *
    * @param isStatic - boolean flag
    */
   public void setStatic(boolean isStatic) {

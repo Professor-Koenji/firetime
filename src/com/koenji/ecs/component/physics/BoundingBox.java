@@ -26,7 +26,6 @@ public class BoundingBox implements IComponent {
 
   /**
    * Constructor: set the position, height & width of the bounding box, defaults to static REFLECT val
-   *
    * @param x - float of x pos
    * @param y - float of y pos
    * @param w - float of width
@@ -38,7 +37,6 @@ public class BoundingBox implements IComponent {
 
   /**
    * Constructor: set the type, position, height & width of the bounding box
-   *
    * @param type - int of type
    * @param x    - float of x pos
    * @param y    - float of y pos
@@ -53,7 +51,6 @@ public class BoundingBox implements IComponent {
 
   /**
    * Constructor: set position and size via PVector class
-   *
    * @param pos   - PVector of position
    * @param size  - PVector of size
    */
@@ -63,7 +60,6 @@ public class BoundingBox implements IComponent {
 
   /**
    * Constructor: set type, postion and size via PVector class
-   *
    * @param type - int of type
    * @param pos  - PVector of position
    * @param size - PVector of size

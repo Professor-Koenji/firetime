@@ -15,7 +15,6 @@ public class Gravity extends PVector implements IComponent {
 
   /**
    * Constructor: set the value of y
-   *
    * @param gravity - float of the y value
    */
   public Gravity(float gravity) {
@@ -24,7 +23,6 @@ public class Gravity extends PVector implements IComponent {
 
   /**
    * Constructor: set the x,y,z value via the PVector class
-   *
    * @param v - PVector class of x,y,z
    */
   public Gravity(PVector v) {

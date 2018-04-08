@@ -47,8 +47,7 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: load a named music file into memory
-   *
-    * @param name - representation of the file
+   * @param name     - representation of the file
    * @param filepath - relative path
    */
   public void loadMusic(String name, String filepath) {
@@ -57,10 +56,9 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: load a named music file into memory with flag to stream
-   *
-   * @param name - representation of the file
+   * @param name     - representation of the file
    * @param filepath - relative path
-   * @param stream - boolean value to stream audio
+   * @param stream   - boolean value to stream audio
    */
   public void loadMusic(String name, String filepath, boolean stream) {
     File f = new File(filepath);
@@ -69,8 +67,7 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: load a named sound file into memory
-   *
-   * @param name - representation of the sound file
+   * @param name     - representation of the sound file
    * @param filepath - relative path
    */
   public void loadSound(String name, String filepath) {
@@ -79,10 +76,9 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: load a name sound file into memory with flag to stream
-   *
-   * @param name - representation of the sound file
+   * @param name     - representation of the sound file
    * @param filepath - relative path
-   * @param stream - boolean value to stream sound
+   * @param stream   - boolean value to stream sound
    */
   public void loadSound(String name, String filepath, boolean stream) {
     File f = new File(filepath);
@@ -91,7 +87,6 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: play the music file
-   *
    * @param name - name of the music file used when loading
    */
   @Override
@@ -101,7 +96,6 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: play the music file continuously/not
-   *
    * @param name - name of the music file used when loading
    * @param loop - boolean option to loop
    */
@@ -112,9 +106,8 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: play the music file continuously/not and set its volume
-   *
-   * @param name - name of the music file used when loading
-   * @param loop - boolean option to loop
+   * @param name   - name of the music file used when loading
+   * @param loop   - boolean option to loop
    * @param volume - value of the volume when playing
    */
   @Override
@@ -129,7 +122,6 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: play the sound file given the name
-   *
    * @param name - name of the sound file used when loading
    */
   @Override
@@ -139,8 +131,7 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: play the sound file and set its volume
-   *
-   * @param name - name of the sound file used when loading
+   * @param name   - name of the sound file used when loading
    * @param volume - value of the volume when playing
    */
   @Override
@@ -155,7 +146,6 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: set the global volume
-   *
    * @param volume - value of the global volume
    */
   @Override
@@ -167,7 +157,6 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: getter to the volume field
-   *
    * @return - float: value of the volume field
    */
   @Override
@@ -177,9 +166,8 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: getter to return the tinysound.Music file
-   *
    * @param name - name of the music file
-   * @return - tinysound.Music file
+   * @return     - tinysound.Music file
    */
   @Override
   public Music getMusic(String name) {
@@ -188,9 +176,8 @@ public class AudioManager implements IAudioManager {
 
   /**
    * Method: getter to return the tinysound.Sound file
-   *
    * @param name - name of the sound file
-   * @return - tinysound.Sound file
+   * @return     - tinysound.Sound file
    */
   @Override
   public Sound getSound(String name) {

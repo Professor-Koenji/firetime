@@ -16,7 +16,6 @@ public class InverseMass implements IComponent {
 
   /**
    * Constructor: the inverse mass of the body
-   *
    * @param inverseMass - float of the value
    */
   public InverseMass(float inverseMass) {
