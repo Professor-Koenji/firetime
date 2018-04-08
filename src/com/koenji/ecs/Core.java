@@ -1,5 +1,7 @@
 package com.koenji.ecs;
 
+import com.koenji.ecs.audio.AudioManager;
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.event.EventBus;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
@@ -78,8 +80,9 @@ public abstract class Core extends PApplet implements ICore {
     }
     randomSeed(millis());
     smooth(8);
-    //
+    // Register locatable services
     Locator.register(IEventBus.class, eventBus = new EventBus());
+    Locator.register(IAudioManager.class, new AudioManager());
     sceneManager = new SceneManager(this);
   }
 
