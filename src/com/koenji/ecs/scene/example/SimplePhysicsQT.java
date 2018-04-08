@@ -78,7 +78,7 @@ public class SimplePhysicsQT extends Scene {
     add(new LinearMotion());
     add(new CircleCollider(qt));
     add(new BasicRenderer());
-    qtRenderer = new QuadtreeRenderer(qt, 0xFFFF3333);
+    qtRenderer = new QuadtreeRenderer(qt, 0xFF3366CC);
     debug = false;
     // Add events
     addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);

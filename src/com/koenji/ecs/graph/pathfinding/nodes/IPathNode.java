@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * An extension of the Node that provides information about
- * the previous node chain, with convenience for common PathFinding
+ * the previous node chain, with convenience for common Pathfinding
  * strategies. A linked-list implementation.
  *
  * @author Brad Davies &amp; Chris Williams.

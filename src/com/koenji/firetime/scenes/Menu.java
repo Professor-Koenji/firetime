@@ -1,22 +1,17 @@
 package com.koenji.firetime.scenes;
 
-import com.koenji.ecs.component.physics.CircleBody;
-import com.koenji.ecs.component.physics.ConvexBody;
-import com.koenji.ecs.component.render.RenderCircle;
-import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.event.InputEvents;
-import com.koenji.ecs.event.PhysicsEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.scene.example.CollisionDetection;
-import com.koenji.ecs.scene.example.PathFinding;
+import com.koenji.ecs.scene.example.Pathfinding;
 import com.koenji.ecs.scene.example.SimplePhysics;
 import com.koenji.ecs.scene.example.SimplePhysicsQT;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.render.BasicRenderer;
+import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRootScene;
-import javafx.event.Event;
 
 public class Menu extends Scene {
 
@@ -36,6 +31,23 @@ public class Menu extends Scene {
     active();
     //
     addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
+  }
+
+  @Override
+  public void update(int dt) {
+    super.update(dt);
+    //
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
+
+    int gap = 64;
+    gc.textSize(gap);
+    gc.fill(0xFF224466);
+    gc.text("1. Simple Physics", 32, gap);
+    gc.text("2. Simple Physics (QT)", 32, gap * 2);
+    gc.text("3. Collision Detection", 32, gap * 3);
+    gc.text("4. Path-Finding 1", 32, gap * 4);
+    gc.text("5. Path-Finding 2", 32, gap * 5);
+    gc.text("6. Path-Finding 3", 32, gap * 6);
   }
 
   private void active() {
@@ -69,8 +81,13 @@ public class Menu extends Scene {
         activate(new CollisionDetection());
         break;
       case 52:
-        activate(new PathFinding());
+        activate(new Pathfinding());
         break;
+      case 53:
+        activate(new Pathfinding(true));
+        break;
+      case 54:
+        activate(new Pathfinding(true, true));
     }
   }
 }

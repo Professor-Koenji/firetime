@@ -23,18 +23,36 @@ import java.util.List;
  * @author Brad Davies &amp; Chris Williams
  * @version 1.1
  */
-public class PathFinding extends Scene {
+public class Pathfinding extends Scene {
 
   private List<INode> nodes;
   private IGraphicsContext gc;
+
+  private int countX;
+  private int countY;
   private float sliceX;
   private float sliceY;
+  private boolean randomAngles;
 
   private INode start;
   private INode target;
 
-  private List<INode> djkPath;
+  private List<INode> bfsPath;
   private List<INode> astPath;
+
+  public Pathfinding() {
+    this(false);
+  }
+
+  public Pathfinding(boolean randomAngles) {
+    this(randomAngles, false);
+  }
+
+  public Pathfinding(boolean randomAngles, boolean big) {
+    this.countX = 21 * (big ? 2 : 1);
+    this.countY = 14 * (big ? 2 : 1);
+    this.randomAngles = randomAngles;
+  }
 
   @Override
   public void added() {
@@ -43,9 +61,13 @@ public class PathFinding extends Scene {
     nodes = new ArrayList<>();
     gc = Locator.get(IGraphicsContext.class);
 
-    int countX = 21;
+    // Add background
+    add(EntityObject.create(
+      new Background(0xFFF8FBFE)
+    ));
+    add(new BasicRenderer());
+
     sliceX = gc.getWidth() / countX;
-    int countY = 14;
     sliceY = gc.getHeight() / countY;
 
     // Loops!
@@ -66,7 +88,7 @@ public class PathFinding extends Scene {
 
     IRandom rng = Locator.get(IRandom.class);
     // Ok, now randomly remove some nodes
-    for (int i = 0; i < countY * 2 + countX * 2; ++i) {
+    for (int i = 0; i < countY / 2 * countX / 2; ++i) {
       int index = (int) Math.floor(rng.random(0, nodes.size() - 1));
       INode n = nodes.get(index);
       n.removeAllNeighbours();
@@ -74,11 +96,13 @@ public class PathFinding extends Scene {
     }
 
     // Ok, now make some random connections
-    for (int i = 0; i < countY; ++i) {
-      int a = (int) Math.floor(rng.random(0, nodes.size() - 1));
-      int b = (int) Math.floor(rng.random(0, nodes.size() - 1));
-      if (a == b) continue;
-      nodes.get(a).addNeighbour(nodes.get(b));
+    if (randomAngles) {
+      for (int i = 0; i < countY; ++i) {
+        int a = (int) Math.floor(rng.random(0, nodes.size() - 1));
+        int b = (int) Math.floor(rng.random(0, nodes.size() - 1));
+        if (a == b) continue;
+        nodes.get(a).addNeighbour(nodes.get(b));
+      }
     }
 
     // Pick a random start
@@ -114,14 +138,18 @@ public class PathFinding extends Scene {
 
   private void calculate() {
     Pathfinder pathfinder = new Pathfinder(start);
-    djkPath = pathfinder.findPath(target, Strategies.Dijkstra);
+    bfsPath = pathfinder.findPath(target, Strategies.BFS);
     astPath = pathfinder.findPath(target, Strategies.AStar_Euclidean);
 
-    System.out.println("Dijkstra Length: " + pathLength(djkPath));
-    System.out.println("      A* Length: " + pathLength(astPath));
+    System.out.println("BFS Length: " + pathLength(bfsPath));
+    System.out.println(" A* Length: " + pathLength(astPath));
+    System.out.println(" BFS Nodes: " + (bfsPath != null ? bfsPath.size() : -1));
+    System.out.println("  A* Nodes: " + (astPath != null ? astPath.size() : -1));
+    System.out.println("----------------------");
   }
 
   private float pathLength(List<INode> path) {
+    if (path == null) return -1;
     float len = 0;
     for (int i = 0; i < path.size() - 1; ++i) {
       INode a = path.get(i);
@@ -161,13 +189,13 @@ public class PathFinding extends Scene {
     // Draw dijk lines
     gc.noFill();
     gc.stroke(0xFF444488);
-    gc.strokeWeight(8);
-    drawPath(djkPath);
+    gc.strokeWeight(16);
+    drawPath(bfsPath);
 
     // Draw AStar lines
     gc.noFill();
     gc.stroke(0xFF228822);
-    gc.strokeWeight(8);
+    gc.strokeWeight(16);
     drawPath(astPath);
 
     // Draw actual nodes
@@ -175,7 +203,7 @@ public class PathFinding extends Scene {
     for (INode n : nodes) {
       boolean big = false;
       gc.fill(0xFFFFFFFF);
-      if (djkPath != null && djkPath.contains(n)) {
+      if (bfsPath != null && bfsPath.contains(n)) {
         big = true;
         gc.fill(0xFFAAAAFF);
       }
