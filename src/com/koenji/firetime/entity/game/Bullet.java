@@ -5,6 +5,8 @@ import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.service.Locator;
+import com.koenji.ecs.wrappers.IGraphicsContext;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 
@@ -29,7 +31,9 @@ public class Bullet extends Entity {
   public void added(IScene scene, IEventController eventController) {
     super.added(scene, eventController);
     //
-    addComponents(new BoundingBox(BoundingBox.WRAP, 0, 0, scene.gc().getWidth(), scene.gc().getHeight()));
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
+    //
+    addComponents(new BoundingBox(BoundingBox.WRAP, 0, 0, gc.getWidth(), gc.getHeight()));
     //
     // fireEvent(new WeaponFireEvent());
   }

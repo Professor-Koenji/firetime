@@ -1,9 +1,7 @@
 package com.koenji.firetime.scene;
 
-import com.koenji.ecs.ICore;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.entity.EntityObject;
-import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.system.physics.CircleCollider;
@@ -16,8 +14,8 @@ import com.koenji.firetime.entity.game.Wall;
 public class GamePrototype extends Scene {
 
   @Override
-  public void added(ICore core) {
-    super.added(core);
+  public void added() {
+    super.added();
     //
     add(EntityObject.create(
       new Background(0x10000040)

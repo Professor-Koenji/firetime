@@ -1,6 +1,5 @@
 package com.koenji.ecs.scene.example;
 
-import com.koenji.ecs.ICore;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderLine;
@@ -9,13 +8,15 @@ import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
-import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.Scene;
+import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
+import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.ecs.wrappers.IRandom;
 import processing.core.PVector;
 
 public class CirclePhysics extends Scene {
@@ -24,15 +25,18 @@ public class CirclePhysics extends Scene {
   private IEntity gravity;
 
   @Override
-  public void added(ICore core) {
-    super.added(core);
+  public void added() {
+    super.added();
+    //
+    IRandom rng = Locator.get(IRandom.class);
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
     //
     particles = new EntityGroup();
     for (int i = 0; i < 100; ++i) {
-      float x = core.random(0, core.getWidth());
-      float y = core.random(0, core.getHeight());
-      PVector vel = PVector.fromAngle(core.random(0f, 6.28f)).setMag(core.random(.5f, 2f));
-      float size = core.random(4, 16);
+      float x = rng.random(0, gc.getWidth());
+      float y = rng.random(0, gc.getHeight());
+      PVector vel = PVector.fromAngle(rng.random(0f, 6.28f)).setMag(rng.random(.5f, 2f));
+      float size = rng.random(4, 16);
       particles.add(EntityObject.create(
         new Position(x, y),
         new Velocity(vel),
@@ -40,7 +44,7 @@ public class CirclePhysics extends Scene {
         new CircleBody(size),
         new InverseMass(1 / size),
         //
-        new BoundingBox(0, 0, core.getWidth(), core.getHeight()),
+        new BoundingBox(0, 0, gc.getWidth(), gc.getHeight()),
         //
         new RenderCircle(size, 0x606666FF),
         new Stroke(4, 0xFF6666FF)

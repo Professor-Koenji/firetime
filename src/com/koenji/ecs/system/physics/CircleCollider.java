@@ -10,8 +10,10 @@ import com.koenji.ecs.graph.tree.IRect;
 import com.koenji.ecs.graph.tree.QuadTree;
 import com.koenji.ecs.graph.tree.Rect;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.System;
 import com.koenji.ecs.component.physics.CircleBody;
+import com.koenji.ecs.wrappers.IGraphicsContext;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -25,7 +27,9 @@ public class CircleCollider extends System {
   public void added(IScene scene, IEventController eventController) {
     super.added(scene, eventController);
     //
-    quadTree = new QuadTree(new Rect(scene.gc().getWidth(), scene.gc().getHeight()), 10, 5);
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
+    //
+    quadTree = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
   }
 
   @Override

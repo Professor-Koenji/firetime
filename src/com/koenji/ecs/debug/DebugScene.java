@@ -1,11 +1,9 @@
 package com.koenji.ecs.debug;
 
-import com.koenji.ecs.ICore;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.Text;
 import com.koenji.ecs.entity.EntityObject;
-import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.scene.Scene;
@@ -20,8 +18,8 @@ public class DebugScene extends Scene {
   private Text fpsDisplay;
 
   @Override
-  public void added(ICore core) {
-    super.added(core);
+  public void added() {
+    super.added();
     //
     add(EntityObject.create(
       new Background(0xA0000000)
