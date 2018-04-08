@@ -41,7 +41,7 @@ public class ConvexCollider extends System {
   @Override
   @SuppressWarnings("unchecked")
   public void entityAdded(IEntity entity) {
-    // Only those with Position & ConvexBody
+    // Only those with Position&amp;ConvexBody
     if (entity.hasComponents(Position.class, ConvexBody.class)) {
       entities.add(entity);
     }
@@ -63,7 +63,7 @@ public class ConvexCollider extends System {
     for (ConvexEntity ce : shapes) {
       // Pre-fetch some stuff
       IEntity a = ce.getEntity();
-      // Get the position, body & edges
+      // Get the position, body&amp;edges
       Position pA = a.getComponent(Position.class);
       ConvexBody bA = a.getComponent(ConvexBody.class);
       Rotation rA = a.getComponent(Rotation.class);
@@ -75,7 +75,7 @@ public class ConvexCollider extends System {
         IEntity b = nce.getEntity();
         // Check we arent ourselves
         if (a == b) continue;
-        // Get the position, body & edges
+        // Get the position, body&amp;edges
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);
 

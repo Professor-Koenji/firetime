@@ -27,7 +27,7 @@ public class EntityManager implements IEntityManager {
   private List<IEntity> entities;
 
   /**
-   * Constructor: sets the scene & eventController fields with the value passed
+   * Constructor: sets the scene&amp;eventController fields with the value passed
    * @param scene - scene we are bound to
    */
   public EntityManager(Scene scene) {

@@ -35,7 +35,7 @@ public interface IEventBus {
   <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler, IEventController eventController);
 
   /**
-   * Method: used to remove an EventType & EventHandler with option to do so globally
+   * Method: used to remove an EventType&amp;EventHandler with option to do so globally
    * @param type            - EventType of event
    * @param eventController - IEventController that handles events
    * @param global          - boolean to remove all instances

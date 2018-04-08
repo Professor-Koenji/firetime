@@ -77,7 +77,7 @@ public abstract class Core extends PApplet implements IRandom, IGraphicsContext,
    * @param height The height of the drawable window (in pixels).
    * @param fps The requested update speed in frames-per-second.
    *            Note that the PApplet may not actually run at this framerate.
-   * @param title The title of the window to go in the window bar (MacOS & Windows only).
+   * @param title The title of the window to go in the window bar (MacOS&amp;Windows only).
    */
   public Core(int width, int height, int fps, String title) {
     this(width, height, fps, title, 0xFF000000);
@@ -89,7 +89,7 @@ public abstract class Core extends PApplet implements IRandom, IGraphicsContext,
    * @param height The height of the drawable window (in pixels).
    * @param fps The requested update speed in frames-per-second.
    *            Note that the PApplet may not actually run at this framerate.
-   * @param title The title of the window to go in the window bar (MacOS & Windows only).
+   * @param title The title of the window to go in the window bar (MacOS&amp;Windows only).
    * @param clearColour The buffer clear colour to use on each re-draw of the window.
    */
   public Core(int width, int height, int fps, String title, int clearColour) {
@@ -104,7 +104,7 @@ public abstract class Core extends PApplet implements IRandom, IGraphicsContext,
    * Define a new PApplet.
    * @param fps The requested update speed in frames-per-second.
    *            Note that the PApplet may not actually run at this framerate.
-   * @param title The title of the window to go in the window bar (MacOS & Windows only).
+   * @param title The title of the window to go in the window bar (MacOS&amp;Windows only).
    */
   public Core(int fps, String title) {
     this(fps, title, 0xFF000000);
@@ -114,7 +114,7 @@ public abstract class Core extends PApplet implements IRandom, IGraphicsContext,
    * Define a new PApplet.
    * @param fps The requested update speed in frames-per-second.
    *            Note that the PApplet may not actually run at this framerate.
-   * @param title The title of the window to go in the window bar (MacOS & Windows only).
+   * @param title The title of the window to go in the window bar (MacOS&amp;Windows only).
    * @param clearColour The buffer clear colour to use on each re-draw of the window.
    */
   public Core(int fps, String title, int clearColour) {
@@ -172,7 +172,7 @@ public abstract class Core extends PApplet implements IRandom, IGraphicsContext,
   }
 
   /**
-   * Called every update frame, all update & drawing logic should go here.
+   * Called every update frame, all update&amp;drawing logic should go here.
    */
   @Override
   final public void draw() {

@@ -74,7 +74,7 @@ public interface IScene {
   void removeAllSystems();
 
   /**
-   * Removes everything (Entities & Systems) from the scene.
+   * Removes everything (Entities&amp;Systems) from the scene.
    */
   void removeAll();
 

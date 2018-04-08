@@ -37,7 +37,7 @@ public class ConvexBody implements IComponent {
   }
 
   /**
-   * Method: create a static instance of a square body with size and offset for x & y
+   * Method: create a static instance of a square body with size and offset for x&amp;y
    * @param size      - of the body
    * @param offsetX   - x offset
    * @param offsetY   - y offset

@@ -33,7 +33,7 @@ public interface IEventGroup {
   <T extends Event> void removeEventHandler(EventType<T> type);
 
   /**
-   * Method: used to remove all EventTypes & EventHandlers
+   * Method: used to remove all EventTypes&amp;EventHandlers
    */
   void removeAllEventHandlers();
 

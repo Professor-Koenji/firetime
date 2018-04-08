@@ -29,7 +29,7 @@ public abstract class Scene implements IScene, IEventController {
   private ISystemManager systemManager;
 
   /**
-   * Creates a new Scene and sets up the Entity & System managers.
+   * Creates a new Scene and sets up the Entity&amp;System managers.
    */
   public Scene() {
     this.entityManager = new EntityManager(this);
@@ -136,7 +136,7 @@ public abstract class Scene implements IScene, IEventController {
   }
 
   /**
-   * Removes everything (Systems & Entities) from the scene.
+   * Removes everything (Systems&amp;Entities) from the scene.
    */
   @Override
   public void removeAll() {

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CircleCollider that simulates particle collision & response
+ * CircleCollider that simulates particle collision&amp;response
  *
  * @author Brad Davies &amp; Chris Williams
  * @version 1.1

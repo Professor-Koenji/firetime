@@ -39,7 +39,7 @@ public class Position extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x,y & z position via PVector class
+   * Constructor: set the x,y&amp;z position via PVector class
    * @param v - PVector class with x,y,z values
    */
   public Position(PVector v) {

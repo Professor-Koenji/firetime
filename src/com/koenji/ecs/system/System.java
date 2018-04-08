@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * A System (The 'S' in ECS) that operates upon Entities within
- * individual scenes. Systems encapsulate & dictate the behaviour
+ * individual scenes. Systems encapsulate&amp;dictate the behaviour
  * of such Entities, often through progressive and hierarchical
  * modelling of simple behaviours into more complex wholes.
  *

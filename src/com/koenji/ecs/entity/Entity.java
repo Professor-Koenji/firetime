@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Entity defines the abstract behaviour of the implementation of an IEntity & IEventController within the system
+ * Entity defines the abstract behaviour of the implementation of an IEntity&amp;IEventController within the system
  *
  * @author Brad Davies &amp; Chris Williams
  * @version 1.0
@@ -43,7 +43,7 @@ public abstract class Entity implements IEntity, IEventController {
   }
 
   /**
-   * Method: called one the Entity is removed from the scene & systems, used for clean-up
+   * Method: called one the Entity is removed from the scene&amp;systems, used for clean-up
    */
   public void removed() {}
 

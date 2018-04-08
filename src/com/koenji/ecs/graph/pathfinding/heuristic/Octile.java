@@ -18,7 +18,7 @@ public class Octile implements IHeuristic {
    * The octile distance between two nodes.
    * @param a A node
    * @param b Another node
-   * @return The octile (Diagonals & Straights) distance between the two nodes.
+   * @return The octile (Diagonals&amp;Straights) distance between the two nodes.
    */
   @Override
   public float distance(INode a, INode b) {

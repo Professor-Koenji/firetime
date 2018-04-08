@@ -33,7 +33,7 @@ public class Text implements IComponent {
   }
 
   /**
-   * Constructor: set the value, size, colour & position of text
+   * Constructor: set the value, size, colour&amp;position of text
    * @param contents  - String value of text
    * @param size      - int value of the size
    * @param rgba      - int value of colour

@@ -29,7 +29,7 @@ import javafx.event.Event;
 import processing.core.PVector;
 
 /**
- * A demonstration of particle physics simulation using the CircleCollider & LinearMotion systems.
+ * A demonstration of particle physics simulation using the CircleCollider&amp;LinearMotion systems.
  *
  * @author Brad Davies
  * @version 1.2

@@ -8,7 +8,7 @@ import com.koenji.firetime.scenes.Menu;
 public class Game extends Core {
 
   public Game() {
-    // Set initial resolution, fps & title
+    // Set initial resolution, fps&amp;title
     super(1200, 800, 60, "Firetime", 0xFFF8FBFE);
   }
 
