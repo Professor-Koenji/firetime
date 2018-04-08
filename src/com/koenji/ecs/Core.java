@@ -21,7 +21,7 @@ import processing.core.PApplet;
  * Your own implementation should extend this class, and have it instantiated
  * statically through PApplet.main(class);
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public abstract class Core extends PApplet implements IRandom, IGraphicsContext, IRootScene {

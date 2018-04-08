@@ -7,7 +7,7 @@ package com.koenji.ecs.scene;
  * of the SceneManager functionality through the IRootScene interface which
  * ultimately falls through to controlling a ISceneManager instance.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public interface ISceneManager {

@@ -7,7 +7,7 @@ import java.util.List;
  * the previous node chain, with convenience for common PathFinding
  * strategies. A linked-list implementation.
  *
- * @author Brad Davies & Chris Williams.
+ * @author Brad Davies &amp; Chris Williams.
  * @version 1.0
  */
 public interface IPathNode {

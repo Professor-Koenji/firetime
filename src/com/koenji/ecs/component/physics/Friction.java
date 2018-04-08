@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Friction component to represent the resistance upon a given body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * IPathStrategy interface defines the behaviour for a search algorithm within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

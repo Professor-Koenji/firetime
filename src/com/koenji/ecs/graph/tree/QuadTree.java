@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * A generic QuadTree implementation, used within the collision systems.
  *
- * @author Brad Davies & Chris Williams.
+ * @author Brad Davies &amp; Chris Williams.
  * @version 1.0
  */
 public class QuadTree implements IQuadTree {

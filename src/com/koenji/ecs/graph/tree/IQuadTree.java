@@ -6,7 +6,7 @@ import java.util.List;
  * Generic quad-tree implementation based upon a spatial 2D rectangular system
  * with recursively linked QuadTree nodes.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public interface IQuadTree {

@@ -10,7 +10,7 @@ import java.util.*;
  * Dijkstra search algorithm to find the path between INodes, favours lower cost paths
  *
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

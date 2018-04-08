@@ -15,7 +15,7 @@ import processing.core.PVector;
 /**
  * A general-purpose basic renderer that draws most primitives and polgon shapes.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.2
  */
 public class BasicRenderer extends System {

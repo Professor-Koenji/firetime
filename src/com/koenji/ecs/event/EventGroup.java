@@ -12,7 +12,7 @@ import java.util.Map;
  * EventGroup's can be mapped to any individual 'region' where Events either should remain scoped
  * or be propagated outside of the EventGroup and into the 'global' event space.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

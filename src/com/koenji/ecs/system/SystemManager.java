@@ -14,7 +14,7 @@ import java.util.List;
  * This encapsulates serving to control the list of the active systems, and also
  * to serve as an event controller for these systems.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public class SystemManager implements ISystemManager {

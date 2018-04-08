@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Node class defines the behaviour of a node used in the system, implementing the INode interface.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public class Node implements INode {

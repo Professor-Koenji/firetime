@@ -6,7 +6,7 @@ import com.koenji.ecs.scene.IScene;
  * An interface that should sit on-top of the root scene, either a scene manager
  * or the root PApplet instance depending on whichever governs the global scene list.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public interface IRootScene {

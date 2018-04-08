@@ -13,7 +13,7 @@ import java.util.*;
  * Euclidean strategy
  *
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

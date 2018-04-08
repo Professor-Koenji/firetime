@@ -17,7 +17,7 @@ import java.util.List;
  * of such Entities, often through progressive and hierarchical
  * modelling of simple behaviours into more complex wholes.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.1
  */
 public abstract class System implements ISystem, IEventController {

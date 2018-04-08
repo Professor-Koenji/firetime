@@ -33,7 +33,7 @@ import java.security.Key;
 /**
  * A demonstration of SAT collision detection using the ConvexCollider system.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.1
  */
 public class CollisionDetection extends Scene {

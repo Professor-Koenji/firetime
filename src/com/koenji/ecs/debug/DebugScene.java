@@ -14,7 +14,7 @@ import com.koenji.ecs.system.render.BasicRenderer;
  * DebugScene is a Scene created to show the current fps state/value,
  * a concrete implementation of the Scene abstract class
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

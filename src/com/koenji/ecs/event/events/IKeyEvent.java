@@ -3,7 +3,7 @@ package com.koenji.ecs.event.events;
 /**
  * IKeyEvent interface defines the behaviour of a key Event within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

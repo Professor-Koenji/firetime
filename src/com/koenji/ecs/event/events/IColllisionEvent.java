@@ -5,7 +5,7 @@ import com.koenji.ecs.entity.IEntity;
 /**
  * ICollisionEvent interface defines the behaviour of a collision Event within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public interface IColllisionEvent {

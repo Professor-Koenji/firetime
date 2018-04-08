@@ -6,7 +6,7 @@ import javafx.event.EventType;
 /**
  * KeyEvent is the concrete class that can be 'fired' as a KeyEvent within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

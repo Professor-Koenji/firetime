@@ -8,7 +8,7 @@ import processing.core.PApplet;
  * and helps to use it cleanly as part of the Service Location pattern without
  * having access to completely unrelated functionality (random numbers, audio, etc.).
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public interface IGraphicsContext {

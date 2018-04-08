@@ -4,7 +4,7 @@ package com.koenji.ecs.component.render;
  * Background component representing the colour given upon a body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

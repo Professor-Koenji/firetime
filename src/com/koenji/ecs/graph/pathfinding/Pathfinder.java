@@ -10,7 +10,7 @@ import java.util.List;
  * Pathfinder class defines the concrete behaviour of finding a path within the system, using the strategy provided
  *
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

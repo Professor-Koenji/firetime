@@ -7,7 +7,7 @@ import javafx.event.EventType;
 /**
  * IEventGroup interface defines the behaviour of an event group implementation within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

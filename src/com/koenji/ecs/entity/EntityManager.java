@@ -11,7 +11,7 @@ import java.util.List;
  * EntityManager defines the behaviour of a manager of IEntities,
  * an implementation of an IEntityManager interface within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

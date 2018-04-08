@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * CircleCollider that simulates particle collision & response
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.1
  */
 public class CircleCollider extends System {

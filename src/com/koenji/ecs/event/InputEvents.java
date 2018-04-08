@@ -8,7 +8,7 @@ import javafx.event.EventType;
 /**
  * InputEvents defines the key input events handled within the system, mapping them to a respective EventType
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

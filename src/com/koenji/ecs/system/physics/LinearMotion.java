@@ -11,7 +11,7 @@ import com.koenji.ecs.system.System;
  * Composes with the collision systems for complex physics response
  * and locomotion from simple rules.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.1
  */
 public class LinearMotion extends System {

@@ -7,7 +7,7 @@ import com.koenji.ecs.scene.IScene;
 /**
  * IEntity defines the behaviour of an implementation of an Entity within the system
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

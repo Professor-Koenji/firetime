@@ -8,7 +8,7 @@ import com.koenji.ecs.scene.IScene;
 /**
  * The interface for the System class.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 public interface ISystem {

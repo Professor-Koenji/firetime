@@ -19,7 +19,7 @@ import javafx.event.EventType;
  * and form complex behaviour with each other. A scene encapsulates
  * a 'state' within a game, such as a level, scene or section.
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.4
  */
 public abstract class Scene implements IScene, IEventController {

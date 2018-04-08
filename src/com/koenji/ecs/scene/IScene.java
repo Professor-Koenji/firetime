@@ -6,7 +6,7 @@ import com.koenji.ecs.system.ISystem;
 
 /**
  *
- * @author Brad Davies & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.2
  */
 public interface IScene {
