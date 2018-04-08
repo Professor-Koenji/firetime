@@ -22,6 +22,12 @@ import processing.core.PVector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CircleCollider that simulates particle collision & response
+ *
+ * @author Brad Davies & Chris Williams
+ * @version 1.1
+ */
 public class CircleCollider extends System {
 
   private IQuadTree qt;
@@ -89,6 +95,7 @@ public class CircleCollider extends System {
       b.getComponent(CircleBody.class)
     );
 
+    // If the overlap distance is positive (Oddly, that means a collision is occuring)
     if (dist > 0) {
       collisionResponse(a, b, dist);
     }
