@@ -53,13 +53,13 @@ public class CollisionDetection extends Scene {
     ));
 
     // Entities
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 100; ++i) {
       float x = rng.random(0, gc.getWidth());
       float y = rng.random(0, gc.getHeight());
       float sx = rng.random(-2f, 2f);
       float sy = rng.random(-2f, 2f);
-      int sides = (int) rng.random(4, 8);
-      ConvexBody body = ConvexBody.polygon(sides, rng.random(10, 50));
+      int sides = (int) rng.random(4, 10);
+      ConvexBody body = ConvexBody.polygon(sides, rng.random(10, 28));
 
       int colour = (int) rng.random(0, 0xFFFFFF);
       add(EntityObject.create(
@@ -99,7 +99,7 @@ public class CollisionDetection extends Scene {
     add(spinners);
 
     // Systems
-    IQuadTree qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+    IQuadTree qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 3, 8);
     add(new LinearMotion());
     add(new ConvexCollider(qt));
 

@@ -165,7 +165,6 @@ public class ConvexCollider extends System {
         if (vB != null) vB.sub(PVector.mult(mtv, 2));
       }
       // Fire an event!
-      java.lang.System.out.println("Collision: " + minOverlap);
       Locator.get(IEventBus.class).fireEvent(new CollisionEvent(PhysicsEvents.CONVEX_COLLISION, a, b));
     }
   }
