@@ -26,7 +26,7 @@ import com.koenji.ecs.wrappers.IRandom;
 import processing.core.PVector;
 
 /**
- * Another demonstration of particle physics simulation using the CircleCollider &
+ * Another demonstration of particle physics simulation using the CircleCollider &amp;
  * LinearMotion systems, with an optional debug-view of the QuadTree at work. (Press 'space')
  *
  * @author Brad Davies
