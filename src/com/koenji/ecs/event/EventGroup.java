@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * EventGroup defines the implementation of IEventGroup which handlers and passes the Event fired to an EventHandler within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

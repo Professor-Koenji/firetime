@@ -7,7 +7,7 @@ import javafx.event.EventType;
 /**
  * IEventController interface defines the behaviour of an event handler within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

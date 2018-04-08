@@ -5,7 +5,7 @@ import processing.core.PVector;
 /**
  * IKeyEvent interface defines the behaviour of a mouse Event within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 
