@@ -7,6 +7,8 @@ import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.event.events.IKeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.service.Locator;
+import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.firetime.event.WeaponFireEvent;
 import processing.core.PVector;
 
@@ -20,6 +22,8 @@ public class Player extends Entity {
   public void added(IScene scene, IEventController eventController) {
     super.added(scene, eventController);
     //
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
+    //
     addComponents(
       new Position(50, 50),
       new Velocity(0, 0),
@@ -27,7 +31,7 @@ public class Player extends Entity {
       new Friction(0.975f),
       new CircleBody(16),
       new InverseMass(1f),
-      new BoundingBox(0, 0, scene.gc().getWidth(), scene.gc().getHeight()),
+      new BoundingBox(0, 0, gc.getWidth(), gc.getHeight()),
       new RenderCircle(16, 0xFF0000FF)
     );
   }

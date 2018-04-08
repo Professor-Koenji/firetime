@@ -9,9 +9,12 @@ import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.ISceneManager;
 import com.koenji.ecs.scene.SceneManager;
 import com.koenji.ecs.service.Locator;
+import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.ecs.wrappers.IRandom;
+import com.koenji.ecs.wrappers.IRootScene;
 import processing.core.PApplet;
 
-public abstract class Core extends PApplet implements ICore {
+public abstract class Core extends PApplet implements IRandom, IGraphicsContext, IRootScene {
 
   // The width of the window
   private int width;
@@ -80,7 +83,10 @@ public abstract class Core extends PApplet implements ICore {
     smooth(8);
     //
     Locator.register(IEventBus.class, eventBus = new EventBus());
-    sceneManager = new SceneManager(this);
+    // Core interface wrappers
+    Locator.register(IGraphicsContext.class, this);
+    Locator.register(IRootScene.class, this);
+    sceneManager = new SceneManager();
   }
 
   @Override
@@ -186,11 +192,6 @@ public abstract class Core extends PApplet implements ICore {
 
   public int getHeight() {
     return height;
-  }
-
-  // TODO: Refactor this to use a PGraphics instance
-  public Core gc() {
-    return this;
   }
 
   public void add(IScene scene) {
