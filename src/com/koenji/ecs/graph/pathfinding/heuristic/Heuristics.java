@@ -1,5 +1,8 @@
 package com.koenji.ecs.graph.pathfinding.heuristic;
 
+/**
+ * A static list of out-of-the-box Heuristics provided.
+ */
 public class Heuristics {
 
   public static final IHeuristic manhattan = new Manhattan();

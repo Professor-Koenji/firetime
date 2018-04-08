@@ -3,6 +3,12 @@ package com.koenji.ecs.graph.tree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A generic QuadTree implementation, used within the collision systems.
+ *
+ * @author Brad Davies & Chris Williams.
+ * @version 1.0
+ */
 public class QuadTree implements IQuadTree {
 
   private int maxObjects;
@@ -13,6 +19,12 @@ public class QuadTree implements IQuadTree {
   private IRect bounds;
   private QuadTree[] nodes;
 
+  /**
+   * Constructs a 'root' quadtree.
+   * @param bounds The global bounds of the root node.
+   * @param maxObjects The maximum number of objects per quad.
+   * @param maxDepth The maximum recursion depth for quad decomposition.
+   */
   public QuadTree(IRect bounds, int maxObjects, int maxDepth) {
     this(bounds, maxObjects, maxDepth, 0);
   }
@@ -27,6 +39,10 @@ public class QuadTree implements IQuadTree {
     nodes = new QuadTree[4];
   }
 
+  /**
+   * Removes all objects and nodes from this tree.
+   * Effectively resets the state of the QT.
+   */
   @Override
   public void clear() {
     objects.clear();
@@ -49,12 +65,13 @@ public class QuadTree implements IQuadTree {
   }
 
   private int getRegion(IRect rect) {
+    // Get midpoints
     int midX = (int) bounds.getX() + (int) (bounds.getW() * 0.5);
     int midY = (int) bounds.getY() + (int) (bounds.getH() * 0.5);
 
+    // Get position of new quad
     boolean topHalf = (rect.getY() + rect.getH()) < midY;
     boolean bottomHalf = rect.getY() > midY;
-
     boolean leftHalf = (rect.getX() + rect.getW()) < midX;
     boolean rightHalf = rect.getX() > midX;
 
@@ -79,6 +96,11 @@ public class QuadTree implements IQuadTree {
     return -1;
   }
 
+  /**
+   * Inserts the given Rect superclass into the tree.
+   * @param rect The rectangular area to insert
+   * @param <T> Any IRect superclass.
+   */
   @Override
   public <T extends IRect> void insert(T rect) {
     // -1 -> 3
@@ -111,6 +133,12 @@ public class QuadTree implements IQuadTree {
     }
   }
 
+  /**
+   * Gets a list of matching IRect superclasses from the given rectangle.
+   * @param rect The rectangular area to match against.
+   * @param <T> Any IRect superclass.
+   * @return A list of matching IRect's within the same quad bounds.
+   */
   @Override
   public <T extends IRect> List retrieve(T rect) {
     List<IRect> objects = new ArrayList<>();
@@ -122,6 +150,9 @@ public class QuadTree implements IQuadTree {
     return objects;
   }
 
+  /**
+   * @return The raw child nodes of this tree.
+   */
   @Override
   public IQuadTree[] getNodes() {
     return nodes;
