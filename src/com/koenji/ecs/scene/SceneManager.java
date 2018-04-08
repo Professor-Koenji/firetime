@@ -10,15 +10,12 @@ public class SceneManager implements ISceneManager {
 
   private ICore core;
 
-  private IEventBus eventBus;
-
   private List<IScene> toAdd;
   private List<IScene> toRemove;
   private List<IScene> scenes;
 
-  public SceneManager(ICore core, IEventBus eventBus) {
+  public SceneManager(ICore core) {
     this.core = core;
-    this.eventBus = eventBus;
 
     toAdd = new ArrayList<>();
     toRemove = new ArrayList<>();
@@ -48,7 +45,7 @@ public class SceneManager implements ISceneManager {
     // Add new scenes
     scenes.addAll(toAdd);
     for (IScene scene : toAdd) {
-      scene.added(core, eventBus);
+      scene.added(core);
     }
     // Empty modifier lists
     toAdd.clear();

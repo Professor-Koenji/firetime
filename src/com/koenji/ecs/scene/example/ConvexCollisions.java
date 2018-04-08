@@ -21,8 +21,8 @@ public class ConvexCollisions extends Scene {
   private Position mousePos;
 
   @Override
-  public void added(ICore core, IEventBus eventBus) {
-    super.added(core, eventBus);
+  public void added(ICore core) {
+    super.added(core);
 
     add(EntityObject.create(
       new Background(0x30000099)

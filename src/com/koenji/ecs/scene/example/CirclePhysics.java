@@ -24,8 +24,8 @@ public class CirclePhysics extends Scene {
   private IEntity gravity;
 
   @Override
-  public void added(ICore core, IEventBus eventBus) {
-    super.added(core, eventBus);
+  public void added(ICore core) {
+    super.added(core);
     //
     particles = new EntityGroup();
     for (int i = 0; i < 100; ++i) {

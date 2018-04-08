@@ -20,8 +20,8 @@ public class DebugScene extends Scene {
   private Text fpsDisplay;
 
   @Override
-  public void added(ICore core, IEventBus eventBus) {
-    super.added(core, eventBus);
+  public void added(ICore core) {
+    super.added(core);
     //
     add(EntityObject.create(
       new Background(0xA0000000)

@@ -1,6 +1,7 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.heuristic.Heuristics;
 import com.koenji.ecs.graph.pathfinding.strategy.Strategies;
@@ -9,9 +10,12 @@ import com.koenji.ecs.graph.pathfinding.nodes.Node;
 import com.koenji.ecs.graph.pathfinding.Pathfinder;
 import com.koenji.ecs.scene.example.ConvexCollisions;
 import processing.core.PVector;
+import com.koenji.ecs.service.Locator;
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
 public class Game extends Core {
 
@@ -24,6 +28,12 @@ public class Game extends Core {
   public void init() {
     super.init();
     //
-    add(new ConvexCollisions());
+    TinySound.init();
+    File sfxFile = new File("assets/sfx/cannon.wav");
+    Sound sfx = TinySound.loadSound(sfxFile);
+
+    Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e-> {
+      sfx.play();
+    }, null);
   }
 }

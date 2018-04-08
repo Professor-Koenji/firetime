@@ -11,8 +11,8 @@ import com.koenji.firetime.event.WeaponFireEvent;
 public class Menu extends Scene {
 
   @Override
-  public void added(ICore core, IEventBus eventBus) {
-    super.added(core, eventBus);
+  public void added(ICore core) {
+    super.added(core);
     //
     addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
     addEventHandler(Events.WEAPON_FIRE, this::callback);

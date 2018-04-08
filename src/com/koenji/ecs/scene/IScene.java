@@ -8,7 +8,7 @@ import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.system.ISystem;
 
 public interface IScene {
-  void added(ICore core, IEventBus eventBus);
+  void added(ICore core);
   void removed(boolean clearEvents);
   void update(int dt);
   void add(IEntity entity);
@@ -24,6 +24,4 @@ public interface IScene {
   Core gc();
   int entityCount();
   int systemCount();
-  void removeAllEventHandlers();
-  void removeAllEventHandlers(boolean global);
 }
