@@ -18,15 +18,15 @@ import java.util.List;
 
 public class ConvexCollider extends System {
 
-  private IQuadTree quadTree;
+  private IQuadTree qt;
 
-  @Override
-  public void added(IScene scene, IEventController eventController) {
-    super.added(scene, eventController);
-    //
+  public ConvexCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
-    //
-    quadTree = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+    this.qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+  }
+
+  public ConvexCollider(IQuadTree qt) {
+    this.qt = qt;
   }
 
   @Override
@@ -44,11 +44,11 @@ public class ConvexCollider extends System {
 
     // Setup the quadtree
     List<ConvexEntity> shapes = new ArrayList<>();
-    quadTree.clear();
+    qt.clear();
     for (IEntity e : entities) {
       ConvexEntity ce = new ConvexEntity(e);
       shapes.add(ce);
-      quadTree.insert(ce);
+      qt.insert(ce);
     }
 
     for (ConvexEntity ce : shapes) {
@@ -61,7 +61,7 @@ public class ConvexCollider extends System {
       List<PVector> edgesA = bA.edges(rA);
 
       // Get nearby convex entities
-      List<ConvexEntity> nearby = quadTree.retrieve(ce);
+      List<ConvexEntity> nearby = qt.retrieve(ce);
       for (ConvexEntity nce : nearby) {
         IEntity b = nce.getEntity();
         // Get the position, body & edges

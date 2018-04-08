@@ -45,6 +45,13 @@ public class LinearMotion extends System {
         }
       }
 
+      // Angular rotation
+      if (e.hasComponents(Rotation.class, AngularVelocity.class)) {
+        Rotation r = e.getComponent(Rotation.class);
+        AngularVelocity av = e.getComponent(AngularVelocity.class);
+        r.angle += av.velocity;
+      }
+
       // Bounding box stuff
       if (e.hasComponents(Position.class, Velocity.class, BoundingBox.class)) {
         Position p = e.getComponent(Position.class);
