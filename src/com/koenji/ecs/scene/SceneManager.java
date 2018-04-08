@@ -1,21 +1,15 @@
 package com.koenji.ecs.scene;
 
-import com.koenji.ecs.ICore;
-import com.koenji.ecs.event.IEventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SceneManager implements ISceneManager {
 
-  private ICore core;
-
   private List<IScene> toAdd;
   private List<IScene> toRemove;
   private List<IScene> scenes;
 
-  public SceneManager(ICore core) {
-    this.core = core;
+  public SceneManager() {
 
     toAdd = new ArrayList<>();
     toRemove = new ArrayList<>();
@@ -45,7 +39,7 @@ public class SceneManager implements ISceneManager {
     // Add new scenes
     scenes.addAll(toAdd);
     for (IScene scene : toAdd) {
-      scene.added(core);
+      scene.added();
     }
     // Empty modifier lists
     toAdd.clear();

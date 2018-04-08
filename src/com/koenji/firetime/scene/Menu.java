@@ -1,18 +1,18 @@
 package com.koenji.firetime.scene;
 
-import com.koenji.ecs.ICore;
-import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.Scene;
+import com.koenji.ecs.service.Locator;
+import com.koenji.ecs.wrappers.IRootScene;
 import com.koenji.firetime.event.Events;
 import com.koenji.firetime.event.WeaponFireEvent;
 
 public class Menu extends Scene {
 
   @Override
-  public void added(ICore core) {
-    super.added(core);
+  public void added() {
+    super.added();
     //
     addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
     addEventHandler(Events.WEAPON_FIRE, this::callback);
@@ -30,8 +30,11 @@ public class Menu extends Scene {
   }
 
   public void mousePress(MouseEvent event) {
-    core.remove(this);
+    //
+    IRootScene rs = Locator.get(IRootScene.class);
+    //
+    rs.remove(this);
     GamePrototype gp = new GamePrototype();
-    core.add(gp);
+    rs.add(gp);
   }
 }

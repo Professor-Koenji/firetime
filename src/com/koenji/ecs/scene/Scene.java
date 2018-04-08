@@ -1,7 +1,5 @@
 package com.koenji.ecs.scene;
 
-import com.koenji.ecs.Core;
-import com.koenji.ecs.ICore;
 import com.koenji.ecs.entity.EntityManager;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
@@ -18,8 +16,6 @@ import javafx.event.EventType;
 
 public abstract class Scene implements IScene, IEventController {
 
-  protected ICore core;
-
   private IEventBus eventBus;
   private IEntityManager entityManager;
   private ISystemManager systemManager;
@@ -29,8 +25,7 @@ public abstract class Scene implements IScene, IEventController {
     this.systemManager = new SystemManager(this, entityManager);
   }
 
-  public void added(ICore core) {
-    this.core = core;
+  public void added() {
     eventBus = Locator.get(IEventBus.class);
   }
 
@@ -98,10 +93,6 @@ public abstract class Scene implements IScene, IEventController {
   public void modifiedEntity(IEntity entity) {
     systemManager.entityRemoved(entity);
     systemManager.entityAdded(entity);
-  }
-
-  public Core gc() {
-    return core.gc();
   }
 
   @Override

@@ -1,6 +1,6 @@
 package com.koenji.ecs.system.render;
 
-import com.koenji.ecs.Core;
+import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.*;
@@ -8,18 +8,19 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.System;
 import processing.core.PVector;
 
 public class BasicRenderer extends System {
 
-  private Core core;
+  private IGraphicsContext gc;
 
   @Override
   public void added(IScene scene, IEventController eventController, IEntityManager entityManager) {
     super.added(scene, eventController, entityManager);
     //
-    this.core = scene.gc();
+    this.gc = Locator.get(IGraphicsContext.class);
   }
 
   @Override
@@ -27,68 +28,74 @@ public class BasicRenderer extends System {
   public void update(int dt) {
     super.update(dt);
     //
+    if (gc == null) {
+      java.lang.System.out.println("GraphicsContext is not available -> BasicRenderer will remove itself.");
+      scene.remove(this);
+      return;
+    }
+    //
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
 
       if (e.hasComponents(Background.class)) {
         Background b = e.getComponent(Background.class);
-        core.noStroke();
-        core.fill(b.rgba);
-        core.rect(0, 0, core.getWidth(), core.getHeight());
+        gc.noStroke();
+        gc.fill(b.rgba);
+        gc.rect(0, 0, gc.getWidth(), gc.getHeight());
       }
 
       if (e.hasComponents(Position.class, RenderPolygon.class)) {
         Position p = e.getComponent(Position.class);
         RenderPolygon rc = e.getComponent(RenderPolygon.class);
         Rotation r = e.getComponent(Rotation.class);
-        core.pushMatrix();
-        core.translate(p.x, p.y);
-        if (r != null) core.rotate(r.angle);
-        core.fill(rc.rgba);
+        gc.pushMatrix();
+        gc.translate(p.x, p.y);
+        if (r != null) gc.rotate(r.angle);
+        gc.fill(rc.rgba);
         if (stroke != null) {
-          core.strokeWeight(stroke.weight);
-          core.stroke(stroke.rgba);
+          gc.strokeWeight(stroke.weight);
+          gc.stroke(stroke.rgba);
         } else {
-          core.noStroke();
+          gc.noStroke();
         }
-        core.beginShape();
-        for (PVector v : rc.vertices) core.vertex(v.x, v.y);
-        core.endShape(core.CLOSE);
-        core.popMatrix();
+        gc.beginShape();
+        for (PVector v : rc.vertices) gc.vertex(v.x, v.y);
+        gc.endShape(gc.CLOSE);
+        gc.popMatrix();
       }
 
       if (e.hasComponents(Position.class, RenderCircle.class)) {
         Position p = e.getComponent(Position.class);
         RenderCircle rc = e.getComponent(RenderCircle.class);
-        core.fill(rc.rgba);
+        gc.fill(rc.rgba);
         if (stroke != null) {
-          core.strokeWeight(stroke.weight);
-          core.stroke(stroke.rgba);
+          gc.strokeWeight(stroke.weight);
+          gc.stroke(stroke.rgba);
         } else {
-          core.noStroke();
+          gc.noStroke();
         }
-        core.arc(p.x, p.y, rc.r*2, rc.r*2, 0, core.TWO_PI);
+        gc.arc(p.x, p.y, rc.r*2, rc.r*2, 0, gc.TWO_PI);
       }
 
       if (e.hasComponents(Position.class, RenderLine.class)) {
         Position p = e.getComponent(Position.class);
         RenderLine rl = e.getComponent(RenderLine.class);
-        core.strokeWeight(rl.weight);
-        core.stroke(rl.rgba);
-        core.line(p.x, p.y, rl.to.x, rl.to.y);
+        gc.strokeWeight(rl.weight);
+        gc.stroke(rl.rgba);
+        gc.line(p.x, p.y, rl.to.x, rl.to.y);
       }
 
       if (e.hasComponents(Position.class, Text.class)) {
         Position p = e.getComponent(Position.class);
         Text t = e.getComponent(Text.class);
-        core.textSize(t.size);
-        core.noStroke();
-        core.fill(t.rgba);
-        core.textAlign(core.LEFT, core.TOP);
+        gc.textSize(t.size);
+        gc.noStroke();
+        gc.fill(t.rgba);
+        gc.textAlign(gc.LEFT, gc.TOP);
         if (t.bounds != null) {
-          core.text(t.contents, p.x, p.y, t.bounds.x, t.bounds.y);
+          gc.text(t.contents, p.x, p.y, t.bounds.x, t.bounds.y);
         } else {
-          core.text(t.contents, p.x, p.y);
+          gc.text(t.contents, p.x, p.y);
         }
       }
     }
