@@ -8,19 +8,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * PathNode class defines the behaviour of a PathNode used in the system, implementing the IPathNode interface.
+ *
+ * @author Brad Davis & Chris Williams
+ * @version 1.0
+ */
+
 public class PathNode implements IPathNode {
 
+  // Store the node attached to
   private INode node;
+  // And the previous IPathNode
   private IPathNode previous;
+  // Store the cost of this PathNode
   private float g;
   private float h;
 
+  /**
+   * Constructor: used to set the node this class is attached
+   * @param node
+   */
   public PathNode(INode node) {
     this.node = node;
     this.g = Float.MAX_VALUE;
     this.h = 0;
   }
 
+  /**
+   * Constructor: used to additionally set the cost of the path
+   * @param node
+   * @param target
+   * @param heuristic
+   */
   public PathNode(INode node, INode target, IHeuristic heuristic) {
     this.node = node;
     this.g = Float.MAX_VALUE;

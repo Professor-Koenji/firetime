@@ -1,5 +1,12 @@
 package com.koenji.ecs.graph.pathfinding.heuristic;
 
+/**
+ * Heuristics class defines the most popular heurisitics used for pathfinding
+ *
+ * @author Brad Davis & Chris Williams
+ * @version 1.0
+ */
+
 public class Heuristics {
 
   public static final IHeuristic manhattan = new Manhattan();

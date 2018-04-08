@@ -6,7 +6,22 @@ import com.koenji.ecs.graph.pathfinding.nodes.PathNode;
 
 import java.util.*;
 
+/**
+ * Dijkstra search algorithm to find the path between INodes, favours lower cost paths
+ *
+ *
+ * @author Brad Davis & Chris Williams
+ * @version 1.0
+ */
+
 public class Dijkstra implements IPathStrategy {
+
+  /**
+   * Method: used to find the path between INodes
+   * @param start   - starting INode
+   * @param target  - target INode
+   * @return
+   */
   public List<INode> findPath(INode start, INode target) {
     // Open and Closed lists
     List<IPathNode> open = new ArrayList<>();
