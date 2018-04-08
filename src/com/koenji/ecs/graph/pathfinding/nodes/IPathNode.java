@@ -6,7 +6,7 @@ import java.util.List;
  * IPathNode interface defines the behaviour of each PathNode implementation within the system, this is used to set the cost
  *
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

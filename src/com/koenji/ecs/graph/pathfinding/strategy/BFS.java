@@ -10,7 +10,7 @@ import java.util.*;
  * Breadth first search algorithm to find the path between INodes, explores all neighbouring nodes before moving out
  *
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

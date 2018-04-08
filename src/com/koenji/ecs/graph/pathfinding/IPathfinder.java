@@ -9,7 +9,7 @@ import java.util.List;
  * IPathfinder interface defines the behaviour for finding a path within the system
  *
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

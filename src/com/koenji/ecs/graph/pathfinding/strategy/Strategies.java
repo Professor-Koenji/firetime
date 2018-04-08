@@ -5,7 +5,7 @@ import com.koenji.ecs.graph.pathfinding.heuristic.Heuristics;
 /**
  * Strategies class containing all default list of algorithms and strategies
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

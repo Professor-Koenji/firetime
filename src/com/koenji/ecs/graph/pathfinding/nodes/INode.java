@@ -8,7 +8,7 @@ import java.util.List;
  * INode interface defines the behaviour of a Node implementation within the system, this is used to set its position
  * and neighbour(s)
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

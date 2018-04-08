@@ -3,7 +3,7 @@ package com.koenji.ecs.graph.pathfinding.heuristic;
 /**
  * Heuristics class defines the most popular heurisitics used for pathfinding
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

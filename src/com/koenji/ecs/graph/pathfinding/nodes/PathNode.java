@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * PathNode class defines the behaviour of a PathNode used in the system, implementing the IPathNode interface.
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 
