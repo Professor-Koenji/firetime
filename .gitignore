@@ -1,5 +1,6 @@
 # Ignore the /out build folder
 out
+docs
 
 # Ignore .idea workspace
 .idea/tasks.xml
