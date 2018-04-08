@@ -10,9 +10,17 @@ import com.koenji.ecs.graph.pathfinding.nodes.INode;
  * could find, however doing so can increase the speed at which
  * A* is able to 'home-in' on a 'good-enough' path, although that
  * only is really an advantage with extremely large graphs.
+ *
+ * @author Brad Davies
+ * @version 1.0
  */
 public class Manhattan implements IHeuristic {
-
+  /**
+   * The manhattan distance between two nodes.
+   * @param a A node
+   * @param b Another node
+   * @return The manhattan (Grid) distance between the two nodes.
+   */
   @Override
   public float distance(INode a, INode b) {
     return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY());

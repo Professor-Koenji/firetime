@@ -6,7 +6,6 @@ package com.koenji.ecs.graph.pathfinding.heuristic;
  * @author Brad Davies & Chris Williams
  * @version 1.0
  */
-
 public class Heuristics {
 
   public static final IHeuristic manhattan = new Manhattan();

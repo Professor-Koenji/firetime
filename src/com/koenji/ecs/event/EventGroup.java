@@ -9,6 +9,8 @@ import java.util.Map;
 
 /**
  * EventGroup defines the implementation of IEventGroup which handlers and passes the Event fired to an EventHandler within the system
+ * EventGroup's can be mapped to any individual 'region' where Events either should remain scoped
+ * or be propagated outside of the EventGroup and into the 'global' event space.
  *
  * @author Brad Davies & Chris Williams
  * @version 1.0

@@ -10,7 +10,6 @@ import javafx.event.EventType;
  * @author Brad Davis & Chris Williams
  * @version 1.0
  */
-
 public class PhysicsEvents {
 
   public static final EventType<CollisionEvent> COLLISION = new EventType<>(Event.ANY, "COLLISION_EVENT");

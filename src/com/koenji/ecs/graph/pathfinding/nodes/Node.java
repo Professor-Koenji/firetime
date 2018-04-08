@@ -12,7 +12,6 @@ import java.util.List;
  * @author Brad Davies & Chris Williams
  * @version 1.0
  */
-
 public class Node implements INode {
 
   // int values of position x,y
