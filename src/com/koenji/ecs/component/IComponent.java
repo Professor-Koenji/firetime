@@ -3,7 +3,7 @@ package com.koenji.ecs.component;
 /**
  * IComponent defines the behaviour of the implementation of Component
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

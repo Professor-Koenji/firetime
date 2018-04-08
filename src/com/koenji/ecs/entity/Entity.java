@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Entity defines the abstract behaviour of the implementation of an IEntity & IEventController within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

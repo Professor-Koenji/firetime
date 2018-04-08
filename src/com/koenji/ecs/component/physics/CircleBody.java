@@ -6,7 +6,7 @@ import com.koenji.ecs.component.IComponent;
  * CircleBody component to represent the circle area of the body acting upon,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

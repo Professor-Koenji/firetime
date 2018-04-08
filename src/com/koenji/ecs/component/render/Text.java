@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Text component to represent text content,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 

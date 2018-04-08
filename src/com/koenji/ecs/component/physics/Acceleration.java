@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Acceleration component representing/wrapping the vector library required to represent acceleration upon a body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies & Chris Williams
  * @version 1.0
  */
 
