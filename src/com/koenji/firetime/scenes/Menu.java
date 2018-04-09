@@ -48,6 +48,7 @@ public class Menu extends Scene {
     gc.text("4. Path-Finding 1", 32, gap * 4);
     gc.text("5. Path-Finding 2", 32, gap * 5);
     gc.text("6. Path-Finding 3", 32, gap * 6);
+    gc.text("7. Game Prototype", 32, gap * 7);
   }
 
   private void active() {
@@ -88,6 +89,12 @@ public class Menu extends Scene {
         break;
       case 54:
         activate(new Pathfinding(true, true));
+        break;
+      case 55:
+        activate(new GamePrototype());
+        break;
+      default:
+        System.out.println(e.keyCode());
     }
   }
 }
