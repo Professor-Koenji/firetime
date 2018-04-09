@@ -1,5 +1,6 @@
 package com.koenji.firetime.scenes;
 
+import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.entity.EntityObject;
@@ -29,7 +30,7 @@ import java.util.List;
 public class GamePrototype extends Scene {
 
   private IGraphicsContext gc;
-  private List<INode> nodes;
+  public List<INode> nodes;
 
   private boolean showPaths = false;
 
@@ -82,7 +83,7 @@ public class GamePrototype extends Scene {
     i.addNeighbour(j);
     //
     Player p = new Player();
-    Guard guard = new Guard(Arrays.asList(i, e, b, c, j));
+    Guard guard = new Guard(Arrays.asList(i, e, b, c, j), p.getComponent(Position.class));
     // Add walls
 
     add(EntityObject.create(new Background(0xFF002299)));
@@ -107,6 +108,13 @@ public class GamePrototype extends Scene {
     addEventHandler(InputEvents.KEY_PRESSED, event -> {
       if (event.keyCode() == 32) {
         showPaths = !showPaths;
+      } else if (event.keyCode() == 77) {
+        int state = guard.getState();
+        if (state == Guard.PATROL_STATE) {
+          guard.setState(Guard.CHASE_STATE);
+        } else if (state == Guard.CHASE_STATE) {
+          guard.setState(Guard.PATROL_STATE);
+        }
       }
     });
   }
