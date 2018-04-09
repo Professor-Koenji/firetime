@@ -105,7 +105,9 @@ public class GamePrototype extends Scene {
     // Event listeners
     addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
     addEventHandler(InputEvents.KEY_PRESSED, event -> {
-      System.out.println(event.toString());
+      if (event.keyCode() == 32) {
+        showPaths = !showPaths;
+      }
     });
   }
 

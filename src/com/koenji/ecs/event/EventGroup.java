@@ -4,7 +4,9 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,13 +21,13 @@ import java.util.Map;
 public class EventGroup implements IEventGroup {
 
   // Map to store the EventType and EventHandlers
-  private Map<EventType, EventHandler> eventObjects;
+  private List<EventObject> eventObjects;
 
   /**
    * Constructor: creates the eventObjects Map
    */
   public EventGroup() {
-    eventObjects = new HashMap<>();
+    eventObjects = new ArrayList<>();
   }
 
   /**
@@ -45,7 +47,9 @@ public class EventGroup implements IEventGroup {
    */
   @SuppressWarnings("unchecked")
   private <T extends Event> void handleEvent(EventType et, T event) {
-    if (eventObjects.containsKey(et)) eventObjects.get(et).handle(event);
+    for (EventObject eo : eventObjects) {
+      if (eo.eventType == et) eo.eventHandler.handle(event);
+    }
     EventType parent = et.getSuperType();
     if (parent != null) handleEvent(parent, event);
   }
@@ -57,7 +61,7 @@ public class EventGroup implements IEventGroup {
    */
   @Override
   public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler) {
-    eventObjects.put(type, handler);
+    eventObjects.add(new EventObject(type, handler));
   }
 
   /**
@@ -66,7 +70,9 @@ public class EventGroup implements IEventGroup {
    */
   @Override
   public <T extends Event> void removeEventHandler(EventType<T> type) {
-    eventObjects.remove(type);
+    for (int i = eventObjects.size() - 1; i >= 0; --i) {
+      if (eventObjects.get(i).eventType == type) eventObjects.remove(i);
+    }
   }
 
   /**
@@ -75,5 +81,15 @@ public class EventGroup implements IEventGroup {
   @Override
   public void removeAllEventHandlers() {
     eventObjects.clear();
+  }
+
+  private class EventObject {
+    public EventType eventType;
+    public EventHandler eventHandler;
+
+    public EventObject(EventType eventType, EventHandler eventHandler) {
+      this.eventType = eventType;
+      this.eventHandler = eventHandler;
+    }
   }
 }
