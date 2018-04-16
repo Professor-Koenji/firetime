@@ -21,6 +21,15 @@ import processing.core.PVector;
 public class BasicRenderer extends System {
 
   private IGraphicsContext gc;
+  private PVector offset;
+
+  public BasicRenderer() {
+    this(new PVector(0, 0));
+  }
+
+  public BasicRenderer(PVector offset) {
+    this.offset = offset;
+  }
 
   @Override
   public void added(IScene scene, IEventController eventController, IEntityManager entityManager) {
@@ -41,8 +50,12 @@ public class BasicRenderer extends System {
       return;
     }
     //
+    gc.pushMatrix();
+    gc.translate(-offset.x, -offset.y);
+    gc.translate(gc.getWidth() / 2f, gc.getHeight() / 2f);
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
+      CameraOffset cameraOffset = e.getComponent(CameraOffset.class);
 
       // Background renderer
       if (e.hasComponents(Background.class)) {
@@ -114,5 +127,6 @@ public class BasicRenderer extends System {
         }
       }
     }
+    gc.popMatrix();
   }
 }

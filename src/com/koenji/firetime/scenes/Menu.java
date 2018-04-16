@@ -12,6 +12,7 @@ import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRootScene;
+import processing.core.PVector;
 
 public class Menu extends Scene {
 
@@ -26,7 +27,7 @@ public class Menu extends Scene {
     super.added();
     //
     rootScene = Locator.get(IRootScene.class);
-    renderer = new BasicRenderer();
+    renderer = new BasicRenderer(new PVector(0, 0));
     //
     active();
     //

@@ -2,6 +2,7 @@ package com.koenji.firetime.scenes;
 
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
+import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
@@ -40,6 +41,7 @@ public class Level extends Scene {
     add(EntityObject.create(new Background(0xFF002299)));
 
     Player p = new Player(this.levelObject.playerPosition);
+    p.addComponent(new CameraOffset(p.getComponent(Position.class)));
 
     for (IEntity w : levelObject.getWalls()) {
       add(w);
@@ -54,7 +56,7 @@ public class Level extends Scene {
     add(new LinearMotion());
     add(new CircleCollider());
     add(new ConvexCollider());
-    add(new BasicRenderer());
+    add(new BasicRenderer(p.getComponent(Position.class)));
 
     addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
   }
