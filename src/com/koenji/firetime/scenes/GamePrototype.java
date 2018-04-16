@@ -20,6 +20,7 @@ import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.entities.Wall;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
+import processing.core.PVector;
 
 import java.util.*;
 
@@ -78,7 +79,7 @@ public class GamePrototype extends Scene {
     g.addNeighbour(h);
     i.addNeighbour(j);
     //
-    Player p = new Player();
+    Player p = new Player(new PVector(0, 0));
     Guard guard = new Guard(Arrays.asList(i, e, b, c, j), p.getComponent(Position.class));
     // Add walls
 
@@ -86,13 +87,6 @@ public class GamePrototype extends Scene {
 
     add(p);
     add(guard);
-    add(new Wall(0, gc.getHeight() / 2f, 32, gc.getHeight()));
-    add(new Wall(gc.getWidth() / 2f, 0, gc.getWidth(), 32));
-    add(new Wall(gc.getWidth() / 2f + 100, 650, 32, 300));
-
-    Wall w = new Wall(gc.getWidth() / 2, gc.getHeight() / 2, 300, 32);
-    w.addComponent(new Rotation((float) Math.PI / 4f));
-    add(w);
 
     add(new LinearMotion());
     add(new CircleCollider());

@@ -1,9 +1,21 @@
 package com.koenji.firetime.scenes;
 
+import com.koenji.ecs.component.physics.Position;
+import com.koenji.ecs.component.render.Background;
+import com.koenji.ecs.entity.EntityGroup;
+import com.koenji.ecs.entity.EntityObject;
+import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
+import com.koenji.ecs.system.physics.CircleCollider;
+import com.koenji.ecs.system.physics.ConvexCollider;
+import com.koenji.ecs.system.physics.LinearMotion;
+import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.firetime.entities.Bullet;
+import com.koenji.firetime.entities.Player;
+import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
 
 import java.util.List;
@@ -19,6 +31,37 @@ public class Level extends Scene {
     this.gc = Locator.get(IGraphicsContext.class);
 
     this.levelObject.setup();
+  }
+
+  @Override
+  public void added() {
+    super.added();
+    //
+    add(EntityObject.create(new Background(0xFF002299)));
+
+    Player p = new Player(this.levelObject.playerPosition);
+
+    for (IEntity w : levelObject.getWalls()) {
+      add(w);
+    }
+
+    for (IEntity g : levelObject.getGuards(p.getComponent(Position.class))) {
+      add(g);
+    }
+
+    add(p);
+
+    add(new LinearMotion());
+    add(new CircleCollider());
+    add(new ConvexCollider());
+    add(new BasicRenderer());
+
+    addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
+  }
+
+  private void fireBullet(EmitBulletEvent e) {
+    Bullet b = new Bullet(e.getX(), e.getY(), e.angle());
+    add(b);
   }
 
   @Override

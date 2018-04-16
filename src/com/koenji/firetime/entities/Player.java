@@ -19,13 +19,13 @@ public class Player extends Entity {
   private Map<Integer, Boolean> keys;
   private float speed;
 
-  public Player() {
+  public Player(PVector pos) {
     keys = new HashMap<>();
 
     speed = .2f;
 
     addComponents(
-      new Position(64, 64),
+      new Position(pos),
       new Velocity(),
       new Acceleration(),
       new Friction(.97f),
