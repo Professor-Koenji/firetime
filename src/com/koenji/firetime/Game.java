@@ -1,9 +1,8 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
-import com.koenji.ecs.scene.example.CollisionDetection;
-import com.koenji.ecs.scene.example.SimplePhysics;
-import com.koenji.firetime.scenes.Menu;
+import com.koenji.firetime.level.LevelObject;
+import com.koenji.firetime.scenes.Level;
 
 public class Game extends Core {
 
@@ -16,6 +15,7 @@ public class Game extends Core {
   public void init() {
     super.init();
     //
-    add(new Menu());
+    LevelObject lo = LevelObject.fromPath("bob-1523896826");
+    add(new Level(lo));
   }
 }

@@ -1,6 +1,5 @@
 package com.koenji.ecs.system.render;
 
-import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.tree.IQuadTree;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.System;

@@ -19,13 +19,9 @@ import com.koenji.firetime.entities.Guard;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.entities.Wall;
 import com.koenji.firetime.events.EmitBulletEvent;
-import javafx.event.Event;
-import javafx.event.EventType;
-import jdk.internal.util.xml.impl.Input;
+import com.koenji.firetime.level.LevelObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class GamePrototype extends Scene {
 
@@ -41,16 +37,16 @@ public class GamePrototype extends Scene {
     gc = Locator.get(IGraphicsContext.class);
     nodes = new ArrayList<>();
     // Construct the nodes!!!
-    INode a = new Node(64, 64);
-    INode b = new Node(600, 64);
-    INode c = new Node(1136, 64);
-    INode d = new Node(300, 350);
-    INode e = new Node(1000, 500);
-    INode f = new Node(600, 500);
-    INode g = new Node(64, 736);
-    INode h = new Node(600, 736);
-    INode i = new Node(1000, 736);
-    INode j = new Node(1136, 736);
+    Node a = new Node(64, 64);
+    Node b = new Node(600, 64);
+    Node c = new Node(1136, 64);
+    Node d = new Node(300, 350);
+    Node e = new Node(1000, 500);
+    Node f = new Node(600, 500);
+    Node g = new Node(64, 736);
+    Node h = new Node(600, 736);
+    Node i = new Node(1000, 736);
+    Node j = new Node(1136, 736);
     // Add nodes to list
     nodes.add(a);
     nodes.add(b);
@@ -102,6 +98,29 @@ public class GamePrototype extends Scene {
     add(new CircleCollider());
     add(new ConvexCollider());
     add(new BasicRenderer());
+
+    // Serialize level
+    LevelObject lo = new LevelObject();
+    List<Node> nodes = Arrays.asList(a, b, c, d, e, f, g, h, i, j);
+    lo.addNodes(nodes);
+    List<String> connections = new ArrayList<>();
+    for (INode n : nodes) {
+      List<INode> ns = n.getNeighbours();
+      int in = nodes.indexOf(n);
+      //
+      for (INode n2 : ns) {
+        int in2 = nodes.indexOf(n2);
+        int min = Math.min(in, in2);
+        int max = Math.max(in, in2);
+        String s = Integer.toString(min) + '-' + Integer.toString(max);
+        if (connections.indexOf(s) == -1) {
+          connections.add(s);
+        }
+      }
+    }
+    lo.addConnections(connections);
+    //
+
 
     // Event listeners
     addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);

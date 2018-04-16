@@ -4,28 +4,20 @@ import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderLine;
-import com.koenji.ecs.component.render.Stroke;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.event.InputEvents;
-import com.koenji.ecs.event.PhysicsEvents;
-import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
-import com.koenji.ecs.graph.tree.IQuadTree;
-import com.koenji.ecs.graph.tree.QuadTree;
-import com.koenji.ecs.graph.tree.Rect;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.physics.CircleCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
-import com.koenji.ecs.system.render.QuadtreeRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRandom;
-import javafx.event.Event;
 import processing.core.PVector;
 
 /**

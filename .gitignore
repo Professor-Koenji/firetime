@@ -6,3 +6,5 @@ docs
 # Ignore .idea workspace
 .idea/tasks.xml
 .idea/workspace.xml
+
+data/levels

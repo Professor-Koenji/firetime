@@ -5,7 +5,6 @@ import com.koenji.ecs.component.physics.ConvexBody;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.component.render.RenderCircle;
-import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;

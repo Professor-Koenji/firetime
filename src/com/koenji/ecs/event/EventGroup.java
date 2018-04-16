@@ -5,9 +5,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * EventGroup defines the implementation of IEventGroup which handlers and passes the Event fired to an EventHandler within the system

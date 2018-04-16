@@ -17,8 +17,13 @@ public class Node implements INode {
   // int values of position x,y
   private int x;
   private int y;
+
   // List of node neighbours
-  private List<INode> neighbours;
+  private transient List<INode> neighbours;
+
+  public Node() {
+    this(0, 0);
+  }
 
   /**
    * Constructor: set the x,y of the node and create the neighbours List
