@@ -3,7 +3,6 @@ package com.koenji.firetime.scenes;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.CameraOffset;
-import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.event.InputEvents;
@@ -15,11 +14,11 @@ import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.firetime.systems.GuardFSM;
 import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
-import jdk.internal.util.xml.impl.Input;
 
 import java.util.List;
 
@@ -62,6 +61,7 @@ public class Level extends Scene {
 
     add(p);
 
+    add(new GuardFSM(p.getComponent(Position.class)));
     add(new LinearMotion());
     add(new CircleCollider());
     add(new ConvexCollider());

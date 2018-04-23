@@ -83,7 +83,7 @@ public class GamePrototype extends Scene {
     i.addNeighbour(j);
     //
     p = new Player(new PVector(0, 0));
-    Guard guard = new Guard(Arrays.asList(i, e, b, c, j), p.getComponent(Position.class));
+    Guard guard = new Guard(Arrays.asList(i, e, b, c, j));
     // Add walls
 
     add(EntityObject.create(new Background(0xFF002299)));
@@ -121,18 +121,6 @@ public class GamePrototype extends Scene {
 
     // Event listeners
     addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
-    addEventHandler(InputEvents.KEY_PRESSED, event -> {
-      if (event.keyCode() == 32) {
-        showPaths = !showPaths;
-      } else if (event.keyCode() == 77) {
-        int state = guard.getState();
-        if (state == Guard.PATROL_STATE) {
-          guard.setState(Guard.CHASE_STATE);
-        } else if (state == Guard.CHASE_STATE) {
-          guard.setState(Guard.PATROL_STATE);
-        }
-      }
-    });
   }
 
   @Override

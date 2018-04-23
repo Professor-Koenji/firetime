@@ -95,7 +95,7 @@ public class LevelObject {
     for (GuardObject go : guards) {
       List<INode> pathNodes = new ArrayList<>();
       for (int i : go.path) pathNodes.add(nodes.get(i));
-      Guard g = new Guard(pathNodes, chasePoint);
+      Guard g = new Guard(pathNodes);
       realGuards.add(g);
     }
     return realGuards;
