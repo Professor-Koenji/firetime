@@ -29,7 +29,7 @@ public class ConvexCollider extends System {
 
   public ConvexCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
-    this.qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+    this.qt = new QuadTree(new Rect(-2000, -2000, 4000, 4000), 50, 8);
   }
 
   public ConvexCollider(IQuadTree qt) {

@@ -12,6 +12,7 @@ import processing.core.PVector;
 import java.io.*;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LevelObject {
@@ -63,6 +64,29 @@ public class LevelObject {
       Wall w = new Wall(wo.x, wo.y, wo.w, wo.h, wo.angle);
       realWalls.add(w);
     }
+    // Make boundary walls
+    int[] bounds = {Integer.MAX_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MAX_VALUE};
+    for (INode node : nodes) {
+      int x = node.getX();
+      int y = node.getY();
+      if (y < bounds[0]) bounds[0] = y;
+      else if (y > bounds[2]) bounds[2] = y;
+      if (x > bounds[1]) bounds[1] = x;
+      else if (x < bounds[3]) bounds[3] = x;
+    }
+    float w = bounds[1] - bounds[3];
+    float h = bounds[2] - bounds[0];
+    float midX = bounds[3] + w * .5f;
+    float midY = bounds[0] + h * .5f;
+    float GAP = 400f;
+    // Top wall
+    realWalls.add(new Wall(midX, bounds[0] - GAP, w + GAP * 2, 60, 0));
+    // Bottom wall
+    realWalls.add(new Wall(midX, bounds[0] + h + GAP, w + GAP * 2, 60, 0));
+    // Left wall
+    realWalls.add(new Wall(bounds[3] - GAP, midY, 60, h + GAP * 2, 0));
+    // Right wall
+    realWalls.add(new Wall(bounds[3] + w + GAP, midY, 60, h + GAP * 2, 0));
     return realWalls;
   }
 

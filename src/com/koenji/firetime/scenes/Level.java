@@ -19,6 +19,7 @@ import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
+import jdk.internal.util.xml.impl.Input;
 
 import java.util.List;
 
@@ -32,11 +33,13 @@ public class Level extends Scene {
 
   private BasicRenderer renderer;
   private float scale;
+  private float dScale;
 
   public Level(LevelObject levelObject) {
     this.levelObject = levelObject;
     this.gc = Locator.get(IGraphicsContext.class);
-    this.scale = 1f;
+    this.scale = 0.2f;
+    this.dScale = 0;
     this.levelObject.setup();
   }
 
@@ -67,8 +70,11 @@ public class Level extends Scene {
     addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
     addEventHandler(InputEvents.KEY_PRESSED, e -> {
       if (e.keyCode() == 90) {
-        this.scale = this.scale > 0.9f ? 0.4f : 1f;
-        renderer.scale = this.scale;
+        if (dScale == 0f) {
+          dScale = this.scale > 0.6f ? -0.05f : 0.05f;
+        } else {
+          dScale *= -1;
+        }
       }
       if (e.keyCode() == 32) {
         System.out.println(p.getComponent(Position.class).toString());
@@ -84,6 +90,18 @@ public class Level extends Scene {
   @Override
   public void update(int dt) {
     super.update(dt);
+    //
+    if (dScale != 0f) {
+      scale += dScale;
+      if (scale >= 1f) {
+        scale = 1f;
+        dScale = 0;
+      } else if (scale <= 0.2f) {
+        scale = 0.2f;
+        dScale = 0;
+      }
+    }
+    renderer.scale = scale;
     //
     CameraOffset co = p.getComponent(CameraOffset.class);
     gc.pushMatrix();
@@ -113,5 +131,6 @@ public class Level extends Scene {
     gc.fill(0xFFFFFFFF);
     gc.textSize(14);
     gc.text("Entities: " + entityCount(), 20, 20);
+    gc.text("Scale: " + scale, 20, 60);
   }
 }

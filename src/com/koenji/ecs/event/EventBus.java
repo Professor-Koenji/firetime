@@ -97,6 +97,7 @@ public class EventBus implements IEventBus {
    */
   @Override
   public void removeAllEventHandlers(IEventController eventController, boolean global) {
+    System.out.println("REMOVE ALL EVENTS");
     if (global) {
       for (IEventGroup eg : eventControllerGroups.values()) {
         eg.removeAllEventHandlers();
