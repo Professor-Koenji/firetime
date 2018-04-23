@@ -30,7 +30,7 @@ public class Game extends Core {
         remove(level);
         add(new Level(LevelObject.fromPath("level-01")));
       }
-    }, null);
+    }, level);
 
   }
 }

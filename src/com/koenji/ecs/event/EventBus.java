@@ -64,6 +64,7 @@ public class EventBus implements IEventBus {
   @Override
   public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler, IEventController eventController) {
     if (!eventControllerGroups.containsKey(eventController)) {
+      System.out.println("ADD EVENT: " + eventController);
       eventControllerGroups.put(eventController, new EventGroup());
     }
     eventControllerGroups.get(eventController).addEventHandler(type, handler);

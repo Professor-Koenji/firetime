@@ -78,7 +78,7 @@ public class LevelObject {
     float h = bounds[2] - bounds[0];
     float midX = bounds[3] + w * .5f;
     float midY = bounds[0] + h * .5f;
-    float GAP = 400f;
+    float GAP = 300f;
     // Top wall
     realWalls.add(new Wall(midX, bounds[0] - GAP, w + GAP * 2, 60, 0));
     // Bottom wall
