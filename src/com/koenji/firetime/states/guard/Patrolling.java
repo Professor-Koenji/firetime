@@ -3,14 +3,7 @@ package com.koenji.firetime.states.guard;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
-import com.koenji.ecs.event.IEventBus;
-import com.koenji.ecs.event.IEventController;
-import com.koenji.ecs.event.PhysicsEvents;
-import com.koenji.ecs.event.events.CollisionEvent;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
-import com.koenji.ecs.service.Locator;
-import com.koenji.firetime.components.CanKill;
-import com.koenji.firetime.states.IState;
 import com.koenji.firetime.states.IStateMachine;
 import processing.core.PVector;
 

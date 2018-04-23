@@ -4,8 +4,6 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
 import com.koenji.firetime.components.GuardState;
 import com.koenji.firetime.entities.Guard;
-import com.koenji.firetime.states.IState;
-import com.koenji.firetime.states.IStateMachine;
 import processing.core.PVector;
 
 public class GuardFSM extends System {

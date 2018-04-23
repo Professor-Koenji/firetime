@@ -1,11 +1,8 @@
 package com.koenji.firetime.scenes;
 
-import com.koenji.ecs.component.physics.Position;
-import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityObject;
-import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.graph.pathfinding.nodes.Node;
 import com.koenji.ecs.scene.Scene;
@@ -18,7 +15,6 @@ import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Guard;
 import com.koenji.firetime.entities.Player;
-import com.koenji.firetime.entities.Wall;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
 import processing.core.PVector;

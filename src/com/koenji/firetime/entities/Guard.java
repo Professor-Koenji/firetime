@@ -10,9 +10,7 @@ import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.firetime.components.GuardState;
-import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.states.guard.Patrolling;
-import processing.core.PVector;
 
 import java.util.List;
 

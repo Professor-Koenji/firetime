@@ -1,7 +1,6 @@
 package com.koenji.firetime.entities;
 
 import com.koenji.ecs.component.physics.*;
-import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventController;
