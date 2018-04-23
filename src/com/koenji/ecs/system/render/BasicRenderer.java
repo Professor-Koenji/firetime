@@ -20,6 +20,8 @@ import processing.core.PVector;
  */
 public class BasicRenderer extends System {
 
+  public float scale;
+
   private IGraphicsContext gc;
   private PVector offset;
 
@@ -29,6 +31,7 @@ public class BasicRenderer extends System {
 
   public BasicRenderer(PVector offset) {
     this.offset = offset;
+    this.scale = 1f;
   }
 
   @Override
@@ -51,8 +54,10 @@ public class BasicRenderer extends System {
     }
     //
     gc.pushMatrix();
+    gc.scale(this.scale);
     gc.translate(-offset.x, -offset.y);
-    gc.translate(gc.getWidth() / 2f, gc.getHeight() / 2f);
+    float invScale = 1 / this.scale;
+    gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
       CameraOffset cameraOffset = e.getComponent(CameraOffset.class);
@@ -60,9 +65,7 @@ public class BasicRenderer extends System {
       // Background renderer
       if (e.hasComponents(Background.class)) {
         Background b = e.getComponent(Background.class);
-        gc.noStroke();
-        gc.fill(b.rgba);
-        gc.rect(0, 0, gc.getWidth(), gc.getHeight());
+        gc.background(b.rgba);
       }
 
       // Rendering polygons

@@ -15,7 +15,7 @@ public class Game extends Core {
   public void init() {
     super.init();
     //
-    LevelObject lo = LevelObject.fromPath("bob-1523896826");
+    LevelObject lo = LevelObject.fromPath("level-01");
     add(new Level(lo));
   }
 }

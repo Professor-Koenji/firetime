@@ -40,14 +40,4 @@ public class Bullet extends Entity {
       new RenderCircle(8, 0xFF3322FF)
     );
   }
-
-  @Override
-  public void update(int dt) {
-    super.update(dt);
-    //
-    Position p = getComponent(Position.class);
-    if (p.x < -4 || p.x > gc.getWidth() + 4 || p.y < -4 || p.y > gc.getHeight() + 4) {
-      scene.remove(this);
-    }
-  }
 }

@@ -3,6 +3,7 @@ package com.koenji.firetime.scenes;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.Background;
+import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
@@ -30,6 +31,8 @@ public class GamePrototype extends Scene {
   public List<INode> nodes;
 
   private boolean showPaths = false;
+
+  private Player p;
 
   @Override
   public void added() {
@@ -79,7 +82,7 @@ public class GamePrototype extends Scene {
     g.addNeighbour(h);
     i.addNeighbour(j);
     //
-    Player p = new Player(new PVector(0, 0));
+    p = new Player(new PVector(0, 0));
     Guard guard = new Guard(Arrays.asList(i, e, b, c, j), p.getComponent(Position.class));
     // Add walls
 
@@ -136,6 +139,9 @@ public class GamePrototype extends Scene {
   public void update(int dt) {
     super.update(dt);
     // Draw le nodes
+    CameraOffset co = p.getComponent(CameraOffset.class);
+    gc.pushMatrix();
+    gc.translate(-co.offset.x, -co.offset.y);
     if (showPaths) {
       gc.stroke(0xFFFFFFFF);
       gc.strokeWeight(3);
@@ -152,9 +158,12 @@ public class GamePrototype extends Scene {
       }
     }
     //
-    gc.fill(0xFFFFFFFF);
+    gc.popMatrix();
+    //
+    gc.fill(0xFF000000);
     gc.textSize(14);
     gc.text("Entities: " + entityCount(), 20, 20);
+    gc.text("CO: " + co.offset.toString(), 20, 60);
   }
 
   private void fireBullet(EmitBulletEvent e) {

@@ -28,6 +28,11 @@ public interface IGraphicsContext {
   void fill(int rgb, float alpha);
   void noFill();
 
+  void background(int rgb);
+
+  void scale(float s);
+  void scale(float x, float y);
+
   void rotate(float angle);
   void translate(float x, float y);
 

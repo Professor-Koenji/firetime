@@ -6,6 +6,7 @@ import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
@@ -27,10 +28,15 @@ public class Level extends Scene {
 
   private LevelObject levelObject;
 
+  private Player p;
+
+  private BasicRenderer renderer;
+  private float scale;
+
   public Level(LevelObject levelObject) {
     this.levelObject = levelObject;
     this.gc = Locator.get(IGraphicsContext.class);
-
+    this.scale = 1f;
     this.levelObject.setup();
   }
 
@@ -40,7 +46,7 @@ public class Level extends Scene {
     //
     add(EntityObject.create(new Background(0xFF002299)));
 
-    Player p = new Player(this.levelObject.playerPosition);
+    p = new Player(this.levelObject.playerPosition);
     p.addComponent(new CameraOffset(p.getComponent(Position.class)));
 
     for (IEntity w : levelObject.getWalls()) {
@@ -56,9 +62,18 @@ public class Level extends Scene {
     add(new LinearMotion());
     add(new CircleCollider());
     add(new ConvexCollider());
-    add(new BasicRenderer(p.getComponent(Position.class)));
+    add(renderer = new BasicRenderer(p.getComponent(Position.class)));
 
     addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
+    addEventHandler(InputEvents.KEY_PRESSED, e -> {
+      if (e.keyCode() == 90) {
+        this.scale = this.scale > 0.9f ? 0.4f : 1f;
+        renderer.scale = this.scale;
+      }
+      if (e.keyCode() == 32) {
+        System.out.println(p.getComponent(Position.class).toString());
+      }
+    });
   }
 
   private void fireBullet(EmitBulletEvent e) {
@@ -70,6 +85,12 @@ public class Level extends Scene {
   public void update(int dt) {
     super.update(dt);
     //
+    CameraOffset co = p.getComponent(CameraOffset.class);
+    gc.pushMatrix();
+    float invScale = 1 / this.scale;
+    gc.scale(this.scale);
+    gc.translate(-co.offset.x, -co.offset.y);
+    gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
     // Draw le nodes
     gc.stroke(0xFFFFFFFF);
     gc.strokeWeight(3);
@@ -83,8 +104,12 @@ public class Level extends Scene {
     for (INode n : levelObject.nodes) {
       gc.fill(0xFFFF0000);
       gc.rect(n.getX() - 8, n.getY() - 8, 16, 16);
+      gc.fill(0xFFFFFFFF);
+      gc.textSize(32);
+      gc.text(Integer.toString(levelObject.nodes.indexOf(n)), n.getX() - 8, n.getY() + 40);
     }
     //
+    gc.popMatrix();
     gc.fill(0xFFFFFFFF);
     gc.textSize(14);
     gc.text("Entities: " + entityCount(), 20, 20);

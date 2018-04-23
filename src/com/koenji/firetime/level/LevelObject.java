@@ -28,9 +28,14 @@ public class LevelObject {
 
   public static LevelObject fromPath(String path) {
     try(BufferedReader br = new BufferedReader(new FileReader("data/levels/" + path + ".json"))) {
-      String jsonRaw = br.readLine();
+      StringBuilder jsonRaw = new StringBuilder();
+      String l = br.readLine();
+      while (l != null) {
+        jsonRaw.append(l);
+        l = br.readLine();
+      }
       Gson gson = new Gson();
-      return gson.fromJson(jsonRaw, LevelObject.class);
+      return gson.fromJson(jsonRaw.toString(), LevelObject.class);
     } catch (IOException e) {
       System.out.println("Cannot load level!");
     }

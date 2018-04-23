@@ -1,6 +1,7 @@
 package com.koenji.firetime.entities;
 
 import com.koenji.ecs.component.physics.*;
+import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventController;
@@ -8,6 +9,8 @@ import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.service.Locator;
+import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.firetime.events.EmitBulletEvent;
 import processing.core.PVector;
 
@@ -66,9 +69,12 @@ public class Player extends Entity {
 
   private void mousePressed(MouseEvent e) {
     //
-    Position p = getComponent(Position.class);
-    float angle = PVector.sub(e.position(), p).heading();
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
+    PVector centre = new PVector(gc.getWidth(), gc.getHeight());
+    centre.mult(.5f);
+    float angle = PVector.sub(e.position(), centre).heading();
     PVector angleVec = PVector.fromAngle(angle);
+    PVector p = getComponent(Position.class);
     PVector pos = PVector.add(p, angleVec.setMag(32f));
 
     fireEvent(new EmitBulletEvent(EmitBulletEvent.EMIT_BULLET, pos.x, pos.y, angle));
