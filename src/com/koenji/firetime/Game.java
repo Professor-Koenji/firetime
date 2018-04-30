@@ -1,7 +1,6 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
-import com.koenji.ecs.event.EventBus;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.service.Locator;

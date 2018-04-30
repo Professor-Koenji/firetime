@@ -5,14 +5,12 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.graph.pathfinding.nodes.Node;
 import com.koenji.firetime.entities.Guard;
-import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.entities.Wall;
 import processing.core.PVector;
 
 import java.io.*;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LevelObject {
@@ -95,7 +93,7 @@ public class LevelObject {
     for (GuardObject go : guards) {
       List<INode> pathNodes = new ArrayList<>();
       for (int i : go.path) pathNodes.add(nodes.get(i));
-      Guard g = new Guard(pathNodes, chasePoint);
+      Guard g = new Guard(pathNodes);
       realGuards.add(g);
     }
     return realGuards;

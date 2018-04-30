@@ -9,6 +9,8 @@ import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.firetime.components.GuardState;
+import com.koenji.firetime.states.guard.Patrolling;
 import com.koenji.ecs.service.Locator;
 import com.koenji.firetime.events.EmitBulletEvent;
 import processing.core.PVector;
@@ -17,41 +19,25 @@ import java.util.List;
 
 public class Guard extends Entity {
 
-  public static final int PATROL_STATE = 1;
-  public static final int CHASE_STATE = 2;
-
-  public static final int FIRE_DELAY = 500;
-
   private List<INode> route;
-  private int waypointIndex;
-  private float speed;
 
-  private PVector chasePoint;
-
-  private int fireDelay;
-
-  private int state;
-
-  public Guard(List<INode> route, PVector chasePoint) {
+  public Guard(List<INode> route) {
     this.route = route;
-    this.waypointIndex = 0;
-    this.speed = 1f;
-    this.state = PATROL_STATE;
-    this.chasePoint = chasePoint;
-
-    fireDelay = FIRE_DELAY;
   }
 
   @Override
   public void added(IScene scene) {
     super.added(scene);
     //
+    INode start = route.get(0);
+    //
     addComponents(
-      new Position(route.get(waypointIndex).getX(), route.get(waypointIndex).getY()),
+      new Position(start.getX(), start.getY()),
       new Velocity(),
       new CircleBody(32),
       ConvexBody.polygon(8, 32),
-      new RenderCircle(32, 0xFFFF00FF)
+      new RenderCircle(32, 0xFFFF00FF),
+      new GuardState(new Patrolling(route), this)
     );
   }
 

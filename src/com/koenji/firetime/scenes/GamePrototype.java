@@ -1,7 +1,5 @@
 package com.koenji.firetime.scenes;
 
-import com.koenji.ecs.component.physics.Position;
-import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityObject;
@@ -19,7 +17,6 @@ import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Guard;
 import com.koenji.firetime.entities.Player;
-import com.koenji.firetime.entities.Wall;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
 import processing.core.PVector;
@@ -84,7 +81,7 @@ public class GamePrototype extends Scene {
     i.addNeighbour(j);
     //
     p = new Player(new PVector(0, 0));
-    Guard guard = new Guard(Arrays.asList(i, e, b, c, j), p.getComponent(Position.class));
+    Guard guard = new Guard(Arrays.asList(i, e, b, c, j));
     // Add walls
 
     add(EntityObject.create(new Background(0xFF002299)));

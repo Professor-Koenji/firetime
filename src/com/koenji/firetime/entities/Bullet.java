@@ -9,6 +9,7 @@ import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.firetime.components.CanKill;
 import processing.core.PVector;
 
 public class Bullet extends Entity {
@@ -33,10 +34,21 @@ public class Bullet extends Entity {
     ConvexBody cb = ConvexBody.polygon(8, 10);
     addComponents(
       new Position(x, y),
-      new Velocity(PVector.fromAngle(angle).setMag(5f)),
+      new Velocity(PVector.fromAngle(angle).setMag(10f)),
       new CircleBody(8),
       cb,
-      new RenderCircle(8, 0xFF3322FF)
+      new RenderCircle(8, 0xFF3322FF),
+      new CanKill()
     );
+  }
+
+  @Override
+  public void update(int dt) {
+    super.update(dt);
+    //
+    Velocity v = getComponent(Velocity.class);
+    if (v.mag() < 4f) {
+      scene.remove(this);
+    }
   }
 }
