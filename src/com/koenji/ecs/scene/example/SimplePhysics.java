@@ -8,6 +8,7 @@ import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.Scene;
@@ -72,9 +73,10 @@ public class SimplePhysics extends Scene {
     add(new CircleCollider());
     add(new BasicRenderer());
     // Add events
-    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
-    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
-    addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
+    eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
+    eb.addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
   }
 
   private void mouseMove(MouseEvent event) {

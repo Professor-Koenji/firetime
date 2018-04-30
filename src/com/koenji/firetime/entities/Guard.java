@@ -6,9 +6,10 @@ import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
-import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.IScene;
+import com.koenji.ecs.service.Locator;
 import com.koenji.firetime.events.EmitBulletEvent;
 import processing.core.PVector;
 
@@ -42,8 +43,8 @@ public class Guard extends Entity {
   }
 
   @Override
-  public void added(IScene scene, IEventController eventController) {
-    super.added(scene, eventController);
+  public void added(IScene scene) {
+    super.added(scene);
     //
     addComponents(
       new Position(route.get(waypointIndex).getX(), route.get(waypointIndex).getY()),
@@ -80,8 +81,8 @@ public class Guard extends Entity {
         float angle = PVector.sub(chasePoint, p).heading();
         PVector angleVec = PVector.fromAngle(angle);
         PVector pos = PVector.add(p, angleVec.setMag(64f));
-
-        fireEvent(new EmitBulletEvent(EmitBulletEvent.EMIT_BULLET, pos.x, pos.y, angle));
+        IEventBus eb = Locator.get(IEventBus.class);
+        eb.fireEvent(new EmitBulletEvent(EmitBulletEvent.EMIT_BULLET, pos.x, pos.y, angle));
         v.add(PVector.sub(chasePoint, p).setMag(speed));
 
         fireDelay = FIRE_DELAY;

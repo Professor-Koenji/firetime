@@ -6,6 +6,7 @@ import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.Scene;
@@ -67,8 +68,10 @@ public class Level extends Scene {
     add(new ConvexCollider());
     add(renderer = new BasicRenderer(p.getComponent(Position.class)));
 
-    addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
-    addEventHandler(InputEvents.KEY_PRESSED, e -> {
+    IEventBus eb = Locator.get(IEventBus.class);
+
+    eb.addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, e -> {
       if (e.keyCode() == 90) {
         if (dScale == 0f) {
           dScale = this.scale > 0.6f ? -0.05f : 0.05f;

@@ -14,7 +14,7 @@ public class Game extends Core {
 
   public Game() {
     // Set initial resolution, fps&amp;title
-    super(1200, 800, 60, "Firetime", 0xFFF8FBFE);
+    super(1600, 900, 60, "Firetime", 0xFFF8FBFE);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class Game extends Core {
         remove(level);
         add(new Level(LevelObject.fromPath("level-02")));
       }
-    }, null);
+    });
 
   }
 }

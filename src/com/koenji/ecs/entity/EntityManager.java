@@ -1,6 +1,5 @@
 package com.koenji.ecs.entity;
 
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.Scene;
 
@@ -19,8 +18,6 @@ public class EntityManager implements IEntityManager {
 
   // DECLARE a field to store our scene
   private IScene scene;
-  // DECLARE the implementation of IEventController
-  private IEventController eventController;
   // DECLARE Lists of the IEntity(ies) to add remove and keep
   private List<IEntity> toAdd;
   private List<IEntity> toRemove;
@@ -32,7 +29,6 @@ public class EntityManager implements IEntityManager {
    */
   public EntityManager(Scene scene) {
     this.scene = scene;
-    this.eventController = scene;
 
     toAdd = new ArrayList<>();
     toRemove = new ArrayList<>();
@@ -77,7 +73,7 @@ public class EntityManager implements IEntityManager {
     // Add new scenes
     entities.addAll(toAdd);
     for (IEntity entity : toAdd) {
-      entity.added(scene, eventController);
+      entity.added(scene);
     }
     // Empty modifier lists
     toAdd.clear();

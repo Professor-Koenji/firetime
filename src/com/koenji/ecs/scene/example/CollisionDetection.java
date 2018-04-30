@@ -6,6 +6,7 @@ import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntityGroup;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.graph.tree.IQuadTree;
@@ -100,8 +101,8 @@ public class CollisionDetection extends Scene {
 
     debug = false;
     qtRenderer = new QuadtreeRenderer(qt, 0xFFFF3333);
-
-    addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
   }
 
   @Override

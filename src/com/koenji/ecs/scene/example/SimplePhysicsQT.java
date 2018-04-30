@@ -8,6 +8,7 @@ import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
@@ -81,10 +82,11 @@ public class SimplePhysicsQT extends Scene {
     qtRenderer = new QuadtreeRenderer(qt, 0xFF3366CC);
     debug = false;
     // Add events
-    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
-    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
-    addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
-    addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
+    eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
+    eb.addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
   }
 
   private void keyPressed(KeyEvent e) {

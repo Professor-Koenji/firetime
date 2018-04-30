@@ -1,10 +1,9 @@
 package com.koenji.firetime.entities;
 
 import com.koenji.ecs.component.physics.*;
-import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
-import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
@@ -40,12 +39,13 @@ public class Player extends Entity {
   }
 
   @Override
-  public void added(IScene scene, IEventController eventController) {
-    super.added(scene, eventController);
+  public void added(IScene scene) {
+    super.added(scene);
     //
-    addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
-    addEventHandler(InputEvents.KEY_RELEASED, this::keyReleased);
-    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePressed);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
+    eb.addEventHandler(InputEvents.KEY_RELEASED, this::keyReleased);
+    eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePressed);
   }
 
   @Override
@@ -77,7 +77,8 @@ public class Player extends Entity {
     PVector p = getComponent(Position.class);
     PVector pos = PVector.add(p, angleVec.setMag(32f));
 
-    fireEvent(new EmitBulletEvent(EmitBulletEvent.EMIT_BULLET, pos.x, pos.y, angle));
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.fireEvent(new EmitBulletEvent(EmitBulletEvent.EMIT_BULLET, pos.x, pos.y, angle));
   }
 
 }

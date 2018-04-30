@@ -5,7 +5,6 @@ import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.Entity;
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import processing.core.PVector;
 
@@ -26,8 +25,8 @@ public class Wall extends Entity {
   }
 
   @Override
-  public void added(IScene scene, IEventController eventController) {
-    super.added(scene, eventController);
+  public void added(IScene scene) {
+    super.added(scene);
     //
     ConvexBody cb = new ConvexBody((int) Math.sqrt(w*w + h*h),
       new PVector(-w/2f, -h/2f),

@@ -17,9 +17,8 @@ public interface IScene {
 
   /**
    * Called when the scene is removed from the root scene
-   * @param clearEvents Whether the Scene should clear it's events
    */
-  void removed(boolean clearEvents);
+  void removed();
 
   /**
    * Called every update cycle.
