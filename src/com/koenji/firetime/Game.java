@@ -21,16 +21,16 @@ public class Game extends Core {
   public void init() {
     super.init();
     //
-    LevelObject lo = LevelObject.fromPath("level-01");
+    LevelObject lo = LevelObject.fromPath("level-02");
     add(level = new Level(lo));
     //
     IEventBus eb = Locator.get(IEventBus.class);
     eb.addEventHandler(InputEvents.KEY_PRESSED, e -> {
       if (e.keyCode() == 82) {
         remove(level);
-        add(new Level(LevelObject.fromPath("level-01")));
+        add(new Level(LevelObject.fromPath("level-02")));
       }
-    }, level);
+    }, null);
 
   }
 }
