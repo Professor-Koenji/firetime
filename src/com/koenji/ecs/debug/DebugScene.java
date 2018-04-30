@@ -4,9 +4,11 @@ import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.Text;
 import com.koenji.ecs.entity.EntityObject;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.scene.Scene;
+import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.render.BasicRenderer;
 
@@ -38,8 +40,8 @@ public class DebugScene extends Scene {
     ));
     //
     show = false;
-
-    addEventHandler(InputEvents.KEY_PRESSED, this::keyPress);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, this::keyPress);
   }
 
   @Override

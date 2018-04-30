@@ -1,5 +1,7 @@
 package com.koenji.firetime.scenes;
 
+import com.koenji.ecs.event.EventBus;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.scene.IScene;
@@ -31,7 +33,7 @@ public class Menu extends Scene {
     //
     active();
     //
-    addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
+    Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
   }
 
   @Override

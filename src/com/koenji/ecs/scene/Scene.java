@@ -5,7 +5,6 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.event.IEventBus;
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.ISystem;
 import com.koenji.ecs.system.ISystemManager;
@@ -22,9 +21,8 @@ import javafx.event.EventType;
  * @author Brad Davies &amp; Chris Williams
  * @version 1.4
  */
-public abstract class Scene implements IScene, IEventController {
+public abstract class Scene implements IScene {
 
-  private IEventBus eventBus;
   private IEntityManager entityManager;
   private ISystemManager systemManager;
 
@@ -39,17 +37,8 @@ public abstract class Scene implements IScene, IEventController {
   /**
    * Stores a local reference to the event bus via Service Locator.
    */
-  public void added() {
-    eventBus = Locator.get(IEventBus.class);
-  }
-
-  /**
-   * If clearEvents is `true`, then all event handlers are removed.
-   * @param clearEvents Whether the Scene should clear it's events
-   */
-  public void removed(boolean clearEvents) {
-    if (clearEvents) removeAllEventHandlers();
-  }
+  public void added() {}
+  public void removed() {}
 
   /**
    * Updates the entity manager and system manager.
@@ -168,73 +157,5 @@ public abstract class Scene implements IScene, IEventController {
   @Override
   public int systemCount() {
     return systemManager.count();
-  }
-
-  /**
-   * Fires an event from the Scene scope.
-   * @param type - Event type
-   */
-  @Override
-  public void fireEvent(Event type) {
-    fireEvent(type, false);
-  }
-
-  /**
-   * Fires an event from the Scene scope, with propagation defined.
-   * @param type      - Event type
-   * @param propagate - boolean flag
-   */
-  @Override
-  public void fireEvent(Event type, boolean propagate) {
-    eventBus.fireEvent(type, this, propagate);
-  }
-
-  /**
-   * Adds an event listener from this Scene scope for a given EventType.
-   * @param type    - EventType class
-   * @param handler - EventHandler that 'handles' the event
-   * @param <T> Any Event type.
-   */
-  @Override
-  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler) {
-    eventBus.addEventHandler(type, handler, this);
-  }
-
-  /**
-   * Removes an event handler for a given EventType.
-   * @param type - EventType class to remove
-   * @param <T> Any Event type.
-   */
-  @Override
-  public <T extends Event> void removeEventHandler(EventType<T> type) {
-    eventBus.removeEventHandler(type, this, false);
-  }
-
-  /**
-   * Removes an event handler for a given EventType, with a global option.
-   * @param type   - EventType to remove
-   * @param global - boolean flag
-   * @param <T> Any Event type.
-   */
-  @Override
-  public <T extends Event> void removeEventHandler(EventType<T> type, boolean global) {
-    eventBus.removeEventHandler(type, this, global);
-  }
-
-  /**
-   * Removes all event handlers from the Scene's scope (EventGroup).
-   */
-  @Override
-  public void removeAllEventHandlers() {
-    removeAllEventHandlers(false);
-  }
-
-  /**
-   * Removes all event handlers from this Scene, and optionally all global scope.
-   * @param global - boolean flag
-   */
-  @Override
-  public void removeAllEventHandlers(boolean global) {
-    eventBus.removeAllEventHandlers(this, global);
   }
 }

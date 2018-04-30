@@ -2,6 +2,7 @@ package com.koenji.ecs.scene.example;
 
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.entity.EntityObject;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.Pathfinder;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
@@ -108,8 +109,8 @@ public class Pathfinding extends Scene {
     // Pick a random start
     start = nodes.get((int) Math.floor(rng.random(0, nodes.size() - 1)));
     target = nodes.get((int) Math.floor(rng.random(0, nodes.size() - 1)));
-
-    addEventHandler(InputEvents.MOUSE_PRESSED, e -> {
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.MOUSE_PRESSED, e -> {
       INode nearest = null;
       float dist = 9999;
       for (INode n : nodes) {

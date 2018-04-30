@@ -3,6 +3,8 @@ package com.koenji.firetime.scenes;
 import com.koenji.ecs.component.render.Background;
 import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityObject;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.graph.pathfinding.nodes.Node;
 import com.koenji.ecs.scene.Scene;
@@ -116,7 +118,20 @@ public class GamePrototype extends Scene {
 
 
     // Event listeners
-    addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, event -> {
+      if (event.keyCode() == 32) {
+        showPaths = !showPaths;
+      } else if (event.keyCode() == 77) {
+        int state = guard.getState();
+        if (state == Guard.PATROL_STATE) {
+          guard.setState(Guard.CHASE_STATE);
+        } else if (state == Guard.CHASE_STATE) {
+          guard.setState(Guard.PATROL_STATE);
+        }
+      }
+    });
   }
 
   @Override

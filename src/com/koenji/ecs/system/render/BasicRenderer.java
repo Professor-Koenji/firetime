@@ -6,7 +6,6 @@ import com.koenji.ecs.component.physics.Rotation;
 import com.koenji.ecs.component.render.*;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.System;
@@ -35,8 +34,8 @@ public class BasicRenderer extends System {
   }
 
   @Override
-  public void added(IScene scene, IEventController eventController, IEntityManager entityManager) {
-    super.added(scene, eventController, entityManager);
+  public void added(IScene scene, IEntityManager entityManager) {
+    super.added(scene, entityManager);
     //
     this.gc = Locator.get(IGraphicsContext.class);
   }
@@ -58,6 +57,7 @@ public class BasicRenderer extends System {
     gc.translate(-offset.x, -offset.y);
     float invScale = 1 / this.scale;
     gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
+    //
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
       CameraOffset cameraOffset = e.getComponent(CameraOffset.class);

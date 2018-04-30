@@ -2,7 +2,6 @@ package com.koenji.ecs.system;
 
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -20,10 +19,9 @@ import java.util.List;
  * @author Brad Davies &amp; Chris Williams
  * @version 1.1
  */
-public abstract class System implements ISystem, IEventController {
+public abstract class System implements ISystem {
 
   protected IScene scene;
-  protected IEventController eventController;
   protected List<IEntity> entities;
 
   /**
@@ -36,11 +34,9 @@ public abstract class System implements ISystem, IEventController {
   /**
    * Called when this System has actually been added into the Scene.
    * @param scene The Scene this system has been added to.
-   * @param eventController The EventController API this System can now use.
    */
-  public void added(IScene scene, IEventController eventController) {
+  public void added(IScene scene) {
     this.scene = scene;
-    this.eventController = eventController;
   }
 
   /**
@@ -49,8 +45,8 @@ public abstract class System implements ISystem, IEventController {
    * @param eventController The EventController API this System can now use.
    * @param entityManager The EntityManager this System can now access.
    */
-  public void added(IScene scene, IEventController eventController, IEntityManager entityManager) {
-    added(scene, eventController);
+  public void added(IScene scene, IEntityManager entityManager) {
+    added(scene);
     //
     for (IEntity e : entityManager.iterable()) {
       entityAdded(e);
@@ -85,73 +81,5 @@ public abstract class System implements ISystem, IEventController {
    */
   final public void entityRemoved(IEntity entity) {
     entities.remove(entity);
-  }
-
-  /**
-   * A System can act as an event dispatcher.
-   * @param type The type of event to dispatch.
-   */
-  @Override
-  public void fireEvent(Event type) {
-    eventController.fireEvent(type);
-  }
-
-  /**
-   * A System can act as an event dispatcher.
-   * @param type The type of event to dispatch.
-   * @param propagate Whether to propagate this event outside this Scene.
-   */
-  @Override
-  public void fireEvent(Event type, boolean propagate) {
-    eventController.fireEvent(type, propagate);
-  }
-
-  /**
-   * A System can act as an event listener.
-   * @param type The type of Event to listen to.
-   * @param handler What to do when the event occurs.
-   * @param <T> An Event or superclass.
-   */
-  @Override
-  public <T extends Event> void addEventHandler(EventType<T> type, EventHandler<? super T> handler) {
-    eventController.addEventHandler(type, handler);
-  }
-
-  /**
-   * Remove an event handle on a given event type.
-   * @param type The type of event.
-   * @param <T> An Event or superclass.
-   */
-  @Override
-  public <T extends Event> void removeEventHandler(EventType<T> type) {
-    eventController.removeEventHandler(type);
-  }
-
-  /**
-   * Remove an event handler globally on a given event type.
-   * @param type The event type.
-   * @param global Whether to remove it globally.
-   * @param <T> An Event or superclass.
-   */
-  @Override
-  public <T extends Event> void removeEventHandler(EventType<T> type, boolean global) {
-    eventController.removeEventHandler(type, global);
-  }
-
-  /**
-   * Removes all event handlers from this event controller.
-   */
-  @Override
-  public void removeAllEventHandlers() {
-    eventController.removeAllEventHandlers();
-  }
-
-  /**
-   * Removes all event handlers from this event controller.
-   * @param global Whether to remove every event handlers on all controllers.
-   */
-  @Override
-  public void removeAllEventHandlers(boolean global) {
-    eventController.removeAllEventHandlers(global);
   }
 }

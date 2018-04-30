@@ -56,7 +56,6 @@ public class QuadTree implements IQuadTree {
   private void split()  {
     int w = (int) (bounds.getW() * 0.5);
     int h = (int) (bounds.getH() * 0.5);
-
     for (int i = 0; i < 4; ++i) {
       int x = (int) bounds.getX() + (i % 2 == 0 ? 0 : w);
       int y = (int) bounds.getY() + (i < 2 ? 0 : h);

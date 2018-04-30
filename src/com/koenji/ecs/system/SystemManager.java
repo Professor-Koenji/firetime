@@ -2,7 +2,6 @@ package com.koenji.ecs.system;
 
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.Scene;
 
@@ -20,7 +19,6 @@ import java.util.List;
 public class SystemManager implements ISystemManager {
 
   private IScene scene; // The root scene (from this Systems POV).
-  private IEventController eventController; // An event controller
   private IEntityManager entityManager; // The entity manager paired with this SystemManager
 
   private List<ISystem> toAdd;
@@ -34,7 +32,6 @@ public class SystemManager implements ISystemManager {
    */
   public SystemManager(Scene scene, IEntityManager entityManager) {
     this.scene = scene;
-    this.eventController = scene;
     this.entityManager = entityManager;
 
     toAdd = new ArrayList<>();
@@ -77,7 +74,7 @@ public class SystemManager implements ISystemManager {
     // Add new scenes
     systems.addAll(toAdd);
     for (ISystem system : toAdd) {
-      system.added(scene, eventController, entityManager);
+      system.added(scene, entityManager);
     }
     // Empty modifier lists
     toAdd.clear();

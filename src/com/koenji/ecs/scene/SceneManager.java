@@ -63,7 +63,7 @@ public class SceneManager implements ISceneManager {
     // Remove any scenes first
     for (IScene scene : toRemove) {
       scenes.remove(scene);
-      scene.removed(true);
+      scene.removed();
     }
     // Add new scenes
     scenes.addAll(toAdd);

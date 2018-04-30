@@ -35,7 +35,8 @@ public class CircleCollider extends System {
    */
   public CircleCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
-    this.qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+    this.qt = new QuadTree(new Rect(-320, -700, 4420,3250), 20, 5);
+
   }
 
   /**
