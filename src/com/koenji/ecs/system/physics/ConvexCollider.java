@@ -29,7 +29,7 @@ public class ConvexCollider extends System {
 
   public ConvexCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
-    this.qt = new QuadTree(new Rect(-2000, -2000, 4000, 4000), 50, 8);
+    this.qt = new QuadTree(new Rect(-320, -700, 4420,3250), 20, 5);
   }
 
   public ConvexCollider(IQuadTree qt) {
@@ -221,17 +221,17 @@ public class ConvexCollider extends System {
 
     @Override
     public float getX() {
-      return entity.getComponent(Position.class).x;
+      return entity.getComponent(Position.class).x - this.getW() * .5f;
     }
 
     @Override
     public float getY() {
-      return entity.getComponent(Position.class).y;
+      return entity.getComponent(Position.class).y - this.getH() * .5f;
     }
 
     @Override
     public float getW() {
-      return entity.getComponent(ConvexBody.class).size * 2f;
+      return ConvexBody.getBounds(entity.getComponent(ConvexBody.class));
     }
 
     @Override

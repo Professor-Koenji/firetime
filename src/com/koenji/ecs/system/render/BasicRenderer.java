@@ -57,6 +57,7 @@ public class BasicRenderer extends System {
     gc.translate(-offset.x, -offset.y);
     float invScale = 1 / this.scale;
     gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
+    //
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
       CameraOffset cameraOffset = e.getComponent(CameraOffset.class);
