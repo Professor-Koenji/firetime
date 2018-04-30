@@ -21,7 +21,7 @@ public class BaseState implements IState {
           fsm.setState(new Dead());
         }
       }
-    }, null);
+    });
   }
 
   @Override

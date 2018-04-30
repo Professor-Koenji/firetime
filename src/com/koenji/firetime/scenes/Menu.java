@@ -93,9 +93,6 @@ public class Menu extends Scene {
       case 54:
         activate(new Pathfinding(true, true));
         break;
-      case 55:
-        activate(new GamePrototype());
-        break;
       default:
         System.out.println(e.keyCode());
     }
