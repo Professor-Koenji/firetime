@@ -20,7 +20,7 @@ public class Game extends Core {
   public void init() {
     super.init();
     //
-    LevelObject lo = LevelObject.fromPath("level-02");
+    LevelObject lo = LevelObject.fromPath("level-01");
     add(level = new Level(lo));
     //
     IEventBus eb = Locator.get(IEventBus.class);
