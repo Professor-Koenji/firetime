@@ -21,8 +21,8 @@ public class BasicRenderer extends System {
 
   public float scale;
 
-  private IGraphicsContext gc;
-  private PVector offset;
+  protected IGraphicsContext gc;
+  protected PVector offset;
 
   public BasicRenderer() {
     this(new PVector(0, 0));
@@ -40,6 +40,18 @@ public class BasicRenderer extends System {
     this.gc = Locator.get(IGraphicsContext.class);
   }
 
+  protected void pushCamera() {
+    gc.pushMatrix();
+    gc.scale(this.scale);
+    gc.translate(-offset.x, -offset.y);
+    float invScale = 1 / this.scale;
+    gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
+  }
+
+  protected void popCamera() {
+    gc.popMatrix();
+  }
+
   @Override
   @SuppressWarnings("unchecked")
   public void update(int dt) {
@@ -51,21 +63,14 @@ public class BasicRenderer extends System {
       scene.remove(this);
       return;
     }
-    //
-    gc.pushMatrix();
-    gc.scale(this.scale);
-    gc.translate(-offset.x, -offset.y);
-    float invScale = 1 / this.scale;
-    gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
-    //
+    pushCamera();
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
-      CameraOffset cameraOffset = e.getComponent(CameraOffset.class);
 
       // Background renderer
       if (e.hasComponents(Background.class)) {
         Background b = e.getComponent(Background.class);
-        gc.background(b.rgba);
+        //gc.background(b.rgba);
       }
 
       // Rendering polygons
@@ -130,6 +135,6 @@ public class BasicRenderer extends System {
         }
       }
     }
-    gc.popMatrix();
+    popCamera();
   }
 }

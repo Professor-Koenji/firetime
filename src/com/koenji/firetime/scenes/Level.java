@@ -20,6 +20,9 @@ import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
+import com.koenji.firetime.systems.GuardPathRenderer;
+import com.koenji.firetime.systems.TimeLinearMotion;
+import javafx.geometry.Pos;
 
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class Level extends Scene {
   private Player p;
 
   private BasicRenderer renderer;
+  private BasicRenderer guardPathRenderer;
+
   private float scale;
   private float dScale;
 
@@ -63,10 +68,13 @@ public class Level extends Scene {
     add(p);
 
     add(new GuardFSM(p.getComponent(Position.class)));
-    add(new LinearMotion());
+//    add(new LinearMotion());
+    add(new TimeLinearMotion(p));
     add(new CircleCollider());
     add(new ConvexCollider());
-    add(renderer = new BasicRenderer(p.getComponent(Position.class)));
+    renderer = new BasicRenderer(p.getComponent(Position.class));
+    add(guardPathRenderer = new GuardPathRenderer(p.getComponent(Position.class)));
+    add(renderer);
 
     IEventBus eb = Locator.get(IEventBus.class);
 
@@ -105,35 +113,36 @@ public class Level extends Scene {
       }
     }
     renderer.scale = scale;
+    guardPathRenderer.scale = scale;
     //
-    CameraOffset co = p.getComponent(CameraOffset.class);
-    gc.pushMatrix();
-    float invScale = 1 / this.scale;
-    gc.scale(this.scale);
-    gc.translate(-co.offset.x, -co.offset.y);
-    gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
-    // Draw le nodes
-    gc.stroke(0xFFFFFFFF);
-    gc.strokeWeight(3);
-    for (int i = 0; i < levelObject.nodes.size(); ++i) {
-      INode n = levelObject.nodes.get(i);
-      List<INode> ns = n.getNeighbours();
-      for (INode n2 : ns) {
-        gc.line(n.getX(), n.getY(), n2.getX(), n2.getY());
-      }
-    }
-    for (INode n : levelObject.nodes) {
-      gc.fill(0xFFFF0000);
-      gc.rect(n.getX() - 8, n.getY() - 8, 16, 16);
-      gc.fill(0xFFFFFFFF);
-      gc.textSize(32);
-      gc.text(Integer.toString(levelObject.nodes.indexOf(n)), n.getX() - 8, n.getY() + 40);
-    }
-    //
-    gc.popMatrix();
-    gc.fill(0xFFFFFFFF);
-    gc.textSize(14);
-    gc.text("Entities: " + entityCount(), 20, 20);
-    gc.text("Scale: " + scale, 20, 60);
+//    CameraOffset co = p.getComponent(CameraOffset.class);
+//    gc.pushMatrix();
+//    float invScale = 1 / this.scale;
+//    gc.scale(this.scale);
+//    gc.translate(-co.offset.x, -co.offset.y);
+//    gc.translate(gc.getWidth() / 2f * invScale, gc.getHeight() / 2f * invScale);
+//    // Draw le nodes
+//    gc.stroke(0xFFFFFFFF);
+//    gc.strokeWeight(3);
+//    for (int i = 0; i < levelObject.nodes.size(); ++i) {
+//      INode n = levelObject.nodes.get(i);
+//      List<INode> ns = n.getNeighbours();
+//      for (INode n2 : ns) {
+//        gc.line(n.getX(), n.getY(), n2.getX(), n2.getY());
+//      }
+//    }
+//    for (INode n : levelObject.nodes) {
+//      gc.fill(0xFFFF0000);
+//      gc.rect(n.getX() - 8, n.getY() - 8, 16, 16);
+//      gc.fill(0xFFFFFFFF);
+//      gc.textSize(32);
+//      gc.text(Integer.toString(levelObject.nodes.indexOf(n)), n.getX() - 8, n.getY() + 40);
+//    }
+//    //
+//    gc.popMatrix();
+//    gc.fill(0xFFFFFFFF);
+//    gc.textSize(14);
+//    gc.text("Entities: " + entityCount(), 20, 20);
+//    gc.text("Scale: " + scale, 20, 60);
   }
 }

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Patrolling extends BaseState {
 
-  private List<INode> route;
-  private int waypointIndex;
+  public List<INode> route;
+  public int waypointIndex;
 
   public Patrolling(List<INode> route) {
     this(route, 0);
