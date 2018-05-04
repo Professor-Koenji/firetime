@@ -18,13 +18,7 @@ import java.util.Map;
 
 public class Player extends Entity {
 
-  private Map<Integer, Boolean> keys;
-  private float speed;
-
   public Player(PVector pos) {
-    keys = new HashMap<>();
-
-    speed = .2f;
 
     addComponents(
       new Position(pos),
@@ -43,28 +37,12 @@ public class Player extends Entity {
     super.added(scene);
     //
     IEventBus eb = Locator.get(IEventBus.class);
-    eb.addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
-    eb.addEventHandler(InputEvents.KEY_RELEASED, this::keyReleased);
     eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePressed);
   }
 
   @Override
   public void update(int dt) {
     super.update(dt);
-    // Up
-    Acceleration acc = getComponent(Acceleration.class);
-    if (keys.getOrDefault(87, false)) acc.sub(0, speed);
-    if (keys.getOrDefault(83, false)) acc.add(0, speed);
-    if (keys.getOrDefault(65, false)) acc.sub(speed, 0);
-    if (keys.getOrDefault(68, false)) acc.add(speed, 0);
-  }
-
-  private void keyPressed(KeyEvent e) {
-    keys.put(e.keyCode(), true);
-  }
-
-  private void keyReleased(KeyEvent e) {
-    keys.put(e.keyCode(), false);
   }
 
   private void mousePressed(MouseEvent e) {

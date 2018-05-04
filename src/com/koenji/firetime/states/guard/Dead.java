@@ -17,7 +17,7 @@ public class Dead implements IState {
   }
 
   @Override
-  public void update(IStateMachine fsm, int dt, IEntity entity) {
+  public void update(IStateMachine fsm, int dt) {
     //
   }
 

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ConvexCollider extends System {
 
-  private IQuadTree qt;
+  protected IQuadTree qt;
 
   public ConvexCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
@@ -84,6 +84,10 @@ public class ConvexCollider extends System {
         // Static bodies cannot have collision response with each other
         if (bA.isStatic && bB.isStatic) continue;
 
+        /*if (PVector.sub(pB, pA).mag() > bA.size + bB.size + 50) {
+          continue;
+        }*/
+
         // Get the 2nd bodies edges by this point, as we will need them
         Rotation rB = b.getComponent(Rotation.class);
         List<PVector> edgesB = bB.edges(rB);
@@ -108,7 +112,7 @@ public class ConvexCollider extends System {
    * @param bB The convex body of shape 2
    * @param edgesB The edges of shape 2
    */
-  private void collisionCheck(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
+  protected void collisionCheck(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
                               Position pB, ConvexBody bB, List<PVector> edgesB) {
     // Do SAT collision checks!
     List<PVector> edges = new ArrayList<>();
@@ -144,27 +148,32 @@ public class ConvexCollider extends System {
     // Only can get here if no seperating axis was found = collision
     // Translate shapes by MTV (if it exists, just to make IntelliJ happy)
     if (mtv != null) {
-      Velocity vA = a.getComponent(Velocity.class);
-      Velocity vB = b.getComponent(Velocity.class);
-      // Set the magnitude of the mtv to our overlap / 2 (as each will move half the mtv)
-      mtv.setMag(minOverlap * .5f);
-      // Get our displacement vector between the two positions
-      PVector displacement = PVector.sub(pB, pA);
-      // Project the displacement upon our minimum translation vector
-      float dot = mtv.dot(displacement);
-      // If the projection was 'backwards', then mtv essentially is reversed
-      if (dot >= 0) mtv.mult(-1);
-      if (!bA.isStatic) {
-        pA.add(mtv);
-        if (vA != null) vA.add(PVector.mult(mtv, 2));
-      }
-      if (!bB.isStatic) {
-        pB.sub(mtv);
-        if (vB != null) vB.sub(PVector.mult(mtv, 2));
-      }
-      // Fire an event!
-      Locator.get(IEventBus.class).fireEvent(new CollisionEvent(PhysicsEvents.CONVEX_COLLISION, a, b));
+      doCollision(a, b, mtv, minOverlap, pA, pB, bA, bB);
     }
+  }
+
+  protected void doCollision(IEntity a, IEntity b, PVector mtv, float minOverlap, Position pA, Position pB, ConvexBody bA, ConvexBody bB) {
+    Velocity vA = a.getComponent(Velocity.class);
+    Velocity vB = b.getComponent(Velocity.class);
+
+    // Set the magnitude of the mtv to our overlap / 2 (as each will move half the mtv)
+    mtv.setMag(minOverlap * .5f);
+    // Get our displacement vector between the two positions
+    PVector displacement = PVector.sub(pB, pA);
+    // Project the displacement upon our minimum translation vector
+    float dot = mtv.dot(displacement);
+    // If the projection was 'backwards', then mtv essentially is reversed
+    if (dot >= 0) mtv.mult(-1);
+    if (!bA.isStatic) {
+      pA.add(mtv);
+      if (vA != null) vA.add(PVector.mult(mtv, 2));
+    }
+    if (!bB.isStatic) {
+      pB.sub(mtv);
+      if (vB != null) vB.sub(PVector.mult(mtv, 2));
+    }
+    // Fire an event!
+    Locator.get(IEventBus.class).fireEvent(new CollisionEvent(PhysicsEvents.CONVEX_COLLISION, a, b));
   }
 
   /**

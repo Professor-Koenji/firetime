@@ -16,6 +16,9 @@ import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.firetime.input.InputHandler;
+import com.koenji.firetime.input.command.*;
+import com.koenji.firetime.systems.ExtendedCollider;
 import com.koenji.firetime.systems.GuardFSM;
 import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
@@ -34,6 +37,8 @@ public class Level extends Scene {
   private LevelObject levelObject;
 
   private Player p;
+
+  private InputHandler inputHandler;
 
   private BasicRenderer renderer;
   private BasicRenderer guardPathRenderer;
@@ -72,10 +77,18 @@ public class Level extends Scene {
 //    add(new LinearMotion());
     add(new TimeLinearMotion(p));
     add(new CircleCollider());
-    add(new ConvexCollider());
+    add(new ExtendedCollider());
     renderer = new BasicRenderer(p.getComponent(Position.class));
     add(guardPathRenderer = new GuardPathRenderer(p.getComponent(Position.class)));
     add(renderer);
+
+    // command stuff
+    this.inputHandler = new InputHandler();
+    float speed = 0.2f;
+    inputHandler.bindKeyCommand(87, new MoveUpCommand(speed));
+    inputHandler.bindKeyCommand(83, new MoveDownCommand(speed));
+    inputHandler.bindKeyCommand(65, new MoveLeftCommand(speed));
+    inputHandler.bindKeyCommand(68, new MoveRightCommand(speed));
 
     IEventBus eb = Locator.get(IEventBus.class);
 
@@ -103,10 +116,15 @@ public class Level extends Scene {
   public void update(int dt) {
     super.update(dt);
     //
-    System.out.println(p.getComponent(Velocity.class).mag());
+    //System.out.println(p.getComponent(Velocity.class).mag());
     scale = 1f - (p.getComponent(Velocity.class).mag() / 9.45f) * .5f;
     //
     renderer.scale = scale;
     guardPathRenderer.scale = scale;
+
+    // update commands
+    for(ICommand e :  inputHandler.update()) {
+      e.execute(p);
+    }
   }
 }

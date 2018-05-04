@@ -8,8 +8,6 @@ import processing.core.PVector;
 
 public class GuardFSM extends System {
 
-
-
   private PVector chasePosition;
 
   public GuardFSM(PVector chasePosition) {
@@ -30,7 +28,7 @@ public class GuardFSM extends System {
     // Manage the states of le guards
     for (IEntity guard : entities) {
       GuardState state = guard.getComponent(GuardState.class);
-      if (state != null) state.currentState().update(state, dt, guard);
+      if (state != null) state.currentState().update(state, dt);
     }
   }
 }

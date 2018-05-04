@@ -24,9 +24,9 @@ public class Patrolling extends BaseState {
   }
 
   @Override
-  public void update(IStateMachine fsm, int dt, IEntity entity) {
-    PVector pos = entity.getComponent(Position.class);
-    PVector vel = entity.getComponent(Velocity.class);
+  public void update(IStateMachine fsm, int dt) {
+    PVector pos = this.entity.getComponent(Position.class);
+    PVector vel = this.entity.getComponent(Velocity.class);
 
     // State action
     PVector nextNode = getRouteNodeVector(waypointIndex);

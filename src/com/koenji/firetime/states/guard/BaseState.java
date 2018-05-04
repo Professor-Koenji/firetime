@@ -8,12 +8,16 @@ import com.koenji.firetime.components.CanKill;
 import com.koenji.firetime.states.IState;
 import com.koenji.firetime.states.IStateMachine;
 
-public class BaseState implements IState {
+public abstract class BaseState implements IState {
+
+  protected IEntity entity;
+
   @Override
   public void enterState(IStateMachine fsm, IEntity entity) {
+    this.entity = entity;
     //
     Locator.get(IEventBus.class).addEventHandler(PhysicsEvents.COLLISION, e -> {
-      if (entity == e.a() || entity == e.b()) {
+      if (this.entity == e.a() || this.entity == e.b()) {
         // We were involved in a motor accident
         boolean aCanKill = e.a().getComponent(CanKill.class) != null;
         boolean bCanKill = e.b().getComponent(CanKill.class) != null;
@@ -25,7 +29,7 @@ public class BaseState implements IState {
   }
 
   @Override
-  public void update(IStateMachine fsm, int dt, IEntity entity) {
+  public void update(IStateMachine fsm, int dt) {
 
   }
 
