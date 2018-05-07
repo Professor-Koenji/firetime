@@ -64,6 +64,9 @@ public interface IGraphicsContext {
   void filter(int shader);
   void filter(int shader, float param);
 
+  void clip(float x, float y, float w, float h);
+  void noClip();
+
   void beginShape();
   void endShape();
   void endShape(int mode);
