@@ -2,6 +2,7 @@ package com.koenji.firetime.states.guard;
 
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.PhysicsEvents;
 import com.koenji.ecs.service.Locator;
 import com.koenji.firetime.components.CanKill;
@@ -12,11 +13,13 @@ public abstract class BaseState implements IState {
 
   protected IEntity entity;
 
+  private ISubscriber handler;
+
   @Override
   public void enterState(IStateMachine fsm, IEntity entity) {
     this.entity = entity;
     //
-    Locator.get(IEventBus.class).addEventHandler(PhysicsEvents.COLLISION, e -> {
+    handler = Locator.get(IEventBus.class).addEventHandler(PhysicsEvents.COLLISION, e -> {
       if (this.entity == e.a() || this.entity == e.b()) {
         // We were involved in a motor accident
         boolean aCanKill = e.a().getComponent(CanKill.class) != null;
@@ -35,6 +38,6 @@ public abstract class BaseState implements IState {
 
   @Override
   public void exitState(IStateMachine fsm, IEntity entity) {
-
+    handler.unsubscribe();
   }
 }

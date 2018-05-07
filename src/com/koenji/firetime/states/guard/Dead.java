@@ -3,13 +3,19 @@ package com.koenji.firetime.states.guard;
 import com.koenji.ecs.component.physics.Friction;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.IEntity;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.service.Locator;
 import com.koenji.firetime.components.GuardState;
+import com.koenji.firetime.events.GameEvent;
 import com.koenji.firetime.states.IState;
 import com.koenji.firetime.states.IStateMachine;
 
 public class Dead implements IState {
+
   @Override
   public void enterState(IStateMachine fsm, IEntity entity) {
+    // Fire dead guard event
+    Locator.get(IEventBus.class).fireEvent(new GameEvent(GameEvent.KILLED_GUARD));
     // Remove
     entity.removeComponent(GuardState.class);
     entity.getComponent(RenderCircle.class).rgba = 0xFF000000;

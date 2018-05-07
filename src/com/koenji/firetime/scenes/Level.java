@@ -103,7 +103,7 @@ public class Level extends Scene {
     for (IEntity k : levelObject.getKeys(p.getComponent(Position.class))) {
       add(k);
     }
-    
+
     List<IEntity> guardList = levelObject.getGuards(p.getComponent(Position.class));
     totalGuards = guardList.size();
     for (IEntity g : guardList) {
@@ -152,10 +152,15 @@ public class Level extends Scene {
       rootScene.add(new EndOfLevel(kills, time));
     });
 
+    ISubscriber deadGuard = eb.addEventHandler(GameEvent.KILLED_GUARD, e -> {
+      kills++;
+    });
+
     // Add these handlers
     handlers.add(bulletEvent);
     handlers.add(keyPressEvent);
     handlers.add(endOfLevelEvent);
+    handlers.add(deadGuard);
   }
 
   @Override
