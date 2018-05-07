@@ -95,6 +95,14 @@ public class Level extends Scene {
       add(w);
     }
 
+    for (IEntity d : levelObject.getDoors()) {
+      add(d);
+    }
+
+    for (IEntity k : levelObject.getKeys(p.getComponent(Position.class))) {
+      add(k);
+    }
+
     for (IEntity g : levelObject.getGuards(p.getComponent(Position.class))) {
       add(g);
     }
