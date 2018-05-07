@@ -87,7 +87,7 @@ public class Level extends Scene {
     super.added();
     //
     removeAll();
-    add(EntityObject.create(new Background(0xF0301939)));
+    add(EntityObject.create(new Background(0xA0301939)));
 
     p = new Player(this.levelObject.playerPosition);
     p.addComponent(new CameraOffset(p.getComponent(Position.class)));
@@ -194,8 +194,13 @@ public class Level extends Scene {
     hueShader.set("hue", hue);
 
     // Channels
-    float offsetX = PApplet.map(vel.x, -3f, 3f, -.002f, .002f);
-    float offsetY = PApplet.map(vel.y, -3f, 3f, -.002f, .002f);
+//    float offsetX = PApplet.map(vel.x, -3f, 3f, -.002f, .002f);
+//    float offsetY = PApplet.map(vel.y, -3f, 3f, -.002f, .002f);
+//    channelsShader.set("rbias", 0f, 0f);
+//    channelsShader.set("gbias", -offsetX, -offsetY);
+//    channelsShader.set("bbias", offsetX, offsetY);
+    float offsetX = PApplet.map(Math.abs(vel.x), 0, 6f, 0.005f, 0);
+    float offsetY = PApplet.map(Math.abs(vel.y), 0, 6f, 0.005f, 0);
     channelsShader.set("rbias", 0f, 0f);
     channelsShader.set("gbias", -offsetX, -offsetY);
     channelsShader.set("bbias", offsetX, offsetY);
