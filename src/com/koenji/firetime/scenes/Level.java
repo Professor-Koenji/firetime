@@ -147,7 +147,7 @@ public class Level extends Scene {
       if (e.keyCode() == 82) {
         IRootScene rootScene = Locator.get(IRootScene.class);
         rootScene.remove(this);
-        rootScene.add(new EndOfLevel(score, time));
+        rootScene.add(new EndOfLevel(kills, time));
       }
     });
 
