@@ -27,8 +27,10 @@ public class Player extends Entity {
   private ISubscriber collisionHandler;
   private IEventBus eb;
 
-  public Player(PVector pos) {
+  private boolean waitingToDie;
 
+  public Player(PVector pos) {
+    waitingToDie = false;
     addComponents(
       new Position(pos),
       new Velocity(),
@@ -79,12 +81,14 @@ public class Player extends Entity {
   }
 
   private void haveIBeenShot(CollisionEvent e) {
+    if (waitingToDie) return;
     if (this == e.a() || this == e.b()) {
 
       boolean aCanKill = e.a().getComponent(CanKill.class) != null;
       boolean bCanKill = e.b().getComponent(CanKill.class) != null;
       if (aCanKill || bCanKill) {
         // I've been shot darn it
+        waitingToDie = true;
         eb.fireEvent(new GameEvent(GameEvent.END_OF_LEVEL));
       }
     }
