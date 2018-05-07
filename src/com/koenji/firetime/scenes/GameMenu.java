@@ -25,7 +25,7 @@ public class GameMenu extends Scene {
   public GameMenu() {
     this.rotation = 0;
     Core core = Locator.get(Core.class);
-    font = core.createFont("fonts/showcase.ttf", 128);
+    font = core.createFont("fonts/corp.otf", 128);
     hueShader = core.loadShader("shaders/hue.glsl");
     channelsShader = core.loadShader("shaders/channels.glsl");
     glitchShader = core.loadShader("shaders/glitch.glsl");

@@ -10,12 +10,9 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.InputEvents;
-import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.physics.CircleCollider;
-import com.koenji.ecs.system.physics.ConvexCollider;
-import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRootScene;
@@ -31,7 +28,6 @@ import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
 import com.koenji.firetime.systems.GuardPathRenderer;
 import com.koenji.firetime.systems.TimeLinearMotion;
-import javafx.geometry.Pos;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.opengl.PShader;
@@ -57,7 +53,8 @@ public class Level extends Scene {
   private float scale;
   private float dScale;
 
-  private int score;
+  private int kills;
+  private int totalGuards;
   private int time;
 
   private PShader hueShader;
@@ -70,7 +67,7 @@ public class Level extends Scene {
     this.scale = 0.2f;
     this.dScale = 0;
     this.handlers = new ArrayList<>();
-    this.score = 0;
+    this.kills = 0;
     this.time = 0;
     this.levelObject.setup();
 
@@ -100,7 +97,9 @@ public class Level extends Scene {
       add(w);
     }
 
-    for (IEntity g : levelObject.getGuards(p.getComponent(Position.class))) {
+    List<IEntity> guardList = levelObject.getGuards(p.getComponent(Position.class));
+    totalGuards = guardList.size();
+    for (IEntity g : guardList) {
       add(g);
     }
 
@@ -142,7 +141,7 @@ public class Level extends Scene {
     ISubscriber endOfLevelEvent = eb.addEventHandler(GameEvent.END_OF_LEVEL, e -> {
       IRootScene rootScene = Locator.get(IRootScene.class);
       rootScene.remove(this);
-      rootScene.add(new EndOfLevel(score, time));
+      rootScene.add(new EndOfLevel(kills, time));
     });
 
     // Add these handlers
@@ -190,6 +189,12 @@ public class Level extends Scene {
     // SHADERS!!!!!
     //
     Core core = Locator.get(Core.class);
+
+    // Draw HUD text
+    gc.textSize(32);
+    gc.fill(kills == totalGuards ? 0xFFFF0000 : 0xFFFFF0FF);
+    gc.textAlign(gc.LEFT, gc.TOP);
+    gc.text("Kills: " + kills + "/" + totalGuards, 128, 128);
 
     // ModColour
     // Hue
