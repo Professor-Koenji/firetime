@@ -7,6 +7,7 @@ import com.koenji.ecs.component.render.CameraOffset;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.Scene;
@@ -16,7 +17,9 @@ import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.ecs.wrappers.IRootScene;
 import com.koenji.firetime.entities.Goal;
+import com.koenji.firetime.events.GameEvent;
 import com.koenji.firetime.input.InputHandler;
 import com.koenji.firetime.input.command.*;
 import com.koenji.firetime.systems.ExtendedCollider;
@@ -29,6 +32,7 @@ import com.koenji.firetime.systems.GuardPathRenderer;
 import com.koenji.firetime.systems.TimeLinearMotion;
 import javafx.geometry.Pos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Level extends Scene {
@@ -44,6 +48,8 @@ public class Level extends Scene {
   private BasicRenderer renderer;
   private BasicRenderer guardPathRenderer;
 
+  private List<ISubscriber> handlers;
+
   private float scale;
   private float dScale;
 
@@ -52,6 +58,7 @@ public class Level extends Scene {
     this.gc = Locator.get(IGraphicsContext.class);
     this.scale = 0.2f;
     this.dScale = 0;
+    this.handlers = new ArrayList<>();
     this.levelObject.setup();
   }
 
@@ -64,7 +71,7 @@ public class Level extends Scene {
     p = new Player(this.levelObject.playerPosition);
     p.addComponent(new CameraOffset(p.getComponent(Position.class)));
 
-    IEntity goal = new Goal(this.levelObject.exit);
+    IEntity goal = new Goal(this.levelObject.exit, p.getComponent(Position.class));
 
     for (IEntity w : levelObject.getWalls()) {
       add(w);
@@ -95,8 +102,8 @@ public class Level extends Scene {
 
     IEventBus eb = Locator.get(IEventBus.class);
 
-    eb.addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
-    eb.addEventHandler(InputEvents.KEY_PRESSED, e -> {
+    ISubscriber bulletEvent = eb.addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
+    ISubscriber keyPressEvent = eb.addEventHandler(InputEvents.KEY_PRESSED, e -> {
       if (e.keyCode() == 90) {
         if (dScale == 0f) {
           dScale = this.scale > 0.6f ? -0.05f : 0.05f;
@@ -108,6 +115,26 @@ public class Level extends Scene {
         System.out.println(p.getComponent(Position.class).toString());
       }
     });
+
+    ISubscriber endOfLevelEvent = eb.addEventHandler(GameEvent.END_OF_LEVEL, e -> {
+      IRootScene rootScene = Locator.get(IRootScene.class);
+      rootScene.remove(this);
+      rootScene.add(new Menu());
+    });
+
+    // Add these handlers
+    handlers.add(bulletEvent);
+    handlers.add(keyPressEvent);
+    handlers.add(endOfLevelEvent);
+  }
+
+  @Override
+  public void removed() {
+    super.removed();//
+    for(ISubscriber s : handlers) {
+      s.unsubscribe();
+    }
+    handlers.clear();
   }
 
   private void fireBullet(EmitBulletEvent e) {
