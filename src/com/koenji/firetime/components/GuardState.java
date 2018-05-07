@@ -4,11 +4,14 @@ import com.koenji.ecs.component.IComponent;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.firetime.states.IState;
 import com.koenji.firetime.states.IStateMachine;
+import processing.core.PVector;
 
 public class GuardState implements IComponent, IStateMachine {
 
   private IState currentState;
   private IState previousState;
+
+  private PVector target;
 
   private IEntity entity;
 
@@ -16,6 +19,14 @@ public class GuardState implements IComponent, IStateMachine {
     this.entity = entity;
     this.currentState = state;
     this.currentState.enterState(this, entity);
+  }
+
+  public void setTarget(PVector target) {
+    this.target = target;
+  }
+
+  public PVector getTarget() {
+    return target;
   }
 
   @Override

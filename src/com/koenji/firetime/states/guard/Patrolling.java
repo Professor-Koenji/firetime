@@ -4,6 +4,7 @@ import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
+import com.koenji.firetime.components.GuardState;
 import com.koenji.firetime.states.IStateMachine;
 import processing.core.PVector;
 
@@ -39,6 +40,13 @@ public class Patrolling extends BaseState {
     PVector path = PVector.sub(newNode, pos);
     vel.add(path.normalize());
     vel.limit(2f);
+
+    GuardState gs = (GuardState) fsm;
+    float dist = PVector.dist(pos, gs.getTarget());
+    if (dist < 500) {
+      // Within range of player, ATTACK!
+      fsm.setState(new Combat());
+    }
 
     // Do we need to change state?
     // if player in sight -> combat

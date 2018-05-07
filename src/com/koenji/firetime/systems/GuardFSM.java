@@ -16,7 +16,8 @@ public class GuardFSM extends System {
 
   @Override
   public void entityAdded(IEntity entity) {
-    if (entity instanceof Guard) {
+    if (entity.hasComponents(GuardState.class)) {
+      entity.getComponent(GuardState.class).setTarget(chasePosition);
       entities.add(entity);
     }
   }
