@@ -144,6 +144,11 @@ public class Level extends Scene {
       if (e.keyCode() == 32) {
         System.out.println(p.getComponent(Position.class).toString());
       }
+      if (e.keyCode() == 82) {
+        IRootScene rootScene = Locator.get(IRootScene.class);
+        rootScene.remove(this);
+        rootScene.add(new EndOfLevel(score, time));
+      }
     });
 
     ISubscriber endOfLevelEvent = eb.addEventHandler(GameEvent.END_OF_LEVEL, e -> {
