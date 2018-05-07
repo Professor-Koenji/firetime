@@ -10,12 +10,9 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.InputEvents;
-import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.physics.CircleCollider;
-import com.koenji.ecs.system.physics.ConvexCollider;
-import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRootScene;
@@ -23,15 +20,13 @@ import com.koenji.firetime.entities.Goal;
 import com.koenji.firetime.events.GameEvent;
 import com.koenji.firetime.input.InputHandler;
 import com.koenji.firetime.input.command.*;
-import com.koenji.firetime.systems.ExtendedCollider;
-import com.koenji.firetime.systems.GuardFSM;
+import com.koenji.firetime.systems.*;
 import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
 import com.koenji.firetime.systems.GuardPathRenderer;
 import com.koenji.firetime.systems.TimeLinearMotion;
-import javafx.geometry.Pos;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.opengl.PShader;
@@ -57,11 +52,13 @@ public class Level extends Scene {
   private float scale;
   private float dScale;
 
-  private int score;
+  private int kills;
+  private int totalGuards;
   private int time;
 
   private PShader hueShader;
   private PShader channelsShader;
+  private PShader glitchShader;
 
   public Level(LevelObject levelObject) {
     this.levelObject = levelObject;
@@ -69,13 +66,14 @@ public class Level extends Scene {
     this.scale = 0.2f;
     this.dScale = 0;
     this.handlers = new ArrayList<>();
-    this.score = 0;
+    this.kills = 0;
     this.time = 0;
     this.levelObject.setup();
 
     Core core = Locator.get(Core.class);
     this.hueShader = core.loadShader("shaders/hue.glsl");
     this.channelsShader = core.loadShader("shaders/channels.glsl");
+    this.glitchShader = core.loadShader("shaders/glitch-lite.glsl");
 
     channelsShader.set("rmult", 1f, 1f);
     channelsShader.set("gmult", 1f, 1f);
@@ -98,7 +96,17 @@ public class Level extends Scene {
       add(w);
     }
 
-    for (IEntity g : levelObject.getGuards(p.getComponent(Position.class))) {
+    for (IEntity d : levelObject.getDoors()) {
+      add(d);
+    }
+
+    for (IEntity k : levelObject.getKeys(p.getComponent(Position.class))) {
+      add(k);
+    }
+
+    List<IEntity> guardList = levelObject.getGuards(p.getComponent(Position.class));
+    totalGuards = guardList.size();
+    for (IEntity g : guardList) {
       add(g);
     }
 
@@ -110,8 +118,9 @@ public class Level extends Scene {
     add(new CircleCollider());
     add(new ExtendedCollider());
     renderer = new BasicRenderer(p.getComponent(Position.class));
-    add(guardPathRenderer = new GuardPathRenderer(p.getComponent(Position.class)));
     add(renderer);
+    add(guardPathRenderer = new GuardPathRenderer(p.getComponent(Position.class)));
+    add(new Minimap(new PVector(0, gc.getHeight() - 200), new PVector(300, 200)));
 
     // command stuff
     inputHandler = new InputHandler();
@@ -145,13 +154,18 @@ public class Level extends Scene {
     ISubscriber endOfLevelEvent = eb.addEventHandler(GameEvent.END_OF_LEVEL, e -> {
       IRootScene rootScene = Locator.get(IRootScene.class);
       rootScene.remove(this);
-      rootScene.add(new EndOfLevel(score, time));
+      rootScene.add(new EndOfLevel(kills, time));
+    });
+
+    ISubscriber deadGuard = eb.addEventHandler(GameEvent.KILLED_GUARD, e -> {
+      kills++;
     });
 
     // Add these handlers
     handlers.add(bulletEvent);
     handlers.add(keyPressEvent);
     handlers.add(endOfLevelEvent);
+    handlers.add(deadGuard);
   }
 
   @Override
@@ -176,7 +190,7 @@ public class Level extends Scene {
     time += dt;
     //
     //System.out.println(p.getComponent(Velocity.class).mag());
-    scale = 1f - (p.getComponent(Velocity.class).mag() / 9.45f) * .5f;
+    scale = (p.getComponent(Velocity.class).mag() / 9.45f) * .8f + .7f;
     //
     renderer.scale = scale;
     guardPathRenderer.scale = scale;
@@ -193,6 +207,12 @@ public class Level extends Scene {
     // SHADERS!!!!!
     //
     Core core = Locator.get(Core.class);
+
+    // Draw HUD text
+    gc.textSize(32);
+    gc.fill(kills == totalGuards ? 0xFFFF0000 : 0xFFFFF0FF);
+    gc.textAlign(gc.LEFT, gc.TOP);
+    gc.text("Kills: " + kills + "/" + totalGuards, 128, 128);
 
     // ModColour
     // Hue
@@ -211,8 +231,11 @@ public class Level extends Scene {
     channelsShader.set("gbias", -offsetX, -offsetY);
     channelsShader.set("bbias", offsetX, offsetY);
 
+    glitchShader.set("iGlobalTime", core.millis() / 10000f);
+
     // Apply shaders
     gc.filter(hueShader);
     gc.filter(channelsShader);
+    gc.filter(glitchShader);
   }
 }

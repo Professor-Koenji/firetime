@@ -13,21 +13,22 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.opengl.PShader;
 
-
 public class GameMenu extends Scene {
 
   private float rotation;
   private PFont font;
   private PShader hueShader;
   private PShader channelsShader;
+  private PShader glitchShader;
   private ISubscriber keyHandler;
 
   public GameMenu() {
     this.rotation = 0;
     Core core = Locator.get(Core.class);
-    font = core.createFont("fonts/showcase.ttf", 128);
+    font = core.createFont("fonts/corp.otf", 128);
     hueShader = core.loadShader("shaders/hue.glsl");
     channelsShader = core.loadShader("shaders/channels.glsl");
+    glitchShader = core.loadShader("shaders/glitch.glsl");
 
     keyHandler = Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e -> {
       System.out.println(e.keyCode());
@@ -106,7 +107,9 @@ public class GameMenu extends Scene {
     channelsShader.set("rmult", 1f, 1f);
     channelsShader.set("gmult", 1f, 1f);
     channelsShader.set("bmult", 1f, 1f);
+    glitchShader.set("iGlobalTime", core.millis() / 5000f);
     gc.filter(hueShader);
     gc.filter(channelsShader);
+    gc.filter(glitchShader);
   }
 }
