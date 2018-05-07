@@ -9,12 +9,10 @@ import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRootScene;
 import com.koenji.firetime.level.LevelObject;
-import jdk.internal.util.xml.impl.Input;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.opengl.PShader;
 
-import java.awt.event.InputEvent;
 
 public class GameMenu extends Scene {
 
