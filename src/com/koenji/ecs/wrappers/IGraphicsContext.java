@@ -1,6 +1,8 @@
 package com.koenji.ecs.wrappers;
 
 import processing.core.PApplet;
+import processing.core.PFont;
+import processing.opengl.PShader;
 
 /**
  * A wrapper that should be placed on-top of the PApplet root instance.
@@ -54,6 +56,13 @@ public interface IGraphicsContext {
 
   void text(String text, float x, float y);
   void text(String text, float x, float y, float bX, float bY);
+
+  void textFont(PFont font);
+  void textFont(PFont font, float size);
+
+  void filter(PShader shader);
+  void filter(int shader);
+  void filter(int shader, float param);
 
   void beginShape();
   void endShape();

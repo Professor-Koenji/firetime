@@ -4,6 +4,7 @@ import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
@@ -17,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Entity {
+
+  private ISubscriber handler;
 
   public Player(PVector pos) {
 
@@ -37,7 +40,15 @@ public class Player extends Entity {
     super.added(scene);
     //
     IEventBus eb = Locator.get(IEventBus.class);
-    eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePressed);
+    handler = eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePressed);
+  }
+
+  @Override
+  public void removed() {
+    super.removed();
+    //
+    System.out.println("Removed");
+    handler.unsubscribe();
   }
 
   @Override

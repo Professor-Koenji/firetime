@@ -40,7 +40,7 @@ public class Wall extends Entity {
       new Position(x, y),
       new Rotation(angle),
       cb,
-      new RenderPolygon(cb, 0xFFFFFFFF)
+      new RenderPolygon(cb, 0xFF93CC22)
     );
   }
 }

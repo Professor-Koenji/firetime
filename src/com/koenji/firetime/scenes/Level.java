@@ -1,5 +1,6 @@
 package com.koenji.firetime.scenes;
 
+import com.koenji.ecs.Core;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.component.render.Background;
@@ -31,6 +32,9 @@ import com.koenji.firetime.level.LevelObject;
 import com.koenji.firetime.systems.GuardPathRenderer;
 import com.koenji.firetime.systems.TimeLinearMotion;
 import javafx.geometry.Pos;
+import processing.core.PApplet;
+import processing.core.PVector;
+import processing.opengl.PShader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +60,9 @@ public class Level extends Scene {
   private int score;
   private int time;
 
+  private PShader hueShader;
+  private PShader channelsShader;
+
   public Level(LevelObject levelObject) {
     this.levelObject = levelObject;
     this.gc = Locator.get(IGraphicsContext.class);
@@ -65,13 +72,22 @@ public class Level extends Scene {
     this.score = 0;
     this.time = 0;
     this.levelObject.setup();
+
+    Core core = Locator.get(Core.class);
+    this.hueShader = core.loadShader("shaders/hue.glsl");
+    this.channelsShader = core.loadShader("shaders/channels.glsl");
+
+    channelsShader.set("rmult", 1f, 1f);
+    channelsShader.set("gmult", 1f, 1f);
+    channelsShader.set("bmult", 1f, 1f);
   }
 
   @Override
   public void added() {
     super.added();
     //
-    add(EntityObject.create(new Background(0x50301939)));
+    removeAll();
+    add(EntityObject.create(new Background(0xA0301939)));
 
     p = new Player(this.levelObject.playerPosition);
     p.addComponent(new CameraOffset(p.getComponent(Position.class)));
@@ -151,6 +167,8 @@ public class Level extends Scene {
   public void update(int dt) {
     super.update(dt);
     //
+    time += dt;
+    //
     //System.out.println(p.getComponent(Velocity.class).mag());
     scale = 1f - (p.getComponent(Velocity.class).mag() / 9.45f) * .5f;
     //
@@ -161,5 +179,34 @@ public class Level extends Scene {
     for(ICommand e :  inputHandler.update()) {
       e.execute(p);
     }
+
+    // Get player velocity
+    PVector vel = p.getComponent(Velocity.class);
+
+    //
+    // SHADERS!!!!!
+    //
+    Core core = Locator.get(Core.class);
+
+    // ModColour
+    // Hue
+    float hue = PApplet.map((float) Math.sin(time / 1000f), 0f, 10f, 0f, (float) Math.PI * 2f);
+    hueShader.set("hue", hue);
+
+    // Channels
+//    float offsetX = PApplet.map(vel.x, -3f, 3f, -.002f, .002f);
+//    float offsetY = PApplet.map(vel.y, -3f, 3f, -.002f, .002f);
+//    channelsShader.set("rbias", 0f, 0f);
+//    channelsShader.set("gbias", -offsetX, -offsetY);
+//    channelsShader.set("bbias", offsetX, offsetY);
+    float offsetX = PApplet.map(Math.abs(vel.x), 0, 6f, 0.005f, 0);
+    float offsetY = PApplet.map(Math.abs(vel.y), 0, 6f, 0.005f, 0);
+    channelsShader.set("rbias", 0f, 0f);
+    channelsShader.set("gbias", -offsetX, -offsetY);
+    channelsShader.set("bbias", offsetX, offsetY);
+
+    // Apply shaders
+    gc.filter(hueShader);
+    gc.filter(channelsShader);
   }
 }
