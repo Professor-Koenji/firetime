@@ -2,12 +2,13 @@ package com.koenji.ecs.system.physics;
 
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
-import com.koenji.ecs.event.IEventController;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.PhysicsEvents;
+import com.koenji.ecs.event.events.CollisionEvent;
 import com.koenji.ecs.graph.tree.IQuadTree;
 import com.koenji.ecs.graph.tree.IRect;
 import com.koenji.ecs.graph.tree.QuadTree;
 import com.koenji.ecs.graph.tree.Rect;
-import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.System;
 import com.koenji.ecs.wrappers.IGraphicsContext;
@@ -16,13 +17,19 @@ import processing.core.PVector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ConvexCollider handles collisions via polygons using SAT on Convex bodies.
+ *
+ * @author Brad Davies &amp; Chris Williams
+ * @version 1.0
+ */
 public class ConvexCollider extends System {
 
-  private IQuadTree qt;
+  protected IQuadTree qt;
 
   public ConvexCollider() {
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
-    this.qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 5);
+    this.qt = new QuadTree(new Rect(-320, -700, 4420,3250), 20, 5);
   }
 
   public ConvexCollider(IQuadTree qt) {
@@ -32,7 +39,7 @@ public class ConvexCollider extends System {
   @Override
   @SuppressWarnings("unchecked")
   public void entityAdded(IEntity entity) {
-    // Only those with Position & ConvexBody
+    // Only those with Position&amp;ConvexBody
     if (entity.hasComponents(Position.class, ConvexBody.class)) {
       entities.add(entity);
     }
@@ -54,7 +61,7 @@ public class ConvexCollider extends System {
     for (ConvexEntity ce : shapes) {
       // Pre-fetch some stuff
       IEntity a = ce.getEntity();
-      // Get the position, body & edges
+      // Get the position, body&amp;edges
       Position pA = a.getComponent(Position.class);
       ConvexBody bA = a.getComponent(ConvexBody.class);
       Rotation rA = a.getComponent(Rotation.class);
@@ -64,7 +71,9 @@ public class ConvexCollider extends System {
       List<ConvexEntity> nearby = qt.retrieve(ce);
       for (ConvexEntity nce : nearby) {
         IEntity b = nce.getEntity();
-        // Get the position, body & edges
+        // Check we arent ourselves
+        if (a == b) continue;
+        // Get the position, body&amp;edges
         Position pB = b.getComponent(Position.class);
         ConvexBody bB = b.getComponent(ConvexBody.class);
 
@@ -74,6 +83,10 @@ public class ConvexCollider extends System {
         // Are both ConvexBody's static, if so just skip!
         // Static bodies cannot have collision response with each other
         if (bA.isStatic && bB.isStatic) continue;
+
+        /*if (PVector.sub(pB, pA).mag() > bA.size + bB.size + 50) {
+          continue;
+        }*/
 
         // Get the 2nd bodies edges by this point, as we will need them
         Rotation rB = b.getComponent(Rotation.class);
@@ -99,7 +112,7 @@ public class ConvexCollider extends System {
    * @param bB The convex body of shape 2
    * @param edgesB The edges of shape 2
    */
-  private void collisionCheck(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
+  protected void collisionCheck(IEntity a, IEntity b, Position pA, ConvexBody bA, List<PVector> edgesA,
                               Position pB, ConvexBody bB, List<PVector> edgesB) {
     // Do SAT collision checks!
     List<PVector> edges = new ArrayList<>();
@@ -135,25 +148,32 @@ public class ConvexCollider extends System {
     // Only can get here if no seperating axis was found = collision
     // Translate shapes by MTV (if it exists, just to make IntelliJ happy)
     if (mtv != null) {
-      Velocity vA = a.getComponent(Velocity.class);
-      Velocity vB = b.getComponent(Velocity.class);
-      // Set the magnitude of the mtv to our overlap / 2 (as each will move half the mtv)
-      mtv.setMag(minOverlap * .5f);
-      // Get our displacement vector between the two positions
-      PVector displacement = PVector.sub(pB, pA);
-      // Project the displacement upon our minimum translation vector
-      float dot = mtv.dot(displacement);
-      // If the projection was 'backwards', then mtv essentially is reversed
-      if (dot >= 0) mtv.mult(-1);
-      if (!bA.isStatic) {
-        pA.add(mtv);
-        if (vA != null) vA.add(PVector.mult(mtv, 2));
-      }
-      if (!bB.isStatic) {
-        pB.sub(mtv);
-        if (vB != null) vB.sub(PVector.mult(mtv, 2));
-      }
+      doCollision(a, b, mtv, minOverlap, pA, pB, bA, bB);
     }
+  }
+
+  protected void doCollision(IEntity a, IEntity b, PVector mtv, float minOverlap, Position pA, Position pB, ConvexBody bA, ConvexBody bB) {
+    Velocity vA = a.getComponent(Velocity.class);
+    Velocity vB = b.getComponent(Velocity.class);
+
+    // Set the magnitude of the mtv to our overlap / 2 (as each will move half the mtv)
+    mtv.setMag(minOverlap * .5f);
+    // Get our displacement vector between the two positions
+    PVector displacement = PVector.sub(pB, pA);
+    // Project the displacement upon our minimum translation vector
+    float dot = mtv.dot(displacement);
+    // If the projection was 'backwards', then mtv essentially is reversed
+    if (dot >= 0) mtv.mult(-1);
+    if (!bA.isStatic) {
+      pA.add(mtv);
+      if (vA != null) vA.add(PVector.mult(mtv, 2));
+    }
+    if (!bB.isStatic) {
+      pB.sub(mtv);
+      if (vB != null) vB.sub(PVector.mult(mtv, 2));
+    }
+    // Fire an event!
+    Locator.get(IEventBus.class).fireEvent(new CollisionEvent(PhysicsEvents.CONVEX_COLLISION, a, b));
   }
 
   /**
@@ -210,17 +230,17 @@ public class ConvexCollider extends System {
 
     @Override
     public float getX() {
-      return entity.getComponent(Position.class).x;
+      return entity.getComponent(Position.class).x - this.getW() * .5f;
     }
 
     @Override
     public float getY() {
-      return entity.getComponent(Position.class).y;
+      return entity.getComponent(Position.class).y - this.getH() * .5f;
     }
 
     @Override
     public float getW() {
-      return entity.getComponent(ConvexBody.class).size * 2f;
+      return ConvexBody.getBounds(entity.getComponent(ConvexBody.class));
     }
 
     @Override

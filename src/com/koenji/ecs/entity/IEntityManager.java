@@ -3,7 +3,7 @@ package com.koenji.ecs.entity;
 /**
  * IEntityManager defines the behaviour of an implementation of managing IEntities within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

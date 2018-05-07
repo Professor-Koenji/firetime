@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Text component to represent text content,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -33,7 +33,7 @@ public class Text implements IComponent {
   }
 
   /**
-   * Constructor: set the value, size, colour & position of text
+   * Constructor: set the value, size, colour&amp;position of text
    * @param contents  - String value of text
    * @param size      - int value of the size
    * @param rgba      - int value of colour

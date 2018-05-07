@@ -5,6 +5,13 @@ import com.koenji.ecs.event.events.MouseEvent;
 import javafx.event.Event;
 import javafx.event.EventType;
 
+/**
+ * InputEvents defines the key input events handled within the system, mapping them to a respective EventType
+ *
+ * @author Brad Davies &amp; Chris Williams
+ * @version 1.0
+ */
+
 public class InputEvents {
 
   public static final EventType<MouseEvent> MOUSE = new EventType<>(Event.ANY, "MOUSE_EVENT");

@@ -8,6 +8,7 @@ import com.koenji.ecs.entity.EntityGroup;
 import com.koenji.ecs.entity.EntityObject;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityGroup;
+import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
@@ -25,6 +26,13 @@ import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRandom;
 import processing.core.PVector;
 
+/**
+ * Another demonstration of particle physics simulation using the CircleCollider &amp;
+ * LinearMotion systems, with an optional debug-view of the QuadTree at work. (Press 'space')
+ *
+ * @author Brad Davies
+ * @version 1.2
+ */
 public class SimplePhysicsQT extends Scene {
 
   private IEntityGroup particles;
@@ -45,11 +53,11 @@ public class SimplePhysicsQT extends Scene {
     ));
     //
     particles = new EntityGroup();
-    for (int i = 0; i < 200; ++i) {
+    for (int i = 0; i < 1000; ++i) {
       float x = rng.random(0, gc.getWidth());
       float y = rng.random(0, gc.getHeight());
       PVector vel = PVector.fromAngle(rng.random(0f, 6.28f)).setMag(rng.random(.5f, 2f));
-      float size = rng.random(4, 8);
+      float size = rng.random(1, 4);
       int colour = (int) rng.random(0, 0xFFFFFF);
       particles.add(EntityObject.create(
         new Position(x, y),
@@ -67,17 +75,18 @@ public class SimplePhysicsQT extends Scene {
     gravity = EntityObject.create(new Position());
     add(gravity);
     // Systems
-    IQuadTree qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 10, 10);
+    IQuadTree qt = new QuadTree(new Rect(gc.getWidth(), gc.getHeight()), 5, 10);
     add(new LinearMotion());
     add(new CircleCollider(qt));
     add(new BasicRenderer());
-    qtRenderer = new QuadtreeRenderer(qt, 0xFFFF3333);
+    qtRenderer = new QuadtreeRenderer(qt, 0xFF3366CC);
     debug = false;
     // Add events
-    addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
-    addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
-    addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
-    addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
+    IEventBus eb = Locator.get(IEventBus.class);
+    eb.addEventHandler(InputEvents.MOUSE_MOVED, this::mouseMove);
+    eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePress);
+    eb.addEventHandler(InputEvents.MOUSE_RELEASED, this::mouseRelease);
+    eb.addEventHandler(InputEvents.KEY_PRESSED, this::keyPressed);
   }
 
   private void keyPressed(KeyEvent e) {

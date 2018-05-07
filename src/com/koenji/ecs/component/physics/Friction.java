@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Friction component to represent the resistance upon a given body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -30,7 +30,7 @@ public class Friction extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x & y value
+   * Constructor: set the x&amp;y value
    * @param x - value of x
    * @param y - value of y
    */

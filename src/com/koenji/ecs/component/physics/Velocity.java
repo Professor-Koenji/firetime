@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Velocity component to represent the velocity upon a given body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -21,7 +21,7 @@ public class Velocity extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x & y values, z = 0
+   * Constructor: set the x&amp;y values, z = 0
    * @param x - float of the x value
    * @param y - float of the y value
    */
@@ -30,7 +30,7 @@ public class Velocity extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x,y & z values
+   * Constructor: set the x,y&amp;z values
    * @param x - float of the x value
    * @param y - float of the y value
    * @param z - float of the z value
@@ -40,7 +40,7 @@ public class Velocity extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x,y & z values via a PVector class
+   * Constructor: set the x,y&amp;z values via a PVector class
    * @param vector - PVector class with x,y,z values
    */
   public Velocity(PVector vector) {

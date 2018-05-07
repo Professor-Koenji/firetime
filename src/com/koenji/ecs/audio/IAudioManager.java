@@ -3,7 +3,7 @@ package com.koenji.ecs.audio;
 /**
  * IAudioManager defines the behaviour of an implementation of an Audio manager
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

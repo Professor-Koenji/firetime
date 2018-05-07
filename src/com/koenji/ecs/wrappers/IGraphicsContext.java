@@ -2,6 +2,15 @@ package com.koenji.ecs.wrappers;
 
 import processing.core.PApplet;
 
+/**
+ * A wrapper that should be placed on-top of the PApplet root instance.
+ * Helps abstract away the complexities of the PApplet class (that is 3rd party),
+ * and helps to use it cleanly as part of the Service Location pattern without
+ * having access to completely unrelated functionality (random numbers, audio, etc.).
+ *
+ * @author Brad Davies &amp; Chris Williams
+ * @version 1.0
+ */
 public interface IGraphicsContext {
 
   int CLOSE = PApplet.CLOSE;
@@ -18,6 +27,11 @@ public interface IGraphicsContext {
   void fill(int rgb);
   void fill(int rgb, float alpha);
   void noFill();
+
+  void background(int rgb);
+
+  void scale(float s);
+  void scale(float x, float y);
 
   void rotate(float angle);
   void translate(float x, float y);

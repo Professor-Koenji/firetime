@@ -11,7 +11,7 @@ import java.util.List;
  * ConvexBody component to represent the confines of the body acting upon,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -19,10 +19,6 @@ public class ConvexBody implements IComponent {
 
   // DECLARE the vertices of the convex shape
   public List<PVector> vertices;
-
-  // DECLARE the approximate size of this body
-  // Used in broad-phase collision checks
-  public int size;
 
   // DECLARE the is Static value
   public boolean isStatic;
@@ -37,7 +33,7 @@ public class ConvexBody implements IComponent {
   }
 
   /**
-   * Method: create a static instance of a square body with size and offset for x & y
+   * Method: create a static instance of a square body with size and offset for x&amp;y
    * @param size      - of the body
    * @param offsetX   - x offset
    * @param offsetY   - y offset
@@ -83,6 +79,17 @@ public class ConvexBody implements IComponent {
     return new ConvexBody((int) size, false,  vs);
   }
 
+  public static float getBounds(ConvexBody cb) {
+    // RETURN THE SIZE BOYO
+    PVector origin = new PVector(0, 0);
+    float max = PVector.dist(origin, cb.vertices.get(0));
+    for (PVector v : cb.vertices) {
+      float dist = PVector.dist(origin, v);
+      if (dist > max) max = dist;
+    }
+    return max * 2f;
+  }
+
   /**
    * Constructor: creates a new ConvexBody with the given vertices
    * @param size     - the approximate size of the body. Always over-estimate.
@@ -99,7 +106,6 @@ public class ConvexBody implements IComponent {
    * @param vertices - a list of points for the vertices of the shape
    */
   public ConvexBody(int size, boolean isStatic, PVector ...vertices) {
-    this.size = size;
     this.isStatic = isStatic;
     this.vertices = new ArrayList<>(Arrays.asList(vertices));
   }

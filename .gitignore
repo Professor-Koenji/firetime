@@ -1,5 +1,9 @@
 # Ignore the /out build folder
 out
+<<<<<<< HEAD
+=======
+# Ignore docs
+>>>>>>> 62f5b633feda2d14bb631e216914396d9341b805
 docs
 
 # Ignore .idea workspace

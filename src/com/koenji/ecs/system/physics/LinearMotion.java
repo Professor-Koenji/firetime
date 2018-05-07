@@ -4,6 +4,16 @@ import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
 
+/**
+ * LinearMotion system that powers the motion of objects with
+ * Position, Velocity and/or Acceleration components.
+ *
+ * Composes with the collision systems for complex physics response
+ * and locomotion from simple rules.
+ *
+ * @author Brad Davies &amp; Chris Williams
+ * @version 1.1
+ */
 public class LinearMotion extends System {
 
   @Override
@@ -12,7 +22,7 @@ public class LinearMotion extends System {
     super.update(dt);
     //
     for (IEntity e : entities) {
-      // Velocity & Friction
+      // Velocity&amp;Friction
       if (e.hasComponents(Velocity.class, Friction.class)) {
         Velocity v = e.getComponent(Velocity.class);
         Friction f = e.getComponent(Friction.class);
@@ -20,14 +30,14 @@ public class LinearMotion extends System {
         v.y *= f.y;
       }
 
-      // Velocity & Acceleration
+      // Velocity&amp;Acceleration
       if (e.hasComponents(Velocity.class, Acceleration.class)) {
         Velocity v = e.getComponent(Velocity.class);
         Acceleration a = e.getComponent(Acceleration.class);
         v.add(a);
       }
 
-      // Position & Velocity
+      // Position&amp;Velocity
       if (e.hasComponents(Position.class, Velocity.class)) {
         Position p = e.getComponent(Position.class);
         Velocity v = e.getComponent(Velocity.class);

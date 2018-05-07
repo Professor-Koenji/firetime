@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Acceleration component representing/wrapping the vector library required to represent acceleration upon a body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -21,7 +21,7 @@ public class Acceleration extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set x & y values, z set to 0
+   * Constructor: set x&amp;y values, z set to 0
    * @param x - float value
    * @param y - float value
    */
@@ -30,7 +30,7 @@ public class Acceleration extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set x,y & z values
+   * Constructor: set x,y&amp;z values
    * @param x - float value
    * @param y - float value
    * @param z - float value
@@ -40,7 +40,7 @@ public class Acceleration extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x,y & z values via a PVector
+   * Constructor: set the x,y&amp;z values via a PVector
    * @param v - PVector class
    */
   public Acceleration(PVector v) {

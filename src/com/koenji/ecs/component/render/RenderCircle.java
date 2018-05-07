@@ -6,7 +6,7 @@ import com.koenji.ecs.component.IComponent;
  * RenderCircle component representing the radius and colour upon a body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 

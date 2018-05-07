@@ -1,13 +1,12 @@
 package com.koenji.ecs.entity;
 
 import com.koenji.ecs.component.IComponent;
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 
 /**
  * IEntity defines the behaviour of an implementation of an Entity within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -15,9 +14,8 @@ public interface IEntity {
   /**
    * Method: used when the implementation has been created
    * @param scene           - the current scene added
-   * @param eventController - the EventController class bound
    */
-  void added(IScene scene, IEventController eventController);
+  void added(IScene scene);
 
   /**
    * Method: used to clean-up

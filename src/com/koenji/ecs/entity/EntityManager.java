@@ -1,6 +1,5 @@
 package com.koenji.ecs.entity;
 
-import com.koenji.ecs.event.IEventController;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.scene.Scene;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * EntityManager defines the behaviour of a manager of IEntities,
  * an implementation of an IEntityManager interface within the system
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -19,20 +18,17 @@ public class EntityManager implements IEntityManager {
 
   // DECLARE a field to store our scene
   private IScene scene;
-  // DECLARE the implementation of IEventController
-  private IEventController eventController;
   // DECLARE Lists of the IEntity(ies) to add remove and keep
   private List<IEntity> toAdd;
   private List<IEntity> toRemove;
   private List<IEntity> entities;
 
   /**
-   * Constructor: sets the scene & eventController fields with the value passed
+   * Constructor: sets the scene&amp;eventController fields with the value passed
    * @param scene - scene we are bound to
    */
   public EntityManager(Scene scene) {
     this.scene = scene;
-    this.eventController = scene;
 
     toAdd = new ArrayList<>();
     toRemove = new ArrayList<>();
@@ -77,7 +73,7 @@ public class EntityManager implements IEntityManager {
     // Add new scenes
     entities.addAll(toAdd);
     for (IEntity entity : toAdd) {
-      entity.added(scene, eventController);
+      entity.added(scene);
     }
     // Empty modifier lists
     toAdd.clear();

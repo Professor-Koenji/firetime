@@ -6,7 +6,21 @@ import com.koenji.ecs.graph.pathfinding.nodes.PathNode;
 
 import java.util.*;
 
+/**
+ * Breadth first search algorithm to find the path between INodes, explores all neighbouring nodes before moving out
+ *
+ *
+ * @author Brad Davies &amp; Chris Williams
+ * @version 1.0
+ */
+
 public class BFS implements IPathStrategy {
+  /**
+   * Method: find the path between the start and target using bfs
+   * @param start   - staring node
+   * @param target  - target node
+   * @return
+   */
   public List<INode> findPath(INode start, INode target) {
     // Open and Closed lists
     List<IPathNode> open = new ArrayList<>();

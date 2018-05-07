@@ -2,6 +2,13 @@ package com.koenji.ecs.graph.pathfinding.strategy;
 
 import com.koenji.ecs.graph.pathfinding.heuristic.Heuristics;
 
+/**
+ * Strategies class containing all default list of algorithms and strategies
+ *
+ * @author Brad Davies &amp; Chris Williams
+ * @version 1.0
+ */
+
 public class Strategies {
 
   public static final IPathStrategy AStar = new AStar();

@@ -7,7 +7,7 @@ import processing.core.PVector;
  * Position component to represent the placement of a given body,
  * a concrete implementation of the IComponent interface
  *
- * @author Brad Davis & Chris Williams
+ * @author Brad Davies &amp; Chris Williams
  * @version 1.0
  */
 
@@ -39,7 +39,7 @@ public class Position extends PVector implements IComponent {
   }
 
   /**
-   * Constructor: set the x,y & z position via PVector class
+   * Constructor: set the x,y&amp;z position via PVector class
    * @param v - PVector class with x,y,z values
    */
   public Position(PVector v) {
