@@ -38,7 +38,10 @@ public abstract class Scene implements IScene {
    * Stores a local reference to the event bus via Service Locator.
    */
   public void added() {}
-  public void removed() {}
+  public void removed() {
+    entityManager.clear();
+    systemManager.clear();
+  }
 
   /**
    * Updates the entity manager and system manager.

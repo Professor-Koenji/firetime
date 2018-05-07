@@ -32,8 +32,23 @@ public class GameMenu extends Scene {
     channelsShader = core.loadShader("shaders/channels.glsl");
 
     keyHandler = Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e -> {
+      System.out.println(e.keyCode());
+      String path = "level-";
+      switch (e.keyCode()) {
+        case 49: // 1
+          path += "00";
+          break;
+        case 50:
+          path += "01";
+          break;
+        case 51:
+          path += "02";
+          break;
+        default:
+          return;
+      }
       IRootScene root = Locator.get(IRootScene.class);
-      LevelObject lo = LevelObject.fromPath("level-01");
+      LevelObject lo = LevelObject.fromPath(path);
       root.remove(this);
       root.add(new Level(lo));
     });

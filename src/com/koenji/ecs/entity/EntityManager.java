@@ -55,9 +55,13 @@ public class EntityManager implements IEntityManager {
    * Method: used to clear all List fields
    */
   public void clear() {
+    toRemove.addAll(entities);
+    for (IEntity entity : toRemove) {
+      entity.removed();
+    }
+    entities.clear();
     toAdd.clear();
     toRemove.clear();
-    entities.clear();
   }
 
   /**
