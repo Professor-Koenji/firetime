@@ -16,6 +16,7 @@ import com.koenji.ecs.system.physics.ConvexCollider;
 import com.koenji.ecs.system.physics.LinearMotion;
 import com.koenji.ecs.system.render.BasicRenderer;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.firetime.entities.Goal;
 import com.koenji.firetime.input.InputHandler;
 import com.koenji.firetime.input.command.*;
 import com.koenji.firetime.systems.ExtendedCollider;
@@ -63,6 +64,8 @@ public class Level extends Scene {
     p = new Player(this.levelObject.playerPosition);
     p.addComponent(new CameraOffset(p.getComponent(Position.class)));
 
+    IEntity goal = new Goal(this.levelObject.exit);
+
     for (IEntity w : levelObject.getWalls()) {
       add(w);
     }
@@ -71,10 +74,10 @@ public class Level extends Scene {
       add(g);
     }
 
+    add(goal);
     add(p);
 
     add(new GuardFSM(p.getComponent(Position.class)));
-//    add(new LinearMotion());
     add(new TimeLinearMotion(p));
     add(new CircleCollider());
     add(new ExtendedCollider());
