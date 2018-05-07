@@ -71,7 +71,7 @@ public class Level extends Scene {
   public void added() {
     super.added();
     //
-    add(EntityObject.create(new Background(0xFF002299)));
+    add(EntityObject.create(new Background(0x50301939)));
 
     p = new Player(this.levelObject.playerPosition);
     p.addComponent(new CameraOffset(p.getComponent(Position.class)));

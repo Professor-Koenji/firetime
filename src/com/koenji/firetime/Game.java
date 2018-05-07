@@ -13,7 +13,7 @@ public class Game extends Core {
 
   public Game() {
     // Set initial resolution, fps&amp;title
-    super(1600, 900, 60, "Firetime", 0xFFF8FBFE);
+    super(1600, 900, 60, "Firetime", 0x01000000);
   }
 
   @Override

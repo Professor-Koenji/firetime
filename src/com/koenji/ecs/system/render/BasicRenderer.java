@@ -70,7 +70,8 @@ public class BasicRenderer extends System {
       // Background renderer
       if (e.hasComponents(Background.class)) {
         Background b = e.getComponent(Background.class);
-        //gc.background(b.rgba);
+        gc.fill(b.rgba);
+        gc.rect(-5000, -5000, 10000, 10000);
       }
 
       // Rendering polygons
