@@ -33,9 +33,9 @@ public class EndOfLevel extends Scene {
   }
 
   @Override
-  public void remove(IEntity entity) {
-    super.remove(entity);
-    //
+  public void removed() {
+    super.removed();
+
     handler.unsubscribe();
   }
 
@@ -45,6 +45,7 @@ public class EndOfLevel extends Scene {
     //
     IGraphicsContext gc = Locator.get(IGraphicsContext.class);
     gc.background(0xFF000000);
+    gc.fill(0xFFFFFFFF);
     gc.text("Score: " + score, 40, 40);
     gc.text("Time: " + time + "s", 40, 140);
     gc.text("Press any key to go back to level select", 40, 240);

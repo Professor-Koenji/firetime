@@ -1,12 +1,20 @@
 package com.koenji.firetime.scenes;
 
 import com.koenji.ecs.Core;
+import com.koenji.ecs.event.IEventBus;
+import com.koenji.ecs.event.ISubscriber;
+import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.ecs.wrappers.IRootScene;
+import com.koenji.firetime.level.LevelObject;
+import jdk.internal.util.xml.impl.Input;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.opengl.PShader;
+
+import java.awt.event.InputEvent;
 
 public class GameMenu extends Scene {
 
@@ -14,6 +22,7 @@ public class GameMenu extends Scene {
   private PFont font;
   private PShader hueShader;
   private PShader channelsShader;
+  private ISubscriber keyHandler;
 
   public GameMenu() {
     this.rotation = 0;
@@ -21,6 +30,20 @@ public class GameMenu extends Scene {
     font = core.createFont("fonts/showcase.ttf", 128);
     hueShader = core.loadShader("shaders/hue.glsl");
     channelsShader = core.loadShader("shaders/channels.glsl");
+
+    keyHandler = Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e -> {
+      IRootScene root = Locator.get(IRootScene.class);
+      LevelObject lo = LevelObject.fromPath("level-01");
+      root.remove(this);
+      root.add(new Level(lo));
+    });
+  }
+
+  @Override
+  public void removed() {
+    super.removed();
+    //
+    keyHandler.unsubscribe();
   }
 
   @Override

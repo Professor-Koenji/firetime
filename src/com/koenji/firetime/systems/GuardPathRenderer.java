@@ -40,14 +40,13 @@ public class GuardPathRenderer extends BasicRenderer {
         Patrolling patrol = (Patrolling) gs.currentState();
         INode nextNode = patrol.route.get(patrol.waypointIndex);
         // Pos -> nextNode
-        gc.strokeWeight(16);
-        gc.stroke(0xFF3399FF);
+        gc.strokeWeight(24);
+        gc.stroke(0xFFFFFFFF);
         gc.line(p.x, p.y, nextNode.getX(), nextNode.getY());
         for (int i = 0; i < 5; ++i) {
           INode n1 = patrol.route.get((patrol.waypointIndex + i) % patrol.route.size());
           INode n2 = patrol.route.get((patrol.waypointIndex + i + 1) % patrol.route.size());
-          int alpha = 0xFF000000 - (0x30000000 * i);
-          gc.stroke(alpha | 0x003399FF);
+          gc.stroke(0xFFFFFFFF);
           gc.line(n1.getX(), n1.getY(), n2.getX(), n2.getY());
         }
       }
