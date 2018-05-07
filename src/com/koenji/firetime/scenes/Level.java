@@ -62,6 +62,7 @@ public class Level extends Scene {
 
   private PShader hueShader;
   private PShader channelsShader;
+  private PShader glitchShader;
 
   public Level(LevelObject levelObject) {
     this.levelObject = levelObject;
@@ -76,6 +77,7 @@ public class Level extends Scene {
     Core core = Locator.get(Core.class);
     this.hueShader = core.loadShader("shaders/hue.glsl");
     this.channelsShader = core.loadShader("shaders/channels.glsl");
+    this.glitchShader = core.loadShader("shaders/glitch-lite.glsl");
 
     channelsShader.set("rmult", 1f, 1f);
     channelsShader.set("gmult", 1f, 1f);
@@ -206,8 +208,11 @@ public class Level extends Scene {
     channelsShader.set("gbias", -offsetX, -offsetY);
     channelsShader.set("bbias", offsetX, offsetY);
 
+    glitchShader.set("iGlobalTime", core.millis() / 10000f);
+
     // Apply shaders
     gc.filter(hueShader);
     gc.filter(channelsShader);
+    gc.filter(glitchShader);
   }
 }
