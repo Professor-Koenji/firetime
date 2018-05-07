@@ -53,12 +53,17 @@ public class Level extends Scene {
   private float scale;
   private float dScale;
 
+  private int score;
+  private int time;
+
   public Level(LevelObject levelObject) {
     this.levelObject = levelObject;
     this.gc = Locator.get(IGraphicsContext.class);
     this.scale = 0.2f;
     this.dScale = 0;
     this.handlers = new ArrayList<>();
+    this.score = 0;
+    this.time = 0;
     this.levelObject.setup();
   }
 
@@ -119,7 +124,7 @@ public class Level extends Scene {
     ISubscriber endOfLevelEvent = eb.addEventHandler(GameEvent.END_OF_LEVEL, e -> {
       IRootScene rootScene = Locator.get(IRootScene.class);
       rootScene.remove(this);
-      rootScene.add(new Menu());
+      rootScene.add(new EndOfLevel(score, time));
     });
 
     // Add these handlers
