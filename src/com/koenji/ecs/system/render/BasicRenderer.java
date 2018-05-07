@@ -52,18 +52,7 @@ public class BasicRenderer extends System {
     gc.popMatrix();
   }
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public void update(int dt) {
-    super.update(dt);
-    // Ensure no nullptr exceptions from null gc
-    // Automatically removes this system if gc isn't available for some reason.
-    if (gc == null) {
-      java.lang.System.out.println("GraphicsContext is not available -> BasicRenderer will remove itself.");
-      scene.remove(this);
-      return;
-    }
-    pushCamera();
+  protected void render() {
     for (IEntity e : entities) {
       Stroke stroke = e.getComponent(Stroke.class);
 
@@ -136,6 +125,21 @@ public class BasicRenderer extends System {
         }
       }
     }
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public void update(int dt) {
+    super.update(dt);
+    // Ensure no nullptr exceptions from null gc
+    // Automatically removes this system if gc isn't available for some reason.
+    if (gc == null) {
+      java.lang.System.out.println("GraphicsContext is not available -> BasicRenderer will remove itself.");
+      scene.remove(this);
+      return;
+    }
+    pushCamera();
+    render();
     popCamera();
   }
 }

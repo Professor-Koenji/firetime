@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.ecs.graph.pathfinding.nodes.Node;
+import com.koenji.firetime.entities.Door;
 import com.koenji.firetime.entities.Guard;
+import com.koenji.firetime.entities.Key;
 import com.koenji.firetime.entities.Wall;
 import processing.core.PVector;
 
@@ -21,6 +23,8 @@ public class LevelObject {
 
   public List<WallObject> walls;
   public List<GuardObject> guards;
+  public List<DoorObject> doors;
+  public List<KeyObject> keys;
 
   public PVector playerPosition;
   public PVector exit;
@@ -99,6 +103,24 @@ public class LevelObject {
     return realGuards;
   }
 
+  public List<IEntity> getDoors() {
+    List<IEntity> realDoors = new ArrayList<>();
+    for (DoorObject door : doors) {
+      Door d = new Door(door.colour, door.x, door.y, door.w, door.h, door.angle);
+      realDoors.add(d);
+    }
+    return realDoors;
+  }
+
+  public List<IEntity> getKeys(PVector playerPos) {
+    List<IEntity> realKeys = new ArrayList<>();
+    for (KeyObject key : keys) {
+      Key k = new Key(key.x, key.y, key.colour, playerPos);
+      realKeys.add(k);
+    }
+    return realKeys;
+  }
+
   public void addNodes(List<Node> newNodes) {
     nodes.addAll(newNodes);
   }
@@ -130,5 +152,21 @@ public class LevelObject {
     public float y;
     public List<Integer> path;
   }
+
+  private class DoorObject {
+    public int colour;
+    public float x;
+    public float y;
+    public float w;
+    public float h;
+    public float angle;
+  }
+
+  private class KeyObject {
+    public int colour;
+    public float x;
+    public float y;
+  }
+
 
 }

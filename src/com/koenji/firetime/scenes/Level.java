@@ -20,8 +20,7 @@ import com.koenji.firetime.entities.Goal;
 import com.koenji.firetime.events.GameEvent;
 import com.koenji.firetime.input.InputHandler;
 import com.koenji.firetime.input.command.*;
-import com.koenji.firetime.systems.ExtendedCollider;
-import com.koenji.firetime.systems.GuardFSM;
+import com.koenji.firetime.systems.*;
 import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.events.EmitBulletEvent;
@@ -97,6 +96,14 @@ public class Level extends Scene {
       add(w);
     }
 
+    for (IEntity d : levelObject.getDoors()) {
+      add(d);
+    }
+
+    for (IEntity k : levelObject.getKeys(p.getComponent(Position.class))) {
+      add(k);
+    }
+    
     List<IEntity> guardList = levelObject.getGuards(p.getComponent(Position.class));
     totalGuards = guardList.size();
     for (IEntity g : guardList) {
@@ -111,8 +118,9 @@ public class Level extends Scene {
     add(new CircleCollider());
     add(new ExtendedCollider());
     renderer = new BasicRenderer(p.getComponent(Position.class));
-    add(guardPathRenderer = new GuardPathRenderer(p.getComponent(Position.class)));
     add(renderer);
+    add(guardPathRenderer = new GuardPathRenderer(p.getComponent(Position.class)));
+    add(new Minimap(new PVector(0, gc.getHeight() - 200), new PVector(300, 200)));
 
     // command stuff
     inputHandler = new InputHandler();
@@ -172,7 +180,7 @@ public class Level extends Scene {
     time += dt;
     //
     //System.out.println(p.getComponent(Velocity.class).mag());
-    scale = 1f - (p.getComponent(Velocity.class).mag() / 9.45f) * .5f;
+    scale = (p.getComponent(Velocity.class).mag() / 9.45f) * .8f + .7f;
     //
     renderer.scale = scale;
     guardPathRenderer.scale = scale;
