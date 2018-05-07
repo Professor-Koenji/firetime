@@ -6,12 +6,16 @@ import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.InputEvents;
+import com.koenji.ecs.event.PhysicsEvents;
+import com.koenji.ecs.event.events.CollisionEvent;
 import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.wrappers.IGraphicsContext;
+import com.koenji.firetime.components.CanKill;
 import com.koenji.firetime.events.EmitBulletEvent;
+import com.koenji.firetime.events.GameEvent;
 import processing.core.PVector;
 
 import java.util.HashMap;
@@ -20,6 +24,8 @@ import java.util.Map;
 public class Player extends Entity {
 
   private ISubscriber handler;
+  private ISubscriber collisionHandler;
+  private IEventBus eb;
 
   public Player(PVector pos) {
 
@@ -39,8 +45,9 @@ public class Player extends Entity {
   public void added(IScene scene) {
     super.added(scene);
     //
-    IEventBus eb = Locator.get(IEventBus.class);
+    eb = Locator.get(IEventBus.class);
     handler = eb.addEventHandler(InputEvents.MOUSE_PRESSED, this::mousePressed);
+    collisionHandler = eb.addEventHandler(PhysicsEvents.COLLISION, this::haveIBeenShot);
   }
 
   @Override
@@ -49,6 +56,7 @@ public class Player extends Entity {
     //
     System.out.println("Removed");
     handler.unsubscribe();
+    collisionHandler.unsubscribe();
   }
 
   @Override
@@ -70,4 +78,15 @@ public class Player extends Entity {
     eb.fireEvent(new EmitBulletEvent(EmitBulletEvent.EMIT_BULLET, pos.x, pos.y, angle));
   }
 
+  private void haveIBeenShot(CollisionEvent e) {
+    if (this == e.a() || this == e.b()) {
+
+      boolean aCanKill = e.a().getComponent(CanKill.class) != null;
+      boolean bCanKill = e.b().getComponent(CanKill.class) != null;
+      if (aCanKill || bCanKill) {
+        // I've been shot darn it
+        eb.fireEvent(new GameEvent(GameEvent.END_OF_LEVEL));
+      }
+    }
+  }
 }
