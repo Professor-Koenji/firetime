@@ -1,10 +1,8 @@
 package com.koenji.firetime.entities;
 
-import com.koenji.ecs.component.physics.CircleBody;
-import com.koenji.ecs.component.physics.ConvexBody;
-import com.koenji.ecs.component.physics.Position;
-import com.koenji.ecs.component.physics.Velocity;
+import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
+import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.service.Locator;
@@ -37,7 +35,14 @@ public class Bullet extends Entity {
       new Velocity(PVector.fromAngle(angle).setMag(10f)),
       new CircleBody(8),
       cb,
-      new RenderCircle(8, 0xFF3322FF),
+//      new RenderCircle(8, 0x99FF3322),
+      new RenderPolygon(
+        0x99FF3322,
+        new PVector(-8, -4),
+        new PVector(8, -4),
+        new PVector(8, 4),
+        new PVector(-8, 4)
+      ),
       new CanKill()
     );
   }
@@ -45,8 +50,9 @@ public class Bullet extends Entity {
   @Override
   public void update(int dt) {
     super.update(dt);
-    //
+    //d
     Velocity v = getComponent(Velocity.class);
+    addComponent(new Rotation(v.heading()));
     if (v.mag() < 4f) {
       scene.remove(this);
     }
