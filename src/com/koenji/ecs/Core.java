@@ -148,6 +148,7 @@ public abstract class Core extends PApplet implements IRandom, IGraphicsContext,
     Locator.register(IGraphicsContext.class, this);
     Locator.register(IRandom.class, this);
     Locator.register(IRootScene.class, this);
+    Locator.register(Core.class, this);
     sceneManager = new SceneManager();
   }
 
