@@ -114,7 +114,7 @@ public class Level extends Scene {
     add(renderer);
 
     // command stuff
-    this.inputHandler = new InputHandler();
+    inputHandler = new InputHandler();
     float speed = 0.2f;
     inputHandler.bindKeyCommand(87, new MoveUpCommand(speed));
     inputHandler.bindKeyCommand(83, new MoveDownCommand(speed));
@@ -156,6 +156,7 @@ public class Level extends Scene {
       s.unsubscribe();
     }
     handlers.clear();
+    inputHandler.end();
   }
 
   private void fireBullet(EmitBulletEvent e) {
