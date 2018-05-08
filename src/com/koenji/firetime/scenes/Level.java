@@ -134,13 +134,6 @@ public class Level extends Scene {
 
     ISubscriber bulletEvent = eb.addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
     ISubscriber keyPressEvent = eb.addEventHandler(InputEvents.KEY_PRESSED, e -> {
-      if (e.keyCode() == 90) {
-        if (dScale == 0f) {
-          dScale = this.scale > 0.6f ? -0.05f : 0.05f;
-        } else {
-          dScale *= -1;
-        }
-      }
       if (e.keyCode() == 32) {
         System.out.println(p.getComponent(Position.class).toString());
       }
