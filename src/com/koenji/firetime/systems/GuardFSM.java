@@ -32,4 +32,14 @@ public class GuardFSM extends System {
       if (state != null) state.currentState().update(state, dt);
     }
   }
+
+  @Override
+  public void removed() {
+    //java.lang.System.out.println("here in guardfsm");
+    super.removed();
+    for (IEntity guard : entities) {
+      GuardState state = guard.getComponent(GuardState.class);
+      if (state != null) state.currentState().exitState(state, guard);
+    }
+  }
 }

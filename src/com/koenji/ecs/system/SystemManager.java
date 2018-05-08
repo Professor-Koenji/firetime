@@ -60,6 +60,10 @@ public class SystemManager implements ISystemManager {
    * This includes any pending System's to be added.
    */
   public void clear() {
+    toRemove.addAll(systems);
+    for (ISystem system : toRemove) {
+      system.removed();
+    }
     toAdd.clear();
     toRemove.clear();
     systems.clear();
