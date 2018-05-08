@@ -61,7 +61,6 @@ public class Player extends Entity {
   public void removed() {
     super.removed();
     //
-    System.out.println("Removed");
     handler.unsubscribe();
     collisionHandler.unsubscribe();
   }

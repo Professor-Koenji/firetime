@@ -33,7 +33,6 @@ public class AudioManager implements IAudioManager {
   public AudioManager() {
     // check if already created
     if (instantiated) {
-      System.out.println("AudioManager cannot be instantiated more than once!");
       System.exit(1);
     }
     // set field:instantiated flag to true
@@ -114,7 +113,6 @@ public class AudioManager implements IAudioManager {
   public void playMusic(String name, boolean loop, float volume) {
     Music m = musics.get(name);
     if (m == null) {
-      System.out.println("AudioManager -> Music not loaded '" + name + "'!");
       return;
     }
     m.play(loop, volume * globalVolume);
@@ -138,7 +136,6 @@ public class AudioManager implements IAudioManager {
   public void playSound(String name, float volume) {
     Sound s = sounds.get(name);
     if (s == null) {
-      System.out.println("AudioManager -> Sound not loaded '" + name + "'!");
       return;
     }
     s.play(volume * globalVolume);

@@ -31,7 +31,6 @@ public class GameMenu extends Scene {
     glitchShader = core.loadShader("shaders/glitch.glsl");
 
     keyHandler = Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e -> {
-      System.out.println(e.keyCode());
       String path = "level-";
       switch (e.keyCode()) {
         case 49: // 1

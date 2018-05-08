@@ -78,9 +78,7 @@ public class EventGroup implements IEventGroup {
    */
   @Override
   public void removeAllEventHandlers() {
-    System.out.println(eventObjects.size());
     eventObjects.clear();
-    System.out.println(eventObjects.size());
   }
 
   private class EventObject {

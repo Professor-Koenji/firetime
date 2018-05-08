@@ -133,7 +133,7 @@ public class Level extends Scene {
     ISubscriber bulletEvent = eb.addEventHandler(EmitBulletEvent.EMIT_BULLET, this::fireBullet);
     ISubscriber keyPressEvent = eb.addEventHandler(InputEvents.KEY_PRESSED, e -> {
       if (e.keyCode() == 32) {
-        System.out.println(p.getComponent(Position.class).toString());
+        // System.out.println(p.getComponent(Position.class).toString());
       }
       if (e.keyCode() == 82) {
         IRootScene rootScene = Locator.get(IRootScene.class);

@@ -38,7 +38,6 @@ public abstract class BaseState implements IState {
 
   @Override
   public void exitState(IStateMachine fsm, IEntity entity) {
-    System.out.println("guard exit");
     handler.unsubscribe();
   }
 }
