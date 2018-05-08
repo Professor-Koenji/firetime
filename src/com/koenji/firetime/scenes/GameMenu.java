@@ -96,6 +96,18 @@ public class GameMenu extends Scene {
     gc.text("3: level-02", 0, 70);
     gc.popMatrix();
 
+    // Draw level text
+    gc.pushMatrix();
+    gc.translate(gc.getWidth() / 2, gc.getHeight() - 100);
+    gc.rotate((float) Math.cos(rotation * .15f) / 14f);
+    gc.scale(((float) Math.sin(rotation / 4f) + 1) * .1f + 1);
+    gc.textSize(24);
+    gc.fill(0xFFFFFF9F);
+    gc.textAlign(gc.CENTER, gc.CENTER);
+    gc.text("A game by Brad Davies & Chris Williams", 0, 0);
+    gc.popMatrix();
+
+
     Core core = Locator.get(Core.class);
     hueShader.set("hue", rotation * .1f);
     float offsetX = PApplet.map(core.mouseX, 0, core.getWidth(), -.01f, .01f);
