@@ -2,10 +2,7 @@ package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
 import com.koenji.ecs.audio.IAudioManager;
-import com.koenji.ecs.event.IEventBus;
-import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.service.Locator;
-import com.koenji.firetime.level.LevelObject;
 import com.koenji.firetime.scenes.GameMenu;
 import com.koenji.firetime.scenes.Level;
 
@@ -24,6 +21,9 @@ public class Game extends Core {
     // Load audio
     IAudioManager audio = Locator.get(IAudioManager.class);
     audio.loadSound("alert", "data/sfx/tindeck_1.wav");
+    audio.loadMusic("off-limits", "data/music/off-limits.wav");
+    //
+    audio.playMusic("off-limits", true);
     //
     add(new GameMenu());
   }

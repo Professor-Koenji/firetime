@@ -2,9 +2,6 @@ package com.koenji.ecs.entity;
 
 import com.koenji.ecs.component.IComponent;
 import com.koenji.ecs.scene.IScene;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 
 import java.util.HashMap;
 import java.util.Map;

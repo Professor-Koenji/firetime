@@ -2,7 +2,6 @@ package com.koenji.firetime.states.guard;
 
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
-import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.firetime.components.GuardState;
 import com.koenji.firetime.states.IStateMachine;

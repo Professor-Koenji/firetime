@@ -8,8 +8,6 @@ import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.system.render.BasicRenderer;
 import processing.core.PVector;
 
-import java.awt.event.InputEvent;
-
 public class Minimap extends BasicRenderer {
 
   private PVector pos;

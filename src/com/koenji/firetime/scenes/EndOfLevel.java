@@ -8,7 +8,6 @@ import com.koenji.ecs.scene.Scene;
 import com.koenji.ecs.service.Locator;
 import com.koenji.ecs.wrappers.IGraphicsContext;
 import com.koenji.ecs.wrappers.IRootScene;
-import processing.core.PApplet;
 import processing.opengl.PShader;
 
 public class EndOfLevel extends Scene {

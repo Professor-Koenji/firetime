@@ -3,7 +3,6 @@ package com.koenji.firetime.systems;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.system.System;
 import com.koenji.firetime.components.GuardState;
-import com.koenji.firetime.entities.Guard;
 import processing.core.PVector;
 
 public class GuardFSM extends System {

@@ -1,7 +1,6 @@
 package com.koenji.firetime.entities;
 
 import com.koenji.ecs.component.physics.*;
-import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.scene.IScene;
@@ -15,7 +14,6 @@ public class Bullet extends Entity {
   private float x;
   private float y;
   private float angle;
-  private IGraphicsContext gc;
 
   public Bullet(float x, float y, float angle) {
     this.x = x;
@@ -27,7 +25,7 @@ public class Bullet extends Entity {
   public void added(IScene scene) {
     super.added(scene);
     //
-    gc = Locator.get(IGraphicsContext.class);
+    IGraphicsContext gc = Locator.get(IGraphicsContext.class);
     //
     ConvexBody cb = ConvexBody.polygon(8, 10);
     addComponents(

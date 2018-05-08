@@ -18,10 +18,8 @@ import processing.core.PVector;
  */
 public class TimeLinearMotion extends System {
 
-  private Player player;
-
   public TimeLinearMotion(Player p) {
-    this.player = p;
+    Player player = p;
   }
 
   @Override

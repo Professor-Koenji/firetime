@@ -1,6 +1,5 @@
 package com.koenji.firetime.scenes;
 
-import com.koenji.ecs.event.EventBus;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.events.KeyEvent;

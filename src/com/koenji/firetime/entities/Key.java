@@ -8,7 +8,6 @@ import com.koenji.ecs.component.render.RenderPolygon;
 import com.koenji.ecs.entity.Entity;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.service.Locator;
-import com.koenji.firetime.Game;
 import com.koenji.firetime.events.GameEvent;
 import processing.core.PVector;
 

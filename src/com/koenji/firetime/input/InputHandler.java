@@ -65,7 +65,7 @@ public class InputHandler implements IInputHandler {
     List<Integer> pressedKeys = keyPressed.entrySet()
       .stream()
       .filter(k -> k.getValue().equals(true))
-      .map(k -> k.getKey())
+      .map(Map.Entry::getKey)
       .collect(Collectors.toList());
 
     for(Integer k : pressedKeys) {

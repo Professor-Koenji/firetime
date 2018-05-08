@@ -5,9 +5,6 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Group;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * EventBus class defines the behaviour of an event implementation within the system
  *

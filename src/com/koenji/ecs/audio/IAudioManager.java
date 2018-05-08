@@ -1,12 +1,5 @@
 package com.koenji.ecs.audio;
 
-/**
- * IAudioManager defines the behaviour of an implementation of an Audio manager
- *
- * @author Brad Davies &amp; Chris Williams
- * @version 1.0
- */
-
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
 

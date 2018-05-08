@@ -8,7 +8,6 @@ import com.koenji.ecs.event.ISubscriber;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.event.PhysicsEvents;
 import com.koenji.ecs.event.events.CollisionEvent;
-import com.koenji.ecs.event.events.KeyEvent;
 import com.koenji.ecs.event.events.MouseEvent;
 import com.koenji.ecs.scene.IScene;
 import com.koenji.ecs.service.Locator;
@@ -17,9 +16,6 @@ import com.koenji.firetime.components.CanKill;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.events.GameEvent;
 import processing.core.PVector;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Player extends Entity {
 

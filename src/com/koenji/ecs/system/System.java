@@ -3,9 +3,6 @@ package com.koenji.ecs.system;
 import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.entity.IEntityManager;
 import com.koenji.ecs.scene.IScene;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,6 @@ public abstract class System implements ISystem {
   /**
    * Called when this System has actually been added into the Scene.
    * @param scene The Scene this system has been added to.
-   * @param eventController The EventController API this System can now use.
    * @param entityManager The EntityManager this System can now access.
    */
   public void added(IScene scene, IEntityManager entityManager) {

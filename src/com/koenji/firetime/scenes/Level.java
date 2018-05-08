@@ -25,8 +25,6 @@ import com.koenji.firetime.entities.Bullet;
 import com.koenji.firetime.entities.Player;
 import com.koenji.firetime.events.EmitBulletEvent;
 import com.koenji.firetime.level.LevelObject;
-import com.koenji.firetime.systems.GuardPathRenderer;
-import com.koenji.firetime.systems.TimeLinearMotion;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.opengl.PShader;
@@ -50,7 +48,6 @@ public class Level extends Scene {
   private List<ISubscriber> handlers;
 
   private float scale;
-  private float dScale;
 
   private int kills;
   private int totalGuards;
@@ -64,7 +61,7 @@ public class Level extends Scene {
     this.levelObject = levelObject;
     this.gc = Locator.get(IGraphicsContext.class);
     this.scale = 0.2f;
-    this.dScale = 0;
+    float dScale = 0;
     this.handlers = new ArrayList<>();
     this.kills = 0;
     this.time = 0;
@@ -150,9 +147,7 @@ public class Level extends Scene {
       rootScene.add(new EndOfLevel(kills, time));
     });
 
-    ISubscriber deadGuard = eb.addEventHandler(GameEvent.KILLED_GUARD, e -> {
-      kills++;
-    });
+    ISubscriber deadGuard = eb.addEventHandler(GameEvent.KILLED_GUARD, e -> kills++);
 
     // Add these handlers
     handlers.add(bulletEvent);
