@@ -1,6 +1,7 @@
 package com.koenji.firetime.scenes;
 
 import com.koenji.ecs.Core;
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.component.render.Background;
@@ -169,6 +170,7 @@ public class Level extends Scene {
   private void fireBullet(EmitBulletEvent e) {
     Bullet b = new Bullet(e.getX(), e.getY(), e.angle());
     add(b);
+    Locator.get(IAudioManager.class).playSound("gunshot");
   }
 
   @Override

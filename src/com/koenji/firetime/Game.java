@@ -21,6 +21,8 @@ public class Game extends Core {
     // Load audio
     IAudioManager audio = Locator.get(IAudioManager.class);
     audio.loadSound("alert", "data/sfx/tindeck_1.wav");
+    audio.loadSound("gunshot", "data/sfx/gunshot.wav");
+    audio.loadSound("key", "data/sfx/coin.ogg");
     audio.loadMusic("off-limits", "data/music/off-limits.wav");
     //
     audio.playMusic("off-limits", true);
