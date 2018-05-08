@@ -23,6 +23,13 @@ import java.util.Map;
 
 public class Player extends Entity {
 
+  private static Player player;
+
+  public static float SpeedRate() {
+    Velocity playerVelocity = player.getComponent(Velocity.class);
+    return 0.15f + (playerVelocity.mag() / 9.45f) * 1.2f;
+  }
+
   private ISubscriber handler;
   private ISubscriber collisionHandler;
   private IEventBus eb;
@@ -31,6 +38,7 @@ public class Player extends Entity {
 
   public Player(PVector pos) {
     waitingToDie = false;
+    Player.player = this;
     addComponents(
       new Position(pos),
       new Velocity(),

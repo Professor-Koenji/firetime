@@ -6,6 +6,7 @@ import com.koenji.ecs.entity.IEntity;
 import com.koenji.ecs.graph.pathfinding.nodes.INode;
 import com.koenji.firetime.components.GuardState;
 import com.koenji.firetime.states.IStateMachine;
+import com.koenji.firetime.systems.GuardFSM;
 import processing.core.PVector;
 
 import java.util.List;
@@ -43,9 +44,9 @@ public class Patrolling extends BaseState {
 
     GuardState gs = (GuardState) fsm;
     float dist = PVector.dist(pos, gs.getTarget());
-    if (dist < 500) {
+    if (dist < GuardFSM.COMBAT_DISTANCE) {
       // Within range of player, ATTACK!
-      fsm.setState(new Combat());
+      fsm.setState(new Combat(this));
     }
 
     // Do we need to change state?

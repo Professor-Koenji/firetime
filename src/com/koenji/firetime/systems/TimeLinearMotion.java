@@ -29,8 +29,7 @@ public class TimeLinearMotion extends System {
   public void update(int dt) {
     super.update(dt);
     //
-    Velocity playerVelocity = player.getComponent(Velocity.class);
-    float speedRate = 0.15f + (playerVelocity.mag() / 9.45f) * 1.2f;
+    float speedRate = Player.SpeedRate();
     //
     for (IEntity e : entities) {
       // Velocity&amp;Friction

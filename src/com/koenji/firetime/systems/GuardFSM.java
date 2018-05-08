@@ -8,6 +8,8 @@ import processing.core.PVector;
 
 public class GuardFSM extends System {
 
+  public static final float COMBAT_DISTANCE = 450f;
+
   private PVector chasePosition;
 
   public GuardFSM(PVector chasePosition) {
