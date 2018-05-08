@@ -92,12 +92,12 @@ public class Level extends Scene {
 
     IEntity goal = new Goal(this.levelObject.exit, p.getComponent(Position.class));
 
-    for (IEntity w : levelObject.getWalls()) {
-      add(w);
-    }
-
     for (IEntity d : levelObject.getDoors()) {
       add(d);
+    }
+
+    for (IEntity w : levelObject.getWalls()) {
+      add(w);
     }
 
     for (IEntity k : levelObject.getKeys(p.getComponent(Position.class))) {
