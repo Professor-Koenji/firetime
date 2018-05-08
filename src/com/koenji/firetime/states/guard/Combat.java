@@ -1,5 +1,6 @@
 package com.koenji.firetime.states.guard;
 
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.component.physics.Position;
 import com.koenji.ecs.component.physics.Velocity;
 import com.koenji.ecs.entity.IEntity;
@@ -24,6 +25,14 @@ public class Combat extends BaseState {
   public Combat(IState oldState) {
     this.oldState = oldState;
     fireRate = FIRE_RATE;
+  }
+
+  @Override
+  public void enterState(IStateMachine fsm, IEntity entity) {
+    super.enterState(fsm, entity);
+    //
+    IAudioManager audio = Locator.get(IAudioManager.class);
+    audio.playSound("alert");
   }
 
   @Override

@@ -1,6 +1,7 @@
 package com.koenji.firetime;
 
 import com.koenji.ecs.Core;
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.event.IEventBus;
 import com.koenji.ecs.event.InputEvents;
 import com.koenji.ecs.service.Locator;
@@ -20,8 +21,10 @@ public class Game extends Core {
   @Override
   public void init() {
     super.init();
+    // Load audio
+    IAudioManager audio = Locator.get(IAudioManager.class);
+    audio.loadSound("alert", "data/sfx/tindeck_1.wav");
     //
     add(new GameMenu());
-
   }
 }
