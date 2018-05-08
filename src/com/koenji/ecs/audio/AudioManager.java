@@ -101,7 +101,7 @@ public class AudioManager implements IAudioManager {
    */
   @Override
   public void playMusic(String name, boolean loop) {
-    playMusic(name, false, 1);
+    playMusic(name, loop, 1);
   }
 
   /**
