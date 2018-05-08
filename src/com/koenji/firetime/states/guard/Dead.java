@@ -1,5 +1,6 @@
 package com.koenji.firetime.states.guard;
 
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.component.physics.Friction;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.IEntity;
@@ -14,6 +15,8 @@ public class Dead implements IState {
 
   @Override
   public void enterState(IStateMachine fsm, IEntity entity) {
+    // Play cool sfx
+    Locator.get(IAudioManager.class).playSound("dead-guard");
     // Fire dead guard event
     Locator.get(IEventBus.class).fireEvent(new GameEvent(GameEvent.KILLED_GUARD));
     // Remove

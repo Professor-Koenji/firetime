@@ -1,5 +1,6 @@
 package com.koenji.firetime.entities;
 
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.component.physics.AngularVelocity;
 import com.koenji.ecs.component.physics.ConvexBody;
 import com.koenji.ecs.component.physics.Position;
@@ -36,6 +37,8 @@ public class Goal extends Entity {
     // Get distance to nearpoint
     float dist = PVector.dist(getComponent(Position.class), this.nearPoint);
     if (dist < 64) {
+      // Fire audio
+      Locator.get(IAudioManager.class).playSound("level-finished");
       Locator.get(IEventBus.class).fireEvent(new GameEvent(GameEvent.END_OF_LEVEL));
       firedEvent = true;
     }

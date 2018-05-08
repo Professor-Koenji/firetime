@@ -1,5 +1,6 @@
 package com.koenji.firetime.entities;
 
+import com.koenji.ecs.audio.IAudioManager;
 import com.koenji.ecs.component.physics.*;
 import com.koenji.ecs.component.render.RenderCircle;
 import com.koenji.ecs.entity.Entity;
@@ -93,6 +94,8 @@ public class Player extends Entity {
       if (aCanKill || bCanKill) {
         // I've been shot darn it
         waitingToDie = true;
+        // Fire splat
+        Locator.get(IAudioManager.class).playSound("dead-guard");
         eb.fireEvent(new GameEvent(GameEvent.END_OF_LEVEL));
       }
     }
