@@ -26,6 +26,7 @@ public class Minimap extends BasicRenderer {
   public void added(IScene scene) {
     super.added(scene);
     handler = Locator.get(IEventBus.class).addEventHandler(InputEvents.KEY_PRESSED, e -> {
+      // `m` key
       if (e.keyCode() == 77) {
         this.big = !this.big;
       }
@@ -42,12 +43,14 @@ public class Minimap extends BasicRenderer {
   public void update(int dt) {
     gc.pushMatrix();
     if (big) {
+      // Draws a larger minimap
       gc.clip(50, 50, gc.getWidth() - 100, gc.getHeight() - 100);
       gc.translate(350, 225);
       gc.scale(0.25f);
       render();
       gc.noClip();
     } else {
+      // Draw the small corner version
       gc.clip(pos.x, pos.y, size.x, size.y);
       gc.translate(pos.x + 50, pos.y + 45);
       gc.scale(0.055f);
